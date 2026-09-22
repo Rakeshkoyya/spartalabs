@@ -51,6 +51,8 @@
 
   --radius-hairline: 2px;
   --radius-control: 999px;
+  /* Text fields stay rectangular: a pill-shaped textarea reads as an oval. */
+  --radius-field: 10px;
   --radius-card: 18px;
 
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
