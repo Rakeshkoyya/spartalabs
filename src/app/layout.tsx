@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FormationReveals } from "@/components/motion/formation-reveals";
@@ -7,22 +7,17 @@ import { Spine } from "@/components/motion/spine";
 import { isIndexable, site, siteUrl } from "@/content/site";
 import "./globals.css";
 
-const archivo = Archivo({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-archivo",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const instrumentSans = Instrument_Sans({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-instrument-sans",
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -62,16 +57,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Sets the theme and the `js` flag before first paint: no light-mode flash, and
+ * Sets the theme and the `js` flag before first paint: no dark-mode flash, and
  * no reveal animation applied to a page whose JavaScript never arrives.
  */
-const bootScript = `document.documentElement.classList.add('js');try{if(localStorage.getItem('sl-theme')==='light'){document.documentElement.classList.add('light')}}catch(e){}`;
+const bootScript = `document.documentElement.classList.add('js');try{if(localStorage.getItem('sl-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang={site.locale}
-      className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable}`}
+      className={`${outfit.variable} ${jakarta.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -10,8 +10,8 @@ export type Metric = {
 };
 
 export const heroMetrics: Metric[] = [
-  { value: "4", label: "Sectors served" },
-  { value: "8", label: "Specialist pods" },
-  { value: "12+", label: "Projects delivered", pending: true },
-  { value: "24h", label: "Response time", pending: true },
+  { value: "4", label: "Industries served, from education to film and media" },
+  { value: "8", label: "Specialist pods covering every layer of a system" },
+  { value: "1", label: "Named lead who owns your project end to end" },
+  { value: "100%", label: "Source code and IP handed over to you" },
 ];

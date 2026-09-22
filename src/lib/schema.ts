@@ -11,8 +11,9 @@ export function organizationSchema() {
     url: siteUrl(),
     description: site.description,
     email: contact.email,
+    logo: `${siteUrl()}/brand/logo-full.png`,
     ...(company.founded ? { foundingDate: company.founded } : {}),
-    ...(contact.phone ? { telephone: contact.phone } : {}),
+    ...(contact.phones.length ? { telephone: contact.phones[0] } : {}),
     ...(company.city
       ? {
           address: {

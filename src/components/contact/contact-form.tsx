@@ -153,7 +153,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={htmlFor}
-        className="text-label text-muted flex items-center gap-2 font-mono tracking-[0.14em] uppercase"
+        className="text-label text-muted font-label flex items-center gap-2 tracking-[0.14em] uppercase"
       >
         {label}
         {optional ? <span className="normal-case">(optional)</span> : null}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { company, contact } from "@/content/site";
+import { company, contact, telHref } from "@/content/site";
 import { faq } from "@/content/faq";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactForm } from "@/components/contact/contact-form";
@@ -32,7 +32,7 @@ export default function ContactPage() {
 
           <aside className="flex flex-col gap-8">
             <div>
-              <Kicker rule={false}>Direct</Kicker>
+              <Kicker>Direct</Kicker>
               <ul className="mt-4 flex flex-col gap-2.5">
                 <li>
                   <a
@@ -42,16 +42,16 @@ export default function ContactPage() {
                     {contact.email}
                   </a>
                 </li>
-                {contact.phone ? (
-                  <li>
+                {contact.phones.map((phone) => (
+                  <li key={phone}>
                     <a
-                      href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+                      href={telHref(phone)}
                       className="hover:text-accent text-base transition-colors"
                     >
-                      {contact.phone}
+                      {phone}
                     </a>
                   </li>
-                ) : null}
+                ))}
                 {contact.whatsapp ? (
                   <li>
                     <a
@@ -67,7 +67,7 @@ export default function ContactPage() {
 
             {company.addressLines ? (
               <div>
-                <Kicker rule={false}>Office</Kicker>
+                <Kicker>Office</Kicker>
                 <address className="text-muted mt-4 text-base not-italic">
                   {company.addressLines.map((line) => (
                     <span key={line} className="block">
@@ -79,7 +79,7 @@ export default function ContactPage() {
             ) : null}
 
             <div className="border-hairline border-t pt-8">
-              <Kicker rule={false}>Before you write</Kicker>
+              <Kicker>Before you write</Kicker>
               <dl className="mt-4 flex flex-col gap-5">
                 {faq.slice(0, 3).map((item) => (
                   <div key={item.question}>

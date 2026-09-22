@@ -22,8 +22,7 @@ export const faq: FaqItem[] = [
   },
   {
     question: "Will you sign an NDA?",
-    answer:
-      "Before the first call, not after. Send yours or use ours.",
+    answer: "Before the first call, not after. Send yours or use ours.",
   },
   {
     question: "What happens after launch?",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { capabilities } from "@/content/capabilities";
 import { engagementModels } from "@/content/engagement";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { ChevronMark } from "@/components/ui/chevron-mark";
+import { capabilityIcons, IconBox } from "@/components/brand/icons";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHero } from "@/components/ui/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
@@ -35,7 +35,7 @@ export default function ServicesPage() {
               className="border-hairline grid gap-5 border-b py-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16"
             >
               <div>
-                <ChevronMark className="text-accent-core mb-3" />
+                <IconBox icon={capabilityIcons[capability.key]} className="mb-4" />
                 <h2 className="text-h3 font-semibold">{capability.title}</h2>
               </div>
               <div>

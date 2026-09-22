@@ -77,7 +77,7 @@ export function Spine() {
     >
       <div className="bg-hairline absolute inset-0" />
       <div
-        className="bg-accent-core absolute top-0 left-0 w-px origin-top transition-[height] duration-150 ease-linear"
+        className="bg-accent-bright absolute top-0 left-0 w-px origin-top transition-[height] duration-150 ease-linear"
         style={{ height: `${progress * 100}%` }}
       />
 
@@ -97,7 +97,7 @@ export function Spine() {
       {active ? (
         <span
           key={active.id}
-          className="text-label text-muted absolute bottom-20 left-3 font-mono tracking-[0.18em] uppercase [writing-mode:vertical-rl]"
+          className="text-label text-muted font-label absolute bottom-20 left-3 tracking-[0.18em] uppercase [writing-mode:vertical-rl]"
         >
           {active.label}
         </span>

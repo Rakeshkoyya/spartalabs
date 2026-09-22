@@ -68,7 +68,7 @@ export default function AboutPage() {
                 key={entry.year}
                 className="border-hairline grid gap-2 border-b py-6 sm:grid-cols-[6rem_1fr] sm:gap-8"
               >
-                <span className="text-label tabular text-accent font-mono tracking-[0.12em]">
+                <span className="text-label tabular text-accent font-label tracking-[0.12em]">
                   {entry.year}
                 </span>
                 <div>

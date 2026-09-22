@@ -2,106 +2,126 @@
 
 /* ============================================================================
    STATIC SCALES
-   Brand ramps, type scale, shape and motion. These never change with theme.
+   Brand ramps from the logo and brochure: logo navy for ink, the crest's blue
+   gradient for accent. Type is Outfit (display, labels) over Plus Jakarta Sans.
    ========================================================================= */
 @theme {
-  --color-bronze-50: #fbf3ea;
-  --color-bronze-100: #f3e0cb;
-  --color-bronze-300: #ddb086;
-  --color-bronze-400: #e09a5b;
-  --color-bronze-500: #c07a3c;
-  --color-bronze-600: #a2632e;
-  --color-bronze-700: #8a5322;
+  --color-navy-950: #060d1a;
+  --color-navy-900: #0b1627;
+  --color-navy-800: #12233d;
+  --color-navy-700: #1b3154;
 
-  --color-graphite-950: #0b0c0e;
-  --color-graphite-900: #131519;
-  --color-graphite-800: #1b1e24;
-  --color-graphite-700: #262a32;
-  --color-graphite-600: #363b45;
+  --color-blue-700: #0046b8;
+  --color-blue-600: #0052d1;
+  --color-blue-500: #0a6cf0;
+  --color-blue-400: #008bfe;
+  --color-sky-400: #4dbbff;
+  --color-cyan-400: #19beff;
+  --color-ice: #e8f1ff;
+  --color-paper: #f4f7fc;
 
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-sans: var(--font-instrument-sans), "Instrument Sans", system-ui, -apple-system,
-    "Segoe UI", sans-serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-label: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-sans:
+    var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Fluid scale — no per-breakpoint overrides anywhere in the codebase. */
-  --text-display: clamp(2.75rem, 1.55rem + 5.2vw, 5.5rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.035em;
+  --text-display: clamp(2.75rem, 1.5rem + 5vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
 
   --text-h1: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
-  --text-h1--line-height: 1.04;
-  --text-h1--letter-spacing: -0.028em;
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.025em;
 
-  --text-h2: clamp(1.875rem, 1.45rem + 1.8vw, 3rem);
-  --text-h2--line-height: 1.1;
+  --text-h2: clamp(1.875rem, 1.4rem + 1.9vw, 3.125rem);
+  --text-h2--line-height: 1.08;
   --text-h2--letter-spacing: -0.022em;
 
-  --text-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
-  --text-h3--line-height: 1.22;
+  --text-h3: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
+  --text-h3--line-height: 1.2;
   --text-h3--letter-spacing: -0.015em;
 
   --text-lede: 1.125rem;
-  --text-lede--line-height: 1.7;
+  --text-lede--line-height: 1.65;
 
-  --text-label: 0.6875rem;
+  --text-label: 0.75rem;
   --text-label--line-height: 1.4;
-  --text-label--letter-spacing: 0.15em;
+  --text-label--letter-spacing: 0.2em;
 
-  /* Restrained curvature: engineered, not consumer-app. */
   --radius-hairline: 2px;
-  --radius-control: 6px;
-  --radius-card: 12px;
+  --radius-control: 999px;
+  --radius-card: 18px;
 
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ============================================================================
    SEMANTIC TOKENS
-   Dark is the base identity; .light is the consistent swap. Every component
-   reads these and never a raw ramp value, so a theme change is a one-file edit.
+   Light "paper" is the base, as in the brochure. `.dark` is the site-wide
+   swap; `.band-dark` scopes the same values to one navy band, so pages can
+   alternate paper and navy the way the brochure alternates its spreads, and
+   `.tone-dark` scopes them without painting a background (the header over a
+   navy band).
+   Every component reads these and never a raw ramp value.
    ========================================================================= */
 :root {
-  color-scheme: dark;
-
-  --page: #0b0c0e;
-  --surface: #131519;
-  --raised: #1b1e24;
-  --hairline: rgb(242 240 237 / 0.1);
-  --hairline-strong: rgb(242 240 237 / 0.2);
-  --ink: #f2f0ed;
-  --muted: #b0b6bf;
-  --accent: #e09a5b;
-  --accent-core: #c07a3c;
-  --accent-contrast: #160d05;
-  --accent-wash: rgb(224 154 91 / 0.12);
-  --signal: #5fb183;
-  --grid-line: rgb(242 240 237 / 0.055);
-  --grid-torch: rgb(224 154 91 / 0.2);
-  --glow: rgb(192 122 60 / 0.26);
-  --shadow-lift: 0 24px 48px -16px rgb(0 0 0 / 0.55);
-}
-
-.light {
   color-scheme: light;
 
-  --page: #faf9f7;
-  --surface: #ffffff;
-  --raised: #f2f0ec;
-  --hairline: rgb(20 22 26 / 0.11);
-  --hairline-strong: rgb(20 22 26 / 0.22);
-  --ink: #14161a;
-  --muted: #4f5661;
-  /* Bronze 500 is only 3.4:1 on paper — small text on light uses Bronze 700. */
-  --accent: #8a5322;
-  --accent-core: #c07a3c;
-  --accent-contrast: #fffaf4;
-  --accent-wash: rgb(192 122 60 / 0.1);
-  --signal: #3c7d57;
-  --grid-line: rgb(20 22 26 / 0.055);
-  --grid-torch: rgb(192 122 60 / 0.22);
-  --glow: rgb(192 122 60 / 0.16);
-  --shadow-lift: 0 20px 44px -18px rgb(28 20 10 / 0.22);
+  --page: #f4f7fc;
+  --surface: #fbfcfe;
+  --raised: #e8f1ff;
+  --hairline: #dce4f0;
+  --hairline-strong: #c3cfe0;
+  --ink: #0b1627;
+  --muted: #4a5a73;
+  --accent: #0052d1;
+  --accent-core: #0a6cf0;
+  --accent-bright: #008bfe;
+  --accent-contrast: #ffffff;
+  --accent-wash: #e8f1ff;
+  --accent-wash-ink: #0046b8;
+  --signal: #19a974;
+  --danger: #d0473c;
+  --glow: rgb(10 108 240 / 0.18);
+  --shadow-lift: 0 18px 40px -22px rgb(11 40 90 / 0.35);
+  --card-shadow: 0 10px 30px -18px rgb(11 40 90 / 0.25);
+  --flow-line: rgb(10 108 240 / 0.16);
+  --band: #f4f7fc;
+}
+
+.dark,
+.band-dark,
+.tone-dark {
+  color-scheme: dark;
+
+  --page: #060d1a;
+  --surface: #0b1627;
+  --raised: #12233d;
+  --hairline: rgb(255 255 255 / 0.1);
+  --hairline-strong: rgb(255 255 255 / 0.2);
+  --ink: #eef3fb;
+  --muted: #a9b8cf;
+  --accent: #19beff;
+  --accent-core: #0a6cf0;
+  --accent-bright: #4dbbff;
+  --accent-contrast: #ffffff;
+  --accent-wash: rgb(25 190 255 / 0.1);
+  --accent-wash-ink: #d6e3f5;
+  --signal: #3dd6a0;
+  --danger: #ff7a70;
+  --glow: rgb(0 110 255 / 0.4);
+  --shadow-lift: 0 24px 48px -18px rgb(0 0 0 / 0.6);
+  --card-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --flow-line: rgb(77 187 255 / 0.2);
+}
+
+/* A navy band always reads as the brochure's dark spreads, whatever the theme. */
+.band-dark {
+  color: var(--ink);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgb(0 82 209 / 0.45), transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, rgb(0 70 184 / 0.28), transparent 60%), #060d1a;
 }
 
 @theme inline {
@@ -114,10 +134,16 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-core: var(--accent-core);
+  --color-accent-bright: var(--accent-bright);
   --color-accent-contrast: var(--accent-contrast);
   --color-accent-wash: var(--accent-wash);
+  --color-accent-wash-ink: var(--accent-wash-ink);
   --color-signal: var(--signal);
+  --color-danger: var(--danger);
 }
+
+/* Anything inside a navy context: the dark theme or a dark band. */
+@custom-variant on-dark (&:where(.dark *, .band-dark *, .band-dark, .tone-dark *));
 
 /* ============================================================================
    BASE
@@ -151,7 +177,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent-bright);
     outline-offset: 3px;
     border-radius: var(--radius-hairline);
   }
@@ -169,38 +195,65 @@
 
 /* ============================================================================
    SIGNATURE DEVICES
-   The four recurring elements that give the site its fingerprint.
+   Lifted from the brochure: white cards on paper, frosted glass on navy, the
+   crest gradient on feature tiles, and the icon box.
    ========================================================================= */
-@utility blueprint-grid {
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 64px 64px;
+@utility card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
 }
 
-@utility torch-grid {
-  background-image:
-    linear-gradient(var(--grid-torch) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-torch) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(210px circle at var(--px, -100px) var(--py, -100px), #000 0%, transparent 72%);
-  mask-image: radial-gradient(210px circle at var(--px, -100px) var(--py, -100px), #000 0%, transparent 72%);
-  opacity: var(--torch, 0);
-  transition: opacity 420ms var(--ease-out-expo);
+@utility glass {
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
+  border: 1px solid rgb(255 255 255 / 0.11);
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(6px);
 }
 
-@utility veil-hero {
-  -webkit-mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
-  mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
+@utility crest {
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgb(0 139 254 / 0.9), transparent 55%),
+    linear-gradient(160deg, #0052d1 0%, #0b2f7a 55%, #0b1627 100%);
+  color: #eef3fb;
 }
 
-@utility veil-cta {
-  -webkit-mask-image: radial-gradient(88% 100% at 82% 0%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(88% 100% at 82% 0%, #000 0%, transparent 70%);
+@utility crest-deep {
+  background:
+    radial-gradient(100% 120% at 0% 0%, rgb(0 82 209 / 0.55), transparent 60%),
+    linear-gradient(150deg, #0b1627 0%, #0a2250 100%);
+  color: #eef3fb;
+}
+
+@utility icon-box {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--accent-wash);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+@utility text-crest {
+  background: linear-gradient(95deg, #0a6cf0 0%, #008bfe 55%, #19beff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility topo {
+  background-image: url("/brand/topo-light.png");
+  background-size: 900px auto;
+  background-position: center top;
 }
 
 @utility section-y {
-  padding-block: clamp(4rem, 9vw, 8rem);
+  padding-block: clamp(4.5rem, 9vw, 8rem);
 }
 
 /* ============================================================================
@@ -346,7 +399,7 @@
   animation-delay: var(--enter-delay, 0ms);
 }
 
-/* Route change: one bronze line crossing the page and leaving. */
+/* Route change: one crest-blue line crossing the page and leaving. */
 .js [data-route-sweep] {
   animation: sl-sweep 720ms var(--ease-out-expo) both;
 }
@@ -389,4 +442,11 @@
 
 .js .accordion-content[data-state="closed"] {
   animation: sl-accordion-close 0.2s var(--ease-out-expo);
+}
+
+/* The contour texture belongs to paper; on navy it would read as noise. */
+.dark .topo,
+.band-dark .topo,
+.band-dark.topo {
+  background-image: none;
 }

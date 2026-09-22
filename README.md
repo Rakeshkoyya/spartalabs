@@ -43,9 +43,11 @@ primitives · CSS-only motion. See §8 of the action plan.
 
 | Path | What lives there |
 | --- | --- |
-| `src/app/globals.css` | The whole design language: brand ramps, fluid type scale, semantic theme tokens, signature devices. Colour is defined here and nowhere else. |
+| `src/app/globals.css` | The whole design language, taken from the logo and the client brochure: navy and crest-blue ramps, Outfit over Plus Jakarta Sans, semantic theme tokens, the `band-dark` navy sections, cards, glass and crest gradients. Colour is defined here and nowhere else. |
 | `src/content/` | Every word and number on the site. Company facts, capabilities, case studies, process, pods, FAQ. |
-| `src/components/ui/` | Primitives — Button, Container, Section, Kicker, ChevronMark, MetricTile. |
+| `src/components/ui/` | Primitives — Button, Container, Section (paper, surface or navy tone), Kicker, MetricTile, PageHero. |
+| `src/components/brand/` | The logo (navy and white variants, swapped by surface), the flow-line texture and the shared icon map. |
+| `public/brand/` | Web-sized logo files cut from `brochure/logo/`, plus the brochure's contour and network textures. |
 | `src/components/sections/` | One file per home page section, in scroll order. |
 | `src/components/work/` | Case study cards, shared by the home page and the work index. |
 | `src/components/layout/` | Header (with mobile nav and theme toggle) and footer. |
@@ -60,9 +62,11 @@ de-emphasised with a `data-pending` attribute. Grep for `data-pending` and
 `TODO(content)` to find everything still outstanding.
 
 **Components read semantic tokens, never raw ramp values.** Use `text-ink`,
-`bg-surface`, `border-hairline` and `text-accent` — not `bronze-500` or
-`graphite-900` — so the light theme keeps working and a palette change stays a
-one-file edit.
+`bg-surface`, `border-hairline` and `text-accent` — not `blue-600` or
+`navy-950` — so the dark theme and the navy bands keep working and a palette
+change stays a one-file edit. Inside a `band-dark` section (or anywhere under
+`.dark`) the same tokens resolve to their navy values; use the `on-dark:`
+variant for the rare case that needs a different class there.
 
 ## Deploying to Vercel
 

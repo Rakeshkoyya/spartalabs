@@ -2,6 +2,8 @@ export type ProcessStep = {
   id: string;
   title: string;
   body: string;
+  /** The deliverable the client holds at the end of the stage. */
+  youGet: string;
 };
 
 /**
@@ -13,26 +15,31 @@ export const processSteps: ProcessStep[] = [
     id: "01",
     title: "Discover",
     body: "We sit with the people who will use the thing and map how the work actually happens — not how the org chart says it does.",
+    youGet: "A written map of your operations and where they leak time and money.",
   },
   {
     id: "02",
     title: "Blueprint & scope",
     body: "Architecture, screens and a scope you can hold us to, with the trade-offs written down rather than discovered in month three.",
+    youGet: "A solution blueprint, a dated plan and a clear price.",
   },
   {
     id: "03",
     title: "Build in sprints",
     body: "Two-week sprints against a working build. Every Friday you see the real product, not a status deck.",
+    youGet: "A working demo every Friday on the real product.",
   },
   {
     id: "04",
     title: "Harden & launch",
     body: "Load, security and edge cases before launch day, then migration and go-live with a rollback plan that exists on paper.",
+    youGet: "A calm launch, trained users and full documentation.",
   },
   {
     id: "05",
     title: "Operate & evolve",
     body: "Monitoring, patching and the next round of changes. The system keeps working after the invoice clears.",
+    youGet: "Support with response times written into the agreement.",
   },
 ];
 
