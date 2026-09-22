@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sparta Labs Brochure</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{
+  --n950:#060D1A; --n900:#0B1627; --n800:#12233D; --n700:#1B3154;
+  --b700:#0046B8; --b600:#0052D1; --b500:#0A6CF0; --b400:#008BFE; --cyan:#19BEFF;
+  --ice:#E8F1FF; --paper:#F4F7FC; --white:#FBFCFE;
+  --s700:#34445C; --s600:#4A5A73; --s400:#8593A8; --line:#DCE4F0;
+  --on-dark:#EEF3FB; --on-dark-2:#A9B8CF;
+  --r:14px;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#2a2f38}
+body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--n900);-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:10.5pt;line-height:1.55}
+h1,h2,h3,h4,.disp{font-family:"Outfit",sans-serif;letter-spacing:-0.02em;line-height:1.08;font-weight:600}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;background:var(--paper);page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto}
+.pad{position:absolute;inset:0;padding:20mm 18mm 22mm}
+.bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dark{background:var(--n950);color:var(--on-dark)}
+.dark p{color:var(--on-dark-2)}
+.ico svg{width:100%;height:100%;fill:currentColor}
+.ico{display:inline-block;width:22px;height:22px;flex:none}
+.blue{color:var(--b500)} .dark .blue{color:var(--b400)}
+.cyan{color:var(--cyan)}
+p{color:var(--s600)}
+.lead{font-size:12.5pt;line-height:1.55;color:var(--s700)}
+.kicker{font-family:"Outfit";font-size:8.5pt;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--b600)}
+.dark .kicker{color:var(--cyan)}
+.h-xl{font-size:40pt} .h-lg{font-size:30pt} .h-md{font-size:17pt} .h-sm{font-size:12.5pt}
+.foot{position:absolute;left:18mm;right:18mm;bottom:9mm;display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;color:var(--s400);font-family:"Outfit";letter-spacing:.08em}
+.foot img{height:14px}
+.dark .foot{color:#6F82A0}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:8.5pt;font-weight:500;color:var(--s700);background:var(--white)}
+.dark .pill{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:var(--on-dark)}
+.grid{display:grid}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:0 10px 30px -18px rgba(11,40,90,.25)}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.11);border-radius:var(--r);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.icobox{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--ice);color:var(--b600)}
+.icobox .ico{width:21px;height:21px}
+.dark .icobox,.glass .icobox{background:rgba(25,190,255,.1);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(25,190,255,.22)}
+.rule{height:1px;background:var(--line)}
+.dark .rule{background:rgba(255,255,255,.1)}
+ul.checks{list-style:none;display:grid;gap:7px}
+ul.checks li{display:flex;gap:9px;align-items:flex-start;font-size:9.5pt;color:var(--s700)}
+ul.checks li .ico{width:15px;height:15px;margin-top:2px;color:var(--b500)}
+.dark ul.checks li{color:var(--on-dark)} .dark ul.checks li .ico{color:var(--cyan)}
+
+/* ---------- 1. Cover ---------- */
+.cover .mark{position:absolute;right:-12mm;top:28mm;width:94mm;opacity:.97;filter:drop-shadow(0 30px 60px rgba(0,40,120,.5))}
+.cover .top{position:absolute;top:16mm;left:18mm;right:18mm;display:flex;justify-content:space-between;align-items:center}
+.cover .top img{height:30px}
+.cover .top span{font-family:Outfit;font-size:9pt;letter-spacing:.14em;color:var(--on-dark-2)}
+.cover .hero{position:absolute;left:18mm;bottom:60mm;width:150mm}
+.cover h1{font-size:44pt;line-height:1.02;color:#fff;font-weight:600}
+.cover h1 em{font-style:normal;color:#4DBBFF}
+.cover .sub{margin-top:18px;font-size:13pt;line-height:1.5;color:#C3D0E4;width:112mm}
+.cover .base{position:absolute;left:18mm;right:18mm;bottom:16mm}
+.cover .svc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.cover .svc .pill{font-size:9pt;padding:6px 13px}
+.cover .meta{display:flex;justify-content:space-between;font-family:Outfit;font-size:8.5pt;letter-spacing:.16em;text-transform:uppercase;color:#7F93B3;border-top:1px solid rgba(255,255,255,.12);padding-top:12px}
+
+/* ---------- 2. Problem ---------- */
+.p2 .topo{opacity:1}
+.p2 h2{font-size:31pt;width:150mm}
+.p2 h2 span{color:var(--b600)}
+.p2 .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:12mm;margin-top:11mm}
+.p2 .story p{margin-bottom:11px;font-size:10.5pt}
+.p2 .story p:first-child{font-size:12.5pt;color:var(--n900);line-height:1.5}
+.p2 .pain{padding:18px 20px}
+.p2 .pain h3{font-size:14pt;margin-bottom:12px}
+.p2 .pain li{display:flex;gap:10px;padding:8px 0;font-size:9.6pt;color:var(--s700);border-top:1px solid var(--line)}
+.p2 .pain li:first-child{border-top:0}
+.p2 .pain li .ico{color:#D0473C;width:16px;height:16px;margin-top:2px}
+.p2 .pain .ans{margin-top:12px;font-weight:600;color:var(--b600);font-size:10pt;display:flex;gap:8px;align-items:center}
+.inds{margin-top:9mm}.inds h3{font-size:12.5pt;margin-bottom:9px}.inds .g{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}.inds .g>div{padding:12px 13px}.inds b{display:flex;gap:7px;align-items:center;font-family:Outfit;font-size:10.5pt;margin-bottom:4px}.inds b .ico{width:17px;height:17px;color:var(--b500)}.inds span{font-size:8.2pt;color:var(--s600);line-height:1.45;display:block}
+.stats{position:absolute;left:18mm;right:18mm;bottom:22mm;display:grid;grid-template-columns:repeat(4,1fr);background:var(--n900);border-radius:var(--r);overflow:hidden}
+.stats>div{padding:16px 16px 15px;border-left:1px solid rgba(255,255,255,.08);position:relative}
+.stats>div:first-child{border-left:0}
+.stats b{display:block;font-family:Outfit;font-size:28pt;font-weight:600;line-height:1;color:#fff;letter-spacing:-.02em}
+.stats b i{font-style:normal;color:var(--cyan)}
+.stats span{display:block;margin-top:7px;font-size:8.5pt;color:var(--on-dark-2);line-height:1.35}
+
+/* ---------- 3. USP ---------- */
+.p3 h2{font-size:34pt;color:#fff}
+.p3 h2 span{color:var(--cyan)}
+.p3 .lead{color:#C3D0E4;width:150mm;margin-top:12px}
+.steps3{margin-top:14mm;display:grid;gap:0;position:relative}
+.step3{display:grid;grid-template-columns:24mm 1fr 52mm;gap:7mm;padding:22px 0;border-top:1px solid rgba(255,255,255,.1);align-items:start}
+.step3 .n{font-family:Outfit;font-size:38pt;font-weight:300;line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(25,190,255,.7)}
+.step3 h3{font-size:16pt;color:#fff;margin-bottom:6px}
+.step3 p{font-size:9.8pt}
+.step3 .tags{display:flex;flex-direction:column;gap:5px;padding-top:4px}
+.step3 .tags span{font-size:8.3pt;color:var(--on-dark);display:flex;gap:7px;align-items:center}
+.step3 .tags .ico{width:13px;height:13px;color:var(--cyan)}
+.quote{position:absolute;left:18mm;right:18mm;bottom:22mm;padding:18px 22px;display:flex;gap:16px;align-items:center}
+.quote img{width:46px}
+.quote p{font-family:Outfit;font-size:14pt;line-height:1.35;color:#fff;letter-spacing:-.01em}
+
+/* ---------- 4. Services bento ---------- */
+.p4 h2{font-size:30pt}
+.bento{margin-top:9mm;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:66mm 64mm 64mm;gap:4mm;grid-template-areas:"plat plat ai" "web mob ai" "brand ops ops"}
+.tile{border-radius:var(--r);padding:18px 19px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.tile.light{background:var(--white);border:1px solid var(--line)}
+.tile.dk{color:var(--on-dark);background:var(--n900)}
+.tile.dk>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile>*{position:relative}
+.tile h3{font-size:14.5pt;margin:12px 0 6px}
+.tile.dk h3{color:#fff}
+.tile p{font-size:9pt;line-height:1.5}
+.tile.dk p{color:#B7C6DC}
+.tile .items{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:5px}
+.tile .items span{font-size:7.6pt;padding:3px 8px;border-radius:999px;background:var(--ice);color:var(--b700);font-weight:600}
+.tile.dk .items span{background:rgba(255,255,255,.08);color:#D6E3F5;border:1px solid rgba(255,255,255,.1)}
+.t-plat{grid-area:plat} .t-ai{grid-area:ai} .t-web{grid-area:web} .t-mob{grid-area:mob} .t-brand{grid-area:brand} .t-ops{grid-area:ops}
+.t-plat h3{font-size:20pt} .t-plat p{font-size:10pt;width:95mm}
+.t-ai .net{position:absolute;right:-20px;top:40px;width:120%;opacity:.8}
+.t-ops{flex-direction:row;gap:16px;align-items:stretch}
+.t-ops .l{flex:1;display:flex;flex-direction:column}
+
+/* ---------- 5. Hub ---------- */
+.p5 h2{font-size:31pt;color:#fff;width:160mm}
+.p5 .lead{color:#C3D0E4;width:150mm;margin-top:10px}
+.hub{position:relative;margin:7mm auto 0;width:174mm;height:112mm}
+.hub svg.links{position:absolute;inset:0;width:100%;height:100%}
+.hub .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52mm;height:52mm;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 35% 30%,#1c64e6,#0b2f7a 60%,#08204f);box-shadow:0 0 0 10px rgba(25,190,255,.06),0 0 0 22px rgba(25,190,255,.035),0 20px 60px rgba(0,80,220,.5)}
+.hub .core img{width:17mm;margin:0 auto 4px}
+.hub .core b{font-family:Outfit;font-size:12pt;color:#fff;display:block;line-height:1.15}
+.hub .core small{font-size:7.5pt;color:#BFD4F5}
+.node{position:absolute;width:47mm;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.node .icobox{width:32px;height:32px}
+.node .icobox .ico{width:17px;height:17px}
+.node b{display:block;font-family:Outfit;font-size:10.5pt;color:#fff;font-weight:600;line-height:1.2}
+.node span{display:block;font-size:7.6pt;color:#A9B8CF;line-height:1.35;margin-top:2px}
+.examples{position:absolute;left:18mm;right:18mm;bottom:21mm}
+.examples h3{font-size:12.5pt;color:#fff;margin-bottom:9px}
+.ex-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+.ex{padding:11px 12px}
+.ex .t{display:flex;gap:7px;align-items:center;font-family:Outfit;font-weight:600;color:#fff;font-size:10pt;margin-bottom:5px}
+.ex .t .ico{width:16px;height:16px;color:var(--cyan)}
+.ex p{font-size:7.9pt;line-height:1.45}
+
+/* ---------- 6. Work ---------- */
+.p6 h2{font-size:30pt}
+.work{margin-top:9mm;display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.case{position:relative;border-radius:var(--r);padding:16px 18px;background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column}
+.case .sec{display:flex;justify-content:space-between;align-items:center}
+.case h3{font-size:14pt;margin:10px 0 8px}
+.case .lbl{font-family:Outfit;font-size:7.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--s400);font-weight:600;margin-top:8px}
+.case p{font-size:8.9pt;line-height:1.5;margin-top:2px}
+.case .out{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:9pt;color:var(--n900);font-weight:500;display:flex;gap:8px}
+.case .out .ico{color:var(--b500);width:16px;height:16px;margin-top:1px}
+.case.feat{grid-column:1 / -1;background:var(--n900);border:0;color:var(--on-dark);display:grid;grid-template-columns:1.25fr 1fr;gap:8mm;padding:20px 22px;overflow:hidden}
+.case.feat>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.case.feat>*{position:relative}
+.case.feat h3{color:#fff;font-size:19pt}
+.case.feat p{color:#B7C6DC}
+.case.feat .lbl{color:var(--cyan)}
+.case.feat .out{color:#fff;border-color:rgba(255,255,255,.15)}
+.case.feat .out .ico{color:var(--cyan)}
+.built{display:grid;gap:8px;align-content:start}
+.built div{padding:10px 12px}
+.built b{font-family:Outfit;color:#fff;font-size:10pt;display:block}
+.built span{font-size:8pt;color:#A9B8CF;line-height:1.4;display:block;margin-top:2px}
+.metric{font-family:Outfit;font-size:26pt;font-weight:600;color:var(--b600);line-height:1}
+.note{margin-top:5mm;font-size:8pt;color:var(--s400);display:flex;gap:6px;align-items:center}
+.note .ico{width:13px;height:13px}
+
+/* ---------- 7. Process ---------- */
+.p7 h2{font-size:30pt}
+.proc{margin-top:13mm;position:relative;padding-left:16mm}
+.proc:before{content:"";position:absolute;left:5.5mm;top:8px;bottom:18px;width:2px;background:linear-gradient(var(--b400),var(--b700) 70%,rgba(0,70,184,.1))}
+.ps{position:relative;display:grid;grid-template-columns:1fr 58mm;gap:8mm;padding:0 0 12.5mm}
+.ps .dot{position:absolute;left:-16mm;top:0;width:13mm;height:13mm;border-radius:50%;background:var(--white);border:2px solid var(--b500);display:grid;place-items:center;font-family:Outfit;font-weight:600;color:var(--b600);font-size:11pt;box-shadow:0 0 0 5px var(--paper)}
+.ps h3{font-size:15pt;margin:3px 0 5px}
+.ps p{font-size:9.6pt}
+.ps .you{font-size:8.3pt;padding:9px 12px;border-radius:10px;background:var(--ice);color:var(--b700);line-height:1.45;align-self:start;margin-top:4px}
+.ps .you b{display:block;font-family:Outfit;font-size:7.6pt;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;color:var(--b600)}
+.friday{position:absolute;left:18mm;right:18mm;bottom:21mm;border-radius:var(--r);overflow:hidden;background:var(--n900);color:#fff;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:16px 20px}
+.friday img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.friday>*{position:relative}
+.friday h3{font-size:15pt;color:#fff}
+.friday p{color:#B7C6DC;font-size:9.2pt;margin-top:3px}
+.friday .big{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:rgba(25,190,255,.12);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(25,190,255,.3)}
+.friday .big .ico{width:28px;height:28px}
+
+/* ---------- 8. Team ---------- */
+.p8 h2{font-size:30pt;color:#fff;width:160mm}
+.p8 .lead{color:#C3D0E4;width:150mm;margin-top:10px}
+.pods{margin-top:11mm;display:grid;grid-template-columns:repeat(4,1fr);gap:3.5mm}
+.pod{padding:15px 14px 14px;min-height:47mm;display:flex;flex-direction:column}
+.pod b{font-family:Outfit;font-size:11pt;color:#fff;margin:11px 0 4px;display:block;line-height:1.2}
+.pod span{font-size:8pt;color:#A9B8CF;line-height:1.45}
+.lead-card{margin-top:5mm;padding:14px 18px;display:flex;gap:14px;align-items:center;background:linear-gradient(90deg,rgba(0,82,209,.45),rgba(0,82,209,.1));border:1px solid rgba(25,190,255,.3);border-radius:var(--r)}
+.lead-card b{font-family:Outfit;font-size:12.5pt;color:#fff}
+.lead-card span{font-size:9pt;color:#C3D0E4;display:block}
+.guar{position:absolute;left:18mm;right:18mm;bottom:21mm}
+.guar h3{font-size:13pt;color:#fff;margin-bottom:10px}
+.guar .g{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:3.5mm}
+.guar .g>div{padding:14px 15px}
+.guar .g b{display:flex;gap:8px;align-items:center;font-family:Outfit;color:#fff;font-size:11pt;margin-bottom:5px}
+.guar .g b .ico{width:18px;height:18px;color:var(--cyan)}
+.guar .g p{font-size:8.5pt;line-height:1.45}
+
+/* ---------- 9. Engagement ---------- */
+.p9 h2{font-size:30pt}
+.models{margin-top:11mm;display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:3.5mm;align-items:stretch}
+.model{padding:20px 17px;display:flex;flex-direction:column;min-height:118mm}
+.model h3{font-size:15pt;margin:10px 0 6px}
+.model .fits{font-size:8.8pt;line-height:1.5}
+.model .price{margin:12px 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:8.8pt;color:var(--n900);font-weight:500}
+.model ul.checks li{font-size:8.6pt}
+.model.hl{border-radius:var(--r);background:var(--n900);color:#fff;border:0;position:relative;overflow:hidden;box-shadow:0 24px 50px -24px rgba(0,60,170,.6)}
+.model.hl>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.model.hl>*{position:relative}
+.model.hl h3{color:#fff} .model.hl .fits{color:#B7C6DC}
+.model.hl .price{color:#fff;border-color:rgba(255,255,255,.14)}
+.model.hl ul.checks li{color:#E4ECF8} .model.hl ul.checks li .ico{color:var(--cyan)}
+.model .tag{align-self:flex-start;font-size:7.6pt;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--ice);color:var(--b700)}
+.model.hl .tag{background:rgba(25,190,255,.15);color:var(--cyan)}
+.need{position:absolute;left:18mm;right:18mm;bottom:21mm}
+.need h3{font-size:14pt;margin-bottom:4px}
+.need>p{font-size:9.4pt;margin-bottom:10px}
+.need .g{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm}
+.need .g>div{display:flex;gap:10px}
+.need .g b{font-family:Outfit;font-size:10.5pt;display:block;margin-bottom:2px}
+.need .g span{font-size:8.5pt;color:var(--s600);line-height:1.45;display:block}
+.need .g .icobox{width:30px;height:30px;flex:none}
+.need .g .icobox .ico{width:16px;height:16px}
+
+/* ---------- 10. Why ---------- */
+.p10 h2{font-size:30pt}
+table.cmp{margin-top:11mm;width:100%;border-collapse:separate;border-spacing:0;font-size:9.4pt}
+table.cmp th{font-family:Outfit;font-weight:600;font-size:10.5pt;text-align:left;padding:14px 13px;color:var(--s600)}
+table.cmp td{padding:15px 13px;vertical-align:top;color:var(--s600);line-height:1.45;border-top:1px solid var(--line)}
+table.cmp td:first-child{font-family:Outfit;font-weight:600;color:var(--n900);font-size:9.6pt;width:30mm}
+table.cmp .us{background:var(--n900);color:#fff}
+table.cmp th.us{border-radius:var(--r) var(--r) 0 0;color:#fff;display:table-cell}
+table.cmp th.us img{height:13px;vertical-align:-2px;margin-right:6px}
+table.cmp td.us{color:#E4ECF8;border-top-color:rgba(255,255,255,.1)}
+table.cmp tr:last-child td.us{border-radius:0 0 var(--r) var(--r)}
+table.cmp td.us .ico{width:13px;height:13px;color:var(--cyan);vertical-align:-2px;margin-right:4px}
+.values{position:absolute;left:18mm;right:18mm;bottom:21mm}
+.values h3{font-size:14pt;margin-bottom:10px}
+.values .g{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.values .g div{padding:13px 15px;border-left:3px solid var(--b500);background:var(--white);border-radius:0 10px 10px 0}
+.values .g b{font-family:Outfit;font-size:10.5pt;display:block;margin-bottom:3px;color:var(--n900)}
+.values .g span{font-size:8.4pt;color:var(--s600);line-height:1.45;display:block}
+
+/* ---------- 11. FAQ + start ---------- */
+.p11 h2{font-size:30pt}
+.faq{margin-top:10mm;display:grid;grid-template-columns:1fr 1fr;gap:7.5mm 9mm}
+.faq div b{font-family:Outfit;font-size:11pt;display:flex;gap:8px;color:var(--n900);margin-bottom:4px;line-height:1.3}
+.faq div b .ico{width:16px;height:16px;color:var(--b500);margin-top:1px}
+.faq div p{font-size:8.9pt;line-height:1.5;padding-left:24px}
+.start{position:absolute;left:18mm;right:18mm;bottom:21mm;border-radius:var(--r);background:var(--n900);overflow:hidden;padding:20px 22px;color:#fff}
+.start img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.start>*{position:relative}
+.start h3{font-size:18pt;color:#fff}
+.start>p{color:#B7C6DC;margin-top:4px;font-size:9.5pt}
+.start .g{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:14px}
+.start .g div{padding:12px 13px}
+.start .g .n{font-family:Outfit;font-size:9pt;color:var(--cyan);letter-spacing:.1em;font-weight:600}
+.start .g b{font-family:Outfit;font-size:11.5pt;display:block;margin:3px 0 3px;color:#fff}
+.start .g span{font-size:8.2pt;color:#A9B8CF;line-height:1.45;display:block}
+
+/* ---------- 12. Back ---------- */
+.back .logo{position:absolute;left:50%;top:22mm;transform:translateX(-50%);width:112mm}
+.back .cta{position:absolute;left:18mm;right:18mm;top:146mm;text-align:center}
+.back .cta h2{font-size:34pt;color:#fff}
+.back .cta p{color:#C3D0E4;font-size:12pt;margin:10px auto 0;width:140mm}
+.back .btn{display:inline-flex;gap:10px;align-items:center;margin-top:16px;background:#fff;color:var(--n900);font-family:Outfit;font-weight:600;font-size:12pt;padding:12px 22px;border-radius:999px;box-shadow:0 14px 40px -10px rgba(25,190,255,.55)}
+.back .btn .ico{width:18px;height:18px;color:var(--b600)}
+.back .contact{position:absolute;left:18mm;right:18mm;bottom:18mm;display:grid;grid-template-columns:1fr auto;gap:10mm;align-items:end;padding:18px 20px}
+.back .contact .rows{display:grid;gap:9px}
+.back .contact .row{display:flex;gap:12px;align-items:center;color:#fff;font-size:11pt;font-weight:500}
+.back .contact .row .ico{width:19px;height:19px;color:var(--cyan)}
+.back .contact .row small{display:block;color:#8FA3C2;font-size:7.8pt;font-weight:400;letter-spacing:.06em}
+.back .qr{text-align:center}
+.back .qr img{width:30mm;border-radius:10px;display:block}
+.back .qr span{display:block;margin-top:6px;font-size:7.5pt;color:#A9B8CF;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<!-- ===================== 1. COVER ===================== -->
+<section class="page dark cover">
+  <img class="bgimg" src="img/bg-cover.jpg" alt="">
+  <img class="mark" src="img/logo-mark-white.png" alt="">
+  <div class="top">
+    <img src="img/logo-wordmark-white.png" alt="Sparta Labs">
+    <span>SPARTALABS.IN</span>
+  </div>
+  <div class="hero">
+    <h1>Software built around <em>how your business</em> actually runs.</h1>
+    <p class="sub">We study your operations first, then design and build the system your team needs. Websites, apps, AI and automation, under one plan.</p>
+  </div>
+  <div class="base">
+    <div class="svc">
+      <span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></svg></span> Websites</span>
+      <span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></svg></span> Apps</span>
+      <span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></svg></span> AI Automations</span>
+      <span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,124a56.11,56.11,0,0,0-32-50.61V72a48,48,0,0,0-88-26.49A48,48,0,0,0,40,72v1.39a56,56,0,0,0,0,101.2V176a48,48,0,0,0,88,26.49A48,48,0,0,0,216,176v-1.41A56.09,56.09,0,0,0,248,124ZM88,208a32,32,0,0,1-31.81-28.56A55.87,55.87,0,0,0,64,180h8a8,8,0,0,0,0-16H64A40,40,0,0,1,50.67,86.27,8,8,0,0,0,56,78.73V72a32,32,0,0,1,64,0v68.26A47.8,47.8,0,0,0,88,128a8,8,0,0,0,0,16,32,32,0,0,1,0,64Zm104-44h-8a8,8,0,0,0,0,16h8a55.87,55.87,0,0,0,7.81-.56A32,32,0,1,1,168,144a8,8,0,0,0,0-16,47.8,47.8,0,0,0-32,12.26V72a32,32,0,0,1,64,0v6.73a8,8,0,0,0,5.33,7.54A40,40,0,0,1,192,164Zm16-52a8,8,0,0,1-8,8h-4a36,36,0,0,1-36-36V80a8,8,0,0,1,16,0v4a20,20,0,0,0,20,20h4A8,8,0,0,1,208,112ZM60,120H56a8,8,0,0,1,0-16h4A20,20,0,0,0,80,84V80a8,8,0,0,1,16,0v4A36,36,0,0,1,60,120Z"/></svg></span> AI Solutions</span>
+      <span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M160,112h48a16,16,0,0,0,16-16V48a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16V64H128a24,24,0,0,0-24,24v32H72v-8A16,16,0,0,0,56,96H24A16,16,0,0,0,8,112v32a16,16,0,0,0,16,16H56a16,16,0,0,0,16-16v-8h32v32a24,24,0,0,0,24,24h16v16a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V160a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16v16H128a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8h16V96A16,16,0,0,0,160,112ZM56,144H24V112H56v32Zm104,16h48v48H160Zm0-112h48V96H160Z"/></svg></span> Custom Platforms</span>
+    </div>
+    <div class="meta"><span>Company Profile 2026</span><span>Ideas &rarr; Products &rarr; Real Impact</span></div>
+  </div>
+</section>
+
+<!-- ===================== 2. PROBLEM ===================== -->
+<section class="page p2">
+  <img class="bgimg topo" src="img/topo-blue.png" alt="">
+  <div class="pad">
+    <p class="kicker">Who we are</p>
+    <h2 style="margin-top:10px">Most software asks your business to change. <span>We build it the other way round.</span></h2>
+    <div class="cols">
+      <div class="story">
+        <p>Sparta Labs is an IT solutions company that designs, builds and runs the systems businesses depend on.</p>
+        <p>Most businesses do not need more software. They need software that fits how they actually work. Most of what they are sold does the opposite, asking a school, a production house or a distributor to rearrange itself around a product built for someone else.</p>
+        <p>We start with how the work really happens, not how the org chart says it does, and we build the system to match. It is slower to begin and far faster to live with.</p>
+        <p>Every engagement gets a specialist for every layer of the system, and one named lead who owns the whole thing from the first call to long after launch.</p>
+      </div>
+      <div class="card pain">
+        <h3>Does this sound familiar?</h3>
+        <ul style="list-style:none">
+          <li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Records live in spreadsheets that never quite agree with each other.</li>
+          <li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Your team types the same information into three different tools.</li>
+          <li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> You bent your process to fit off-the-shelf software, and it still does not fit.</li>
+          <li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Your website looks dated and does not bring in enquiries.</li>
+          <li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Simple questions like &ldquo;how much is outstanding?&rdquo; take a week to answer.</li>
+        </ul>
+        <div class="ans"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span> These are exactly the problems we solve.</div>
+      </div>
+    </div>
+    <div class="inds">
+      <h3>Industries we have delivered for</h3>
+      <div class="g">
+        <div class="card"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></svg></span> Education</b><span>Learning portals, AI tutoring and multi-campus school management.</span></div>
+        <div class="card"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,104H102.09L210,75.51a8,8,0,0,0,5.68-9.84l-8.16-30a15.93,15.93,0,0,0-19.42-11.13L35.81,64.74a15.75,15.75,0,0,0-9.7,7.4,15.51,15.51,0,0,0-1.55,12L32,111.56c0,.14,0,.29,0,.44v88a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V112A8,8,0,0,0,216,104ZM192.16,40l6,22.07-22.62,6L147.42,51.83Zm-66.69,17.6,28.12,16.24-36.94,9.75L88.53,67.37Zm-79.4,44.62-6-22.08,26.5-7L94.69,89.4ZM208,200H48V120H208v80Z"/></svg></span> Film and media</b><span>Production scheduling, asset review and client sign-off.</span></div>
+        <div class="card"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg></span> Advertising</b><span>Brand showcases the agency can edit without a developer.</span></div>
+        <div class="card"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z"/></svg></span> Operations</b><span>Custom platforms for work that off-the-shelf tools cannot handle.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div><b>4</b><span>Industries served, from education to film and media</span></div>
+    <div><b>8</b><span>Specialist pods covering every layer of a system</span></div>
+    <div><b>1</b><span>Named lead who owns your project end to end</span></div>
+    <div><b>100<i>%</i></b><span>Source code and IP handed over to you</span></div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>02</span></div>
+</section>
+
+<!-- ===================== 3. USP ===================== -->
+<section class="page dark p3">
+  <img class="bgimg" src="img/bg-dark.jpg" alt="">
+  <div class="pad">
+    <p class="kicker">The Sparta approach</p>
+    <h2 style="margin-top:10px">Business first.<br><span>Software second.</span></h2>
+    <p class="lead">Our difference is simple. Before anyone writes a line of code, we understand your operations and draft a professional solution. The website, the app and the automation come after, and they all fit together.</p>
+    <div class="steps3">
+      <div class="step3">
+        <div class="n">01</div>
+        <div><h3>Understand your operations</h3><p>We sit with the people who do the work, map every workflow from enquiry to invoice, and find where time, money and data are leaking.</p></div>
+        <div class="tags"><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Process mapping</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Stakeholder interviews</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Bottleneck audit</span></div>
+      </div>
+      <div class="step3">
+        <div class="n">02</div>
+        <div><h3>Draft the solution blueprint</h3><p>A clear, professional plan: the system architecture, key screens, scope, timeline and cost, with the trade-offs written down so there are no surprises later.</p></div>
+        <div class="tags"><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Solution architecture</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Dated delivery plan</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Fixed or flexible budget</span></div>
+      </div>
+      <div class="step3">
+        <div class="n">03</div>
+        <div><h3>Build the system, piece by piece</h3><p>Then we build what the blueprint calls for: a custom platform, a website, a mobile app, AI and automation, all sharing one source of truth.</p></div>
+        <div class="tags"><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Web and mobile</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> AI and automation</span><span><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Integrations</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="quote glass">
+    <img src="img/logo-mark-white.png" alt="">
+    <p>&ldquo;We do not start with a template. We start with a walk through how your business actually runs.&rdquo;</p>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark-white.png" alt=""><span>03</span></div>
+</section>
+
+<!-- ===================== 4. SERVICES ===================== -->
+<section class="page p4">
+  <div class="pad">
+    <p class="kicker">What we build</p>
+    <h2 style="margin-top:10px">Everything your business runs on,<br>from one team.</h2>
+    <div class="bento">
+      <div class="tile dk t-plat">
+        <img class="bg" src="img/tile-0.jpg" alt="">
+        <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M160,112h48a16,16,0,0,0,16-16V48a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16V64H128a24,24,0,0,0-24,24v32H72v-8A16,16,0,0,0,56,96H24A16,16,0,0,0,8,112v32a16,16,0,0,0,16,16H56a16,16,0,0,0,16-16v-8h32v32a24,24,0,0,0,24,24h16v16a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V160a16,16,0,0,0-16-16H160a16,16,0,0,0-16,16v16H128a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8h16V96A16,16,0,0,0,160,112ZM56,144H24V112H56v32Zm104,16h48v48H160Zm0-112h48V96H160Z"/></svg></span></div>
+        <h3>Custom business platforms</h3>
+        <p>An operating system for your organisation. The tool your team lives in all day: operations, workflows, records and reports, shaped exactly to how you work.</p>
+        <div class="items"><span>ERP and CRM systems</span><span>Workflow tools</span><span>Dashboards and reports</span><span>Internal tooling</span></div>
+      </div>
+      <div class="tile dk t-ai">
+        <img class="bg" src="img/tile-2.jpg" alt="">
+        <img class="net" src="img/net-light.png" alt="">
+        <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,124a56.11,56.11,0,0,0-32-50.61V72a48,48,0,0,0-88-26.49A48,48,0,0,0,40,72v1.39a56,56,0,0,0,0,101.2V176a48,48,0,0,0,88,26.49A48,48,0,0,0,216,176v-1.41A56.09,56.09,0,0,0,248,124ZM88,208a32,32,0,0,1-31.81-28.56A55.87,55.87,0,0,0,64,180h8a8,8,0,0,0,0-16H64A40,40,0,0,1,50.67,86.27,8,8,0,0,0,56,78.73V72a32,32,0,0,1,64,0v68.26A47.8,47.8,0,0,0,88,128a8,8,0,0,0,0,16,32,32,0,0,1,0,64Zm104-44h-8a8,8,0,0,0,0,16h8a55.87,55.87,0,0,0,7.81-.56A32,32,0,1,1,168,144a8,8,0,0,0,0-16,47.8,47.8,0,0,0-32,12.26V72a32,32,0,0,1,64,0v6.73a8,8,0,0,0,5.33,7.54A40,40,0,0,1,192,164Zm16-52a8,8,0,0,1-8,8h-4a36,36,0,0,1-36-36V80a8,8,0,0,1,16,0v4a20,20,0,0,0,20,20h4A8,8,0,0,1,208,112ZM60,120H56a8,8,0,0,1,0-16h4A20,20,0,0,0,80,84V80a8,8,0,0,1,16,0v4A36,36,0,0,1,60,120Z"/></svg></span></div>
+        <h3>AI solutions and automation</h3>
+        <p>AI pointed at one job it does well, plus automations that remove repetitive work.</p>
+        <div class="items"><span>AI assistants and chatbots</span><span>WhatsApp and email automation</span><span>Document data extraction</span><span>Smart search</span><span>AI tutors</span></div>
+      </div>
+      <div class="tile light t-web">
+        <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></svg></span></div>
+        <h3>Websites</h3>
+        <p>Sites that make a serious company look serious and load fast on any phone.</p>
+        <div class="items"><span>Business websites</span><span>Portals</span><span>Easy-edit CMS</span></div>
+      </div>
+      <div class="tile light t-mob">
+        <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></svg></span></div>
+        <h3>Mobile apps</h3>
+        <p>iOS and Android apps people keep on their home screen, built once for both.</p>
+        <div class="items"><span>Customer apps</span><span>Field and staff apps</span></div>
+      </div>
+      <div class="tile light t-brand">
+        <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,92.68a15.86,15.86,0,0,0-4.69-11.31L174.63,12.68a16,16,0,0,0-22.63,0L123.57,41.11l-58,21.77A16.06,16.06,0,0,0,55.35,75.23L32.11,214.68A8,8,0,0,0,40,224a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L243.31,104A15.87,15.87,0,0,0,248,92.68Zm-69.87,92.19L63.32,204l47.37-47.37a28,28,0,1,0-11.32-11.32L52,192.7,71.13,77.86,126,57.29,198.7,130ZM112,132a12,12,0,1,1,12,12A12,12,0,0,1,112,132Zm96-15.32L139.31,48l24-24L232,92.68Z"/></svg></span></div>
+        <h3>Brand and concept</h3>
+        <p>Positioning, identity and product concept, so what we build has something to be true to.</p>
+        <div class="items"><span>Identity</span><span>Positioning</span></div>
+      </div>
+      <div class="tile dk t-ops">
+        <img class="bg" src="img/tile-1.jpg" alt="">
+        <div class="l">
+          <div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm39.1,131.79a47.84,47.84,0,0,0,0-55.58l28.5-28.49a87.83,87.83,0,0,1,0,112.56ZM96,128a32,32,0,1,1,32,32A32,32,0,0,1,96,128Zm88.28-67.6L155.79,88.9a47.84,47.84,0,0,0-55.58,0L71.72,60.4a87.83,87.83,0,0,1,112.56,0ZM60.4,71.72l28.5,28.49a47.84,47.84,0,0,0,0,55.58L60.4,184.28a87.83,87.83,0,0,1,0-112.56ZM71.72,195.6l28.49-28.5a47.84,47.84,0,0,0,55.58,0l28.49,28.5a87.83,87.83,0,0,1-112.56,0Z"/></svg></span></div>
+          <h3>Operate and support</h3>
+          <p>Launch is the middle of the job, not the end. We keep your systems running, secure and improving, with response times you can hold us to.</p>
+          <div class="items"><span>Monitoring</span><span>Security patching</span><span>Monthly improvements</span><span>Agreed SLA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>04</span></div>
+</section>
+
+<!-- ===================== 5. HUB ===================== -->
+<section class="page dark p5">
+  <img class="bgimg" src="img/bg-dark.jpg" alt="" style="transform:scaleX(-1)">
+  <div class="pad">
+    <p class="kicker">One business, one system</p>
+    <h2 style="margin-top:10px">Not a pile of apps. A connected system built for you.</h2>
+    <p class="lead">Every piece we build shares one source of truth. Your website feeds your platform, your app reads the same records, and automation moves the data so your team does not have to.</p>
+    <div class="hub">
+      <svg class="links" viewBox="0 0 658 423" preserveAspectRatio="none">
+        <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#19BEFF" stop-opacity=".15"/><stop offset=".5" stop-color="#19BEFF" stop-opacity=".7"/><stop offset="1" stop-color="#19BEFF" stop-opacity=".15"/></linearGradient></defs>
+        <g stroke="url(#lg)" stroke-width="1.4" fill="none" stroke-dasharray="4 5">
+          <path d="M329 211 C 260 150, 250 40, 178 34"/>
+          <path d="M329 211 C 398 150, 408 40, 480 34"/>
+          <path d="M329 211 L 178 211"/>
+          <path d="M329 211 L 480 211"/>
+          <path d="M329 211 C 260 272, 250 382, 178 389"/>
+          <path d="M329 211 C 398 272, 408 382, 480 389"/>
+        </g>
+        <g fill="#19BEFF"><circle cx="178" cy="34" r="3"/><circle cx="480" cy="34" r="3"/><circle cx="178" cy="211" r="3"/><circle cx="480" cy="211" r="3"/><circle cx="178" cy="389" r="3"/><circle cx="480" cy="389" r="3"/></g>
+      </svg>
+      <div class="core"><div><img src="img/logo-mark-white.png" alt=""><b>Your core<br>platform</b><small>One source of truth</small></div></div>
+      <div class="node glass" style="left:0;top:0"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></svg></span></div><div><b>Website</b><span>Captures leads straight into your system</span></div></div>
+      <div class="node glass" style="right:0;top:0"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></svg></span></div><div><b>Mobile app</b><span>For customers, staff or field teams</span></div></div>
+      <div class="node glass" style="left:0;top:50%;transform:translateY(-50%)"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z"/></svg></span></div><div><b>AI assistant</b><span>Answers, triages and finds records</span></div></div>
+      <div class="node glass" style="right:0;top:50%;transform:translateY(-50%)"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></svg></span></div><div><b>Automations</b><span>WhatsApp, email, reminders, approvals</span></div></div>
+      <div class="node glass" style="left:0;bottom:0"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span></div><div><b>Dashboards</b><span>Live numbers, not week-old reports</span></div></div>
+      <div class="node glass" style="right:0;bottom:0"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M237.66,18.34a8,8,0,0,0-11.32,0l-52.4,52.41-5.37-5.38a32.05,32.05,0,0,0-45.26,0L100,88.69l-6.34-6.35A8,8,0,0,0,82.34,93.66L88.69,100,65.37,123.31a32,32,0,0,0,0,45.26l5.38,5.37-52.41,52.4a8,8,0,0,0,11.32,11.32l52.4-52.41,5.37,5.38a32,32,0,0,0,45.26,0L156,167.31l6.34,6.35a8,8,0,0,0,11.32-11.32L167.31,156l23.32-23.31a32,32,0,0,0,0-45.26l-5.38-5.37,52.41-52.4A8,8,0,0,0,237.66,18.34Zm-116.29,161a16,16,0,0,1-22.62,0L76.69,157.25a16,16,0,0,1,0-22.62L100,111.31,144.69,156Zm57.94-57.94L156,144.69,111.31,100l23.32-23.31a16,16,0,0,1,22.62,0l22.06,22A16,16,0,0,1,179.31,121.37ZM88.57,35A8,8,0,0,1,103.43,29l8,20A8,8,0,0,1,96.57,55ZM24.57,93A8,8,0,0,1,35,88.57l20,8A8,8,0,0,1,49,111.43l-20-8A8,8,0,0,1,24.57,93ZM231.43,163a8,8,0,0,1-10.4,4.46l-20-8A8,8,0,1,1,207,144.57l20,8A8,8,0,0,1,231.43,163Zm-64,58.06A8,8,0,0,1,152.57,227l-8-20A8,8,0,0,1,159.43,201Z"/></svg></span></div><div><b>Integrations</b><span>Payments, accounting and tools you use</span></div></div>
+    </div>
+  </div>
+  <div class="examples">
+    <h3>What that can look like for a business like yours</h3>
+    <div class="ex-grid">
+      <div class="ex glass"><div class="t"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></svg></span> Schools</div><p>Admissions, fees, attendance and an AI tutor, across every campus.</p></div>
+      <div class="ex glass"><div class="t"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></svg></span> Retail and distribution</div><p>Orders, stock, billing and a dealer app that syncs in real time.</p></div>
+      <div class="ex glass"><div class="t"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,200H40V72H216V200Zm-56-64a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V144H104a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,136Z"/></svg></span> Clinics</div><p>Appointments, patient records and automatic WhatsApp reminders.</p></div>
+      <div class="ex glass"><div class="t"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"/></svg></span> Service firms</div><p>Leads, quotes, job tracking and invoices in one flow.</p></div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark-white.png" alt=""><span>05</span></div>
+</section>
+
+<!-- ===================== 6. WORK ===================== -->
+<section class="page p6">
+  <img class="bgimg" src="img/topo-blue.png" alt="" style="opacity:.6;transform:scaleY(-1)">
+  <div class="pad">
+    <p class="kicker">Selected work</p>
+    <h2 style="margin-top:10px">Real systems, running in real organisations.</h2>
+    <div class="work">
+      <div class="case feat">
+        <img class="bg" src="img/tile-0.jpg" alt="">
+        <div>
+          <div class="sec"><span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></svg></span> Education</span></div>
+          <h3>AI-tutor learning portal</h3>
+          <p class="lbl">The challenge</p>
+          <p>A K-12 school group ran coursework, assessment and student support in three disconnected places. Teachers could not give individual attention at the scale the group had grown to.</p>
+          <p class="lbl">The outcome</p>
+          <p>One learning portal with an AI tutor that helps a student the moment they get stuck, and gives teachers a per-student picture they could never build by hand.</p>
+          <div class="out"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Live and supported by a dedicated Sparta pod</div>
+        </div>
+        <div class="built">
+          <div class="glass"><b>One place for the course</b><span>Lessons, submissions and grades in a single structure.</span></div>
+          <div class="glass"><b>An AI tutor with a narrow job</b><span>Scoped to the course content, so it helps and never distracts.</span></div>
+          <div class="glass"><b>A per-student picture</b><span>Progress and stalls in one view a teacher reads in a minute.</span></div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="sec"><span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span> Education</span></div>
+        <h3>Multi-campus school management</h3>
+        <p class="lbl">The challenge</p>
+        <p>Admissions, attendance, fees and staff records ran on spreadsheets that each campus kept differently, so no two reports agreed.</p>
+        <div class="out"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> One platform across every campus, with reports the group office can trust.</div>
+      </div>
+      <div class="case">
+        <div class="sec"><span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,104H102.09L210,75.51a8,8,0,0,0,5.68-9.84l-8.16-30a15.93,15.93,0,0,0-19.42-11.13L35.81,64.74a15.75,15.75,0,0,0-9.7,7.4,15.51,15.51,0,0,0-1.55,12L32,111.56c0,.14,0,.29,0,.44v88a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V112A8,8,0,0,0,216,104ZM192.16,40l6,22.07-22.62,6L147.42,51.83Zm-66.69,17.6,28.12,16.24-36.94,9.75L88.53,67.37Zm-79.4,44.62-6-22.08,26.5-7L94.69,89.4ZM208,200H48V120H208v80Z"/></svg></span> Film and media</span></div>
+        <h3>Film production system</h3>
+        <p class="lbl">The challenge</p>
+        <p>Scheduling, asset review and client sign-off happened over email and chat, and approvals went missing between departments.</p>
+        <div class="out"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Two projects delivered with scheduling, assets and approvals in one traceable place.</div>
+      </div>
+      <div class="case" style="grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:8mm">
+        <div>
+          <div class="sec"><span class="pill"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg></span> Advertising</span></div>
+          <h3>Brand agency showcase website</h3>
+          <p>The agency was pitching brand work from a site that undersold it: slow, dated and impossible to update between campaigns.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="out" style="border-top:0;margin-top:0;padding-top:0"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> A showcase built around the work itself, fast on mobile and editable by the agency without a developer.</div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></span> Client names are withheld to protect confidentiality. References are available on request.</p>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>06</span></div>
+</section>
+
+<!-- ===================== 7. PROCESS ===================== -->
+<section class="page p7">
+  <div class="pad">
+    <p class="kicker">How we work</p>
+    <h2 style="margin-top:10px">A clear path from first call<br>to a system that runs.</h2>
+    <div class="proc">
+      <div class="ps"><div class="dot">1</div><div><h3>Discover</h3><p>We sit with the people who will use the system and map how the work actually happens, not how the org chart says it does.</p></div><div class="you"><b>You get</b>A written map of your operations and where they leak time and money.</div></div>
+      <div class="ps"><div class="dot">2</div><div><h3>Blueprint and scope</h3><p>Architecture, screens and a scope you can hold us to, with the trade-offs written down rather than discovered in month three.</p></div><div class="you"><b>You get</b>A solution blueprint, a dated plan and a clear price.</div></div>
+      <div class="ps"><div class="dot">3</div><div><h3>Build in sprints</h3><p>Two-week sprints against a working build. You set the priorities each sprint and see real progress, not status decks.</p></div><div class="you"><b>You get</b>A working demo every Friday on the real product.</div></div>
+      <div class="ps"><div class="dot">4</div><div><h3>Harden and launch</h3><p>Load, security and edge cases are tested before launch day. Then data migration and go-live, with a rollback plan ready.</p></div><div class="you"><b>You get</b>A calm launch, trained users and full documentation.</div></div>
+      <div class="ps" style="padding-bottom:0"><div class="dot">5</div><div><h3>Operate and evolve</h3><p>Monitoring, patching and the next round of improvements. The system keeps working long after the invoice clears.</p></div><div class="you"><b>You get</b>Support with response times written into the agreement.</div></div>
+    </div>
+  </div>
+  <div class="friday">
+    <img class="bg" src="img/tile-1.jpg" alt="">
+    <div class="big"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span></div>
+    <div><h3>You see it working, every single week.</h3><p>No black-box months and no surprises at the end. Feedback at a Friday demo is cheap; feedback after launch is not.</p></div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>07</span></div>
+</section>
+
+<!-- ===================== 8. TEAM ===================== -->
+<section class="page dark p8">
+  <img class="bgimg" src="img/bg-dark.jpg" alt="">
+  <div class="pad">
+    <p class="kicker">Your team</p>
+    <h2 style="margin-top:10px">A specialist for every layer. One lead who owns the whole.</h2>
+    <p class="lead">Projects rarely fail on skill. They fail when some part of the system has no owner. So every Sparta engagement is staffed by a dedicated pod, with a specialist for each layer.</p>
+    <div class="pods">
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M200,168a32.06,32.06,0,0,0-31,24H72a32,32,0,0,1,0-64h96a40,40,0,0,0,0-80H72a8,8,0,0,0,0,16h96a24,24,0,0,1,0,48H72a48,48,0,0,0,0,96h97a32,32,0,1,0,31-40Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,200,216Z"/></svg></span></div><b>Product and UX</b><span>Flows, screens and deciding what not to build</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></svg></span></div><b>Frontend</b><span>Everything your users touch, down to the last detail</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg></span></div><b>Backend and platform</b><span>Data, APIs and the parts that must never lose a record</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></svg></span></div><b>Mobile</b><span>iOS and Android, from build to store release</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,124a56.11,56.11,0,0,0-32-50.61V72a48,48,0,0,0-88-26.49A48,48,0,0,0,40,72v1.39a56,56,0,0,0,0,101.2V176a48,48,0,0,0,88,26.49A48,48,0,0,0,216,176v-1.41A56.09,56.09,0,0,0,248,124ZM88,208a32,32,0,0,1-31.81-28.56A55.87,55.87,0,0,0,64,180h8a8,8,0,0,0,0-16H64A40,40,0,0,1,50.67,86.27,8,8,0,0,0,56,78.73V72a32,32,0,0,1,64,0v68.26A47.8,47.8,0,0,0,88,128a8,8,0,0,0,0,16,32,32,0,0,1,0,64Zm104-44h-8a8,8,0,0,0,0,16h8a55.87,55.87,0,0,0,7.81-.56A32,32,0,1,1,168,144a8,8,0,0,0,0-16,47.8,47.8,0,0,0-32,12.26V72a32,32,0,0,1,64,0v6.73a8,8,0,0,0,5.33,7.54A40,40,0,0,1,192,164Zm16-52a8,8,0,0,1-8,8h-4a36,36,0,0,1-36-36V80a8,8,0,0,1,16,0v4a20,20,0,0,0,20,20h4A8,8,0,0,1,208,112ZM60,120H56a8,8,0,0,1,0-16h4A20,20,0,0,0,80,84V80a8,8,0,0,1,16,0v4A36,36,0,0,1,60,120Z"/></svg></span></div><b>AI and ML</b><span>Models aimed at one job, with testing that proves they work</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208,152h16a8,8,0,0,0,0-16H208V120h16a8,8,0,0,0,0-16H207.6a79.76,79.76,0,0,0-21.44-46.85l19.5-19.49a8,8,0,0,0-11.32-11.32l-20.29,20.3a79.74,79.74,0,0,0-92.1,0L61.66,26.34A8,8,0,0,0,50.34,37.66l19.5,19.49A79.76,79.76,0,0,0,48.4,104H32a8,8,0,0,0,0,16H48v16H32a8,8,0,0,0,0,16H48v8c0,2.7.14,5.37.4,8H32a8,8,0,0,0,0,16H51.68a80,80,0,0,0,152.64,0H224a8,8,0,0,0,0-16H207.6c.26-2.63.4-5.3.4-8ZM128,48a64.07,64.07,0,0,1,63.48,56h-127A64.07,64.07,0,0,1,128,48Zm8,175.48V144a8,8,0,0,0-16,0v79.48A64.07,64.07,0,0,1,64,160V120H192v40A64.07,64.07,0,0,1,136,223.48Z"/></svg></span></div><b>QA and automation</b><span>Finding the problems before your users do</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M160,40A88.09,88.09,0,0,0,81.29,88.67,64,64,0,1,0,72,216h88a88,88,0,0,0,0-176Zm0,160H72a48,48,0,0,1,0-96c1.1,0,2.2,0,3.29.11A88,88,0,0,0,72,128a8,8,0,0,0,16,0,72,72,0,1,1,72,72Zm37.66-93.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L144,148.69l42.34-42.35A8,8,0,0,1,197.66,106.34Z"/></svg></span></div><b>DevOps and cloud</b><span>Deployments, monitoring, security and cost</span></div>
+      <div class="pod glass"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M248,92.68a15.86,15.86,0,0,0-4.69-11.31L174.63,12.68a16,16,0,0,0-22.63,0L123.57,41.11l-58,21.77A16.06,16.06,0,0,0,55.35,75.23L32.11,214.68A8,8,0,0,0,40,224a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L243.31,104A15.87,15.87,0,0,0,248,92.68Zm-69.87,92.19L63.32,204l47.37-47.37a28,28,0,1,0-11.32-11.32L52,192.7,71.13,77.86,126,57.29,198.7,130ZM112,132a12,12,0,1,1,12,12A12,12,0,0,1,112,132Zm96-15.32L139.31,48l24-24L232,92.68Z"/></svg></span></div><b>Brand and design</b><span>Identity, art direction and visual quality</span></div>
+    </div>
+    <div class="lead-card"><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M224,40V76a8,8,0,0,1-16,0V48H180a8,8,0,0,1,0-16h36A8,8,0,0,1,224,40Zm-8,132a8,8,0,0,0-8,8v28H180a8,8,0,0,0,0,16h36a8,8,0,0,0,8-8V180A8,8,0,0,0,216,172ZM76,208H48V180a8,8,0,0,0-16,0v36a8,8,0,0,0,8,8H76a8,8,0,0,0,0-16ZM40,84a8,8,0,0,0,8-8V48H76a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8V76A8,8,0,0,0,40,84Zm136,92a8,8,0,0,1-6.41-3.19,52,52,0,0,0-83.2,0,8,8,0,1,1-12.8-9.62A67.94,67.94,0,0,1,101,141.51a40,40,0,1,1,53.94,0,67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,176,176Zm-48-40a24,24,0,1,0-24-24A24,24,0,0,0,128,136Z"/></svg></span></div><div><b>One named engagement lead</b><span>From the first call to the day after launch. You never have to explain your project to a new person.</span></div></div>
+  </div>
+  <div class="guar">
+    <h3>Three promises on every project</h3>
+    <div class="g">
+      <div class="glass"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg></span> You see it every week</b><p>A working demo every Friday, on the real build. You always know exactly where things stand.</p></div>
+      <div class="glass"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216.57,39.43A80,80,0,0,0,83.91,120.78L28.69,176A15.86,15.86,0,0,0,24,187.31V216a16,16,0,0,0,16,16H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A79.73,79.73,0,0,0,160,176h.1A80,80,0,0,0,216.57,39.43ZM224,98.1c-1.09,34.09-29.75,61.86-63.89,61.9H160a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A63.72,63.72,0,0,1,96,95.92c0-34.14,27.81-62.8,61.9-63.89A64,64,0,0,1,224,98.1ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg></span> Your code, your IP</b><p>Full, documented source handover. No licence, no lock-in.</p></div>
+      <div class="glass"><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"/></svg></span> Early warnings</b><p>If a deadline is at risk, you hear the week we see it.</p></div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark-white.png" alt=""><span>08</span></div>
+</section>
+
+<!-- ===================== 9. ENGAGEMENT ===================== -->
+<section class="page p9">
+  <img class="bgimg" src="img/topo-blue.png" alt="" style="opacity:.55">
+  <div class="pad">
+    <p class="kicker">Ways to work with us</p>
+    <h2 style="margin-top:10px">Pick the model that fits<br>your project and budget.</h2>
+    <div class="models">
+      <div class="model card">
+        <span class="tag">Defined projects</span>
+        <h3>Fixed scope</h3>
+        <p class="fits">When the requirement is settled and you need a defined thing by a defined date: a website, a launch, a migration.</p>
+        <div class="price">One agreed price after discovery, paid against milestones.</div>
+        <ul class="checks"><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> A dated plan</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Milestone demos</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Handover and documentation</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> 30 days of post-launch fixes</li></ul>
+      </div>
+      <div class="model hl">
+        <img class="bg" src="img/tile-2.jpg" alt="">
+        <span class="tag">Growing products</span>
+        <h3>Dedicated pod</h3>
+        <p class="fits">When your system will evolve as you learn from it, which is true of almost every business platform.</p>
+        <div class="price">A monthly rate for a named team. Scale up or down with a month&rsquo;s notice.</div>
+        <ul class="checks"><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> A named engagement lead</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Two-week sprints</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> A working demo every Friday</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> You set priorities each sprint</li></ul>
+      </div>
+      <div class="model card">
+        <span class="tag">Live systems</span>
+        <h3>Retainer and managed</h3>
+        <p class="fits">When a system is live and must stay that way, whether we built it or you inherited it from someone else.</p>
+        <div class="price">A monthly retainer sized to your system, with response times in writing.</div>
+        <ul class="checks"><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Monitoring and incident response</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Security patching</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Monthly budget for changes</li><li><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> An agreed response SLA</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="need">
+    <h3>What makes a project succeed</h3>
+    <p>We keep our side of the bargain. These four things from your side make the biggest difference.</p>
+    <div class="g">
+      <div><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M221.35,104.11a8,8,0,0,0-6.57,9.21A88.85,88.85,0,0,1,216,128a87.62,87.62,0,0,1-22.24,58.41,79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75A88,88,0,0,1,128,40a88.76,88.76,0,0,1,14.68,1.22,8,8,0,0,0,2.64-15.78,103.92,103.92,0,1,0,85.24,85.24A8,8,0,0,0,221.35,104.11ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM237.66,45.66l-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L200,60.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></div><div><b>One decision-maker</b><span>Someone who can settle a question in a day, not a committee that meets every fortnight.</span></div></div>
+      <div><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span></div><div><b>Access to the people who do the work</b><span>An hour with the person who runs the process beats a month of documents.</span></div></div>
+      <div><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"/></svg></span></div><div><b>Honesty about the current mess</b><span>Every business has workarounds. Show us those first. They are the requirements.</span></div></div>
+      <div><div class="icobox"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H136V24a8,8,0,0,0-16,0V40H40A16,16,0,0,0,24,56V176a16,16,0,0,0,16,16H79.36L57.75,219a8,8,0,0,0,12.5,10l29.59-37h56.32l29.59,37a8,8,0,1,0,12.5-10l-21.61-27H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,136H40V56H216V176ZM104,120v24a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0Zm32-16v40a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm32-16v56a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Z"/></svg></span></div><div><b>Attention at the demo</b><span>Thirty minutes every second Friday keeps the build on target.</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>09</span></div>
+</section>
+
+<!-- ===================== 10. WHY ===================== -->
+<section class="page p10">
+  <div class="pad">
+    <p class="kicker">Why Sparta Labs</p>
+    <h2 style="margin-top:10px">The difference you will feel<br>from the first meeting.</h2>
+    <table class="cmp">
+      <tr><th></th><th>Off-the-shelf software</th><th>Typical IT vendor</th><th class="us"><img src="img/logo-mark-white.png" alt="">Sparta Labs</th></tr>
+      <tr><td>Starting point</td><td>A product built for someone else</td><td>A template and a feature list</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> How your business actually operates</td></tr>
+      <tr><td>Fit</td><td>You change your process to suit the tool</td><td>Close, after rounds of rework</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Designed around your workflow</td></tr>
+      <tr><td>Scope</td><td>One piece of the puzzle</td><td>Website or app, sold separately</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> One connected system: web, app, AI, automation</td></tr>
+      <tr><td>Visibility</td><td>Not applicable</td><td>Status updates, then a big reveal</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> A working demo every Friday</td></tr>
+      <tr><td>Ownership</td><td>Monthly licence, forever</td><td>Often unclear, sometimes locked in</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Your code and IP, fully handed over</td></tr>
+      <tr><td>After launch</td><td>Generic support ticket queue</td><td>Handover, then goodbye</td><td class="us"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span> Monitoring, fixes and improvements</td></tr>
+    </table>
+  </div>
+  <div class="values">
+    <h3>How we behave, in writing</h3>
+    <div class="g">
+      <div><b>We flag a slip the week we see it</b><span>Not the week it lands. A risk you know about is one you can act on.</span></div>
+      <div><b>We turn down work we are wrong for</b><span>If a product you can buy solves it, we will tell you on the first call.</span></div>
+      <div><b>We write down the trade-off, not just the decision</b><span>You can always see which doors a choice closed, and why.</span></div>
+      <div><b>We leave you able to run it without us</b><span>Documented and handed over. A client who cannot leave is not a client.</span></div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>10</span></div>
+</section>
+
+<!-- ===================== 11. FAQ ===================== -->
+<section class="page p11">
+  <img class="bgimg" src="img/topo-blue.png" alt="" style="opacity:.5;transform:scaleX(-1)">
+  <div class="pad">
+    <p class="kicker">Common questions</p>
+    <h2 style="margin-top:10px">Straight answers before<br>you ask.</h2>
+    <div class="faq">
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Who owns the code we pay for?</b><p>You do. Full source handover, documented, deployed to your own infrastructure if you want it there. No licence to renew.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> How do you price a project?</b><p>Fixed scope when the requirement is settled, a dedicated pod when it will evolve, and a retainer for live systems. We recommend one after discovery.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> How long does it take?</b><p>A business website takes four to six weeks. A custom platform takes three to six months to first release, then keeps improving.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Will you sign an NDA?</b><p>Yes, before the first detailed conversation. Send yours or use ours.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Can you work with our existing team?</b><p>Yes. We can be the whole build team, a pod alongside your in-house team, or the people who take over a system someone else left behind.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Do you take on existing systems?</b><p>Yes. We start with an audit that tells you plainly what to keep, what to replace and what it will cost.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> What happens after launch?</b><p>Monitoring, security patching and improvements under a support agreement with response times written into it.</p></div>
+      <div><b><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span> Is my business a good fit?</b><p>If your work does not fit neatly into off-the-shelf software, almost certainly. If a product you can buy solves it, we will tell you.</p></div>
+    </div>
+  </div>
+  <div class="start">
+    <img class="bg" src="img/tile-0.jpg" alt="">
+    <h3>Getting started takes one conversation.</h3>
+    <p>No lengthy sales process. Here is exactly what happens next.</p>
+    <div class="g">
+      <div class="glass"><span class="n">STEP 1</span><b>Discovery call</b><span>You describe the problem. We tell you honestly whether we are the right team for it.</span></div>
+      <div class="glass"><span class="n">STEP 2</span><b>Operations walkthrough</b><span>We map how your business runs today and where software can make the biggest difference.</span></div>
+      <div class="glass"><span class="n">STEP 3</span><b>Blueprint and proposal</b><span>A clear solution, a dated plan and a price you can take to your team.</span></div>
+    </div>
+  </div>
+  <div class="foot"><img src="img/logo-wordmark.png" alt=""><span>11</span></div>
+</section>
+
+<!-- ===================== 12. BACK ===================== -->
+<section class="page dark back">
+  <img class="bgimg" src="img/bg-back.jpg" alt="">
+  <img class="logo" src="img/logo-full-white.png" alt="Sparta Labs">
+  <div class="cta">
+    <h2>Let&rsquo;s map your business.</h2>
+    <p>Tell us how your business runs today. We will show you what it could look like with the right system behind it.</p>
+    <span class="btn"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span> Book a discovery call</span>
+  </div>
+  <div class="contact glass">
+    <div class="rows">
+      <div class="row"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span><div><small>EMAIL</small>hello@spartalabs.in</div></div>
+      <div class="row"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></span><div><small>WEBSITE</small>spartalabs.in</div></div>
+      <div class="row"><span class="ico"><svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg></span><div><small>CALL US</small>+91 79939 91162 &nbsp;/&nbsp; +91 90305 95999</div></div>
+    </div>
+    <div class="qr"><img src="img/qr.png" alt="QR code to spartalabs.in"><span>SCAN TO VISIT</span></div>
+  </div>
+</section>
+
+</body>
+</html>
