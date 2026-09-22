@@ -32,7 +32,7 @@ export default function AboutPage() {
           <Kicker>Why we exist</Kicker>
           <div className="flex flex-col gap-5">
             {story.map((paragraph) => (
-              <p key={paragraph} className="max-w-[68ch] text-lede">
+              <p key={paragraph} className="text-lede max-w-[68ch]">
                 {paragraph}
               </p>
             ))}
@@ -40,7 +40,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="border-y border-hairline bg-surface">
+      <Section className="border-hairline bg-surface border-y">
         <SectionHeader
           kicker="How we behave"
           title="Values you can hold us to."
@@ -50,10 +50,10 @@ export default function AboutPage() {
           {values.map((value) => (
             <li
               key={value.title}
-              className="border-b border-hairline py-6 first:border-t sm:[&:nth-child(2)]:border-t"
+              className="border-hairline border-b py-6 first:border-t sm:[&:nth-child(2)]:border-t"
             >
               <h3 className="text-h3 font-semibold">{value.title}</h3>
-              <p className="mt-2.5 max-w-[52ch] text-[0.9375rem] text-muted">{value.body}</p>
+              <p className="text-muted mt-2.5 max-w-[52ch] text-base">{value.body}</p>
             </li>
           ))}
         </ul>
@@ -62,18 +62,18 @@ export default function AboutPage() {
       {timeline.length > 0 ? (
         <Section>
           <SectionHeader kicker="Timeline" title="How we got here." />
-          <ol className="mt-12 grid border-t border-hairline">
+          <ol className="border-hairline mt-12 grid border-t">
             {timeline.map((entry) => (
               <li
                 key={entry.year}
-                className="grid gap-2 border-b border-hairline py-6 sm:grid-cols-[6rem_1fr] sm:gap-8"
+                className="border-hairline grid gap-2 border-b py-6 sm:grid-cols-[6rem_1fr] sm:gap-8"
               >
-                <span className="text-label tabular font-mono tracking-[0.12em] text-accent">
+                <span className="text-label tabular text-accent font-mono tracking-[0.12em]">
                   {entry.year}
                 </span>
                 <div>
                   <h3 className="text-h3 font-semibold">{entry.title}</h3>
-                  <p className="mt-2 max-w-[62ch] text-[0.9375rem] text-muted">{entry.body}</p>
+                  <p className="text-muted mt-2 max-w-[62ch] text-base">{entry.body}</p>
                 </div>
               </li>
             ))}
@@ -89,14 +89,14 @@ export default function AboutPage() {
           title="Four sectors, so far."
           lede="Each one taught us something the next client did not have to pay to learn."
         />
-        <ul className="mt-12 grid border-t border-hairline md:grid-cols-4">
+        <ul className="border-hairline mt-12 grid border-t md:grid-cols-4">
           {industries.map((industry) => (
             <li
               key={industry.name}
-              className="border-b border-hairline py-6 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
+              className="border-hairline border-b py-6 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
             >
               <h3 className="text-h3 font-semibold">{industry.name}</h3>
-              <p className="mt-2.5 text-sm text-muted">{industry.proof}</p>
+              <p className="text-muted mt-2.5 text-sm">{industry.proof}</p>
             </li>
           ))}
         </ul>

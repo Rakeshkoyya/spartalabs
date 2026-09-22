@@ -10,14 +10,14 @@ import { cn } from "@/lib/utils";
  */
 export function FeatureCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="group h-full overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-page transition-colors duration-200 hover:border-accent-core/55">
+    <article className="before:bg-accent-core group border-hairline bg-page hover:border-accent-core/55 relative h-full overflow-hidden rounded-[var(--radius-card)] border transition-colors duration-200 before:absolute before:inset-x-0 before:top-0 before:h-px before:origin-left before:scale-x-0 before:transition-transform before:duration-500 before:ease-[var(--ease-out-expo)] before:content-[''] hover:before:scale-x-100">
       <Link href={`/work/${study.slug}`} className="grid h-full lg:grid-cols-[1fr_1.15fr]">
         <Band className="min-h-[200px] lg:min-h-full" />
         <div className="flex flex-col gap-4 p-7 lg:p-9">
           <SectorTag study={study} />
           <h3 className="text-h2 font-semibold">{study.title}</h3>
-          <p className="max-w-[56ch] text-[0.9375rem] text-muted">{study.problem}</p>
-          <p className="max-w-[56ch] text-[0.9375rem]">{study.outcome}</p>
+          <p className="text-muted max-w-[56ch] text-base">{study.problem}</p>
+          <p className="max-w-[56ch] text-base">{study.outcome}</p>
           <Result study={study} className="mt-auto" />
         </div>
       </Link>
@@ -27,7 +27,7 @@ export function FeatureCard({ study }: { study: CaseStudy }) {
 
 export function StandardCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="group h-full overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-page transition-[border-color,transform] duration-200 ease-[var(--ease-out-expo)] hover:border-accent-core/55 motion-safe:hover:-translate-y-0.5">
+    <article className="before:bg-accent-core group border-hairline bg-page hover:border-accent-core/55 relative h-full overflow-hidden rounded-[var(--radius-card)] border transition-[border-color,transform] duration-200 ease-[var(--ease-out-expo)] before:absolute before:inset-x-0 before:top-0 before:h-px before:origin-left before:scale-x-0 before:transition-transform before:duration-500 before:ease-[var(--ease-out-expo)] before:content-[''] hover:before:scale-x-100 motion-safe:hover:-translate-y-0.5">
       <Link href={`/work/${study.slug}`} className="flex h-full flex-col">
         <Band className="h-[104px]" />
         <div className="flex flex-1 flex-col gap-3 p-6">
@@ -36,7 +36,7 @@ export function StandardCard({ study }: { study: CaseStudy }) {
           <h3 className="font-display text-[1.125rem] font-semibold tracking-[-0.015em]">
             {study.title}
           </h3>
-          <p className="text-sm text-muted">{study.outcome}</p>
+          <p className="text-muted text-[0.9375rem]">{study.outcome}</p>
           <Result study={study} className="mt-auto" />
         </div>
       </Link>
@@ -54,7 +54,7 @@ function Band({ className }: { className?: string }) {
     <div
       aria-hidden
       className={cn(
-        "blueprint-grid relative border-b border-hairline bg-linear-to-br from-raised to-page [background-size:26px_26px] lg:border-b-0",
+        "blueprint-grid border-hairline from-raised to-page relative border-b bg-linear-to-br [background-size:26px_26px] lg:border-b-0",
         className,
       )}
     />
@@ -63,7 +63,7 @@ function Band({ className }: { className?: string }) {
 
 function SectorTag({ study, className }: { study: CaseStudy; className?: string }) {
   return (
-    <p className={cn("text-label font-mono tracking-[0.14em] text-accent uppercase", className)}>
+    <p className={cn("text-label text-accent font-mono tracking-[0.14em] uppercase", className)}>
       {study.sector} — {study.client}
     </p>
   );
@@ -73,21 +73,21 @@ function Result({ study, className }: { study: CaseStudy; className?: string }) 
   const pending = study.metric.value === null;
 
   return (
-    <div className={cn("flex items-baseline gap-2.5 border-t border-hairline pt-4", className)}>
+    <div className={cn("border-hairline flex items-baseline gap-2.5 border-t pt-4", className)}>
       <span
         data-pending={pending ? "" : undefined}
         title={pending ? "Unconfirmed figure — pending client sign-off" : undefined}
         className={cn(
           "tabular font-display text-[1.375rem] font-bold tracking-[-0.02em]",
-          pending ? "border-b border-dashed border-hairline-strong text-muted" : "text-accent",
+          pending ? "border-hairline-strong text-muted border-b border-dashed" : "text-accent",
         )}
       >
         {study.metric.value ?? "TBD"}
       </span>
-      <span className="text-sm text-muted">{study.metric.label}</span>
+      <span className="text-muted text-sm">{study.metric.label}</span>
       <ArrowUpRight
         aria-hidden
-        className="ml-auto size-4 shrink-0 text-muted transition-colors duration-200 group-hover:text-accent"
+        className="text-muted group-hover:text-accent ml-auto size-4 shrink-0 transition-colors duration-200"
       />
     </div>
   );

@@ -8,17 +8,17 @@ import { Container } from "@/components/ui/container";
  */
 export function TrustStrip() {
   return (
-    <div className="border-b border-hairline">
+    <div className="border-hairline border-b">
       <Container>
         <div className="flex flex-col gap-4 py-7 md:flex-row md:items-center md:gap-10">
-          <span className="text-label shrink-0 font-mono tracking-[0.15em] text-muted uppercase">
+          <span className="text-label text-muted shrink-0 font-mono tracking-[0.15em] uppercase">
             Delivering for teams in
           </span>
           <ul className="flex flex-wrap items-center gap-x-7 gap-y-2.5">
             {industries.map((industry) => (
               <li
                 key={industry.name}
-                className="font-display text-[0.9375rem] font-semibold tracking-[-0.01em]"
+                className="font-display text-base font-semibold tracking-[-0.01em]"
               >
                 {industry.name}
               </li>

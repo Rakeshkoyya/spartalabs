@@ -6,10 +6,10 @@ export default function NotFound() {
   return (
     <Container className="flex min-h-[70vh] flex-col justify-center py-32">
       <Kicker rule={false}>Error 404</Kicker>
-      <h1 className="text-h1 mt-4 max-w-[18ch] font-display font-bold">
+      <h1 className="text-h1 font-display mt-4 max-w-[18ch] font-bold">
         This page is not part of the system.
       </h1>
-      <p className="mt-5 max-w-[48ch] text-lede text-muted">
+      <p className="text-lede text-muted mt-5 max-w-[48ch]">
         The address does not match anything we have built. Head back to the start, or tell us what
         you were looking for.
       </p>

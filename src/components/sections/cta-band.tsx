@@ -17,7 +17,7 @@ export function CtaBand({
   body?: string;
 }) {
   return (
-    <div className="relative overflow-hidden border-t border-hairline bg-surface">
+    <div className="border-hairline bg-surface relative overflow-hidden border-t">
       <div aria-hidden className="blueprint-grid veil-cta pointer-events-none absolute inset-0" />
 
       <Container className="relative">
@@ -25,27 +25,27 @@ export function CtaBand({
           <div>
             <Kicker rule={false}>{kicker}</Kicker>
             <h2 className="text-h2 mt-4 max-w-[20ch] font-semibold">{title}</h2>
-            <p className="text-lede mt-4 max-w-[52ch] text-muted">
+            <p className="text-lede text-muted mt-4 max-w-[52ch]">
               {body} We reply {contact.responseTime}.
             </p>
           </div>
 
           <div className="flex flex-col gap-4 lg:items-end">
             <Button href="/contact">Start a conversation</Button>
-            <div className="flex flex-col gap-1.5 text-sm text-muted lg:text-right">
-              <a href={`mailto:${contact.email}`} className="transition-colors hover:text-accent">
+            <div className="text-muted flex flex-col gap-1.5 text-sm lg:text-right">
+              <a href={`mailto:${contact.email}`} className="hover:text-accent transition-colors">
                 {contact.email}
               </a>
               {contact.phone ? (
                 <a
                   href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                  className="transition-colors hover:text-accent"
+                  className="hover:text-accent transition-colors"
                 >
                   {contact.phone}
                 </a>
               ) : null}
               {contact.whatsapp ? (
-                <a href={contact.whatsapp} className="transition-colors hover:text-accent">
+                <a href={contact.whatsapp} className="hover:text-accent transition-colors">
                   WhatsApp
                 </a>
               ) : null}

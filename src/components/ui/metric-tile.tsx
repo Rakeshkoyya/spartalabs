@@ -10,18 +10,18 @@ import { cn } from "@/lib/utils";
  */
 export function MetricTile({ metric, className }: { metric: Metric; className?: string }) {
   return (
-    <div className={cn("h-full bg-page px-5 py-5 sm:px-6", className)}>
+    <div className={cn("bg-page h-full px-5 py-5 sm:px-6", className)}>
       <span
         data-pending={metric.pending ? "" : undefined}
         title={metric.pending ? "Unconfirmed figure — pending client sign-off" : undefined}
         className={cn(
-          "tabular inline-block font-display text-h2 font-bold",
-          metric.pending && "border-b border-dashed border-hairline-strong text-muted",
+          "tabular font-display text-h2 inline-block font-bold",
+          metric.pending && "border-hairline-strong text-muted border-b border-dashed",
         )}
       >
         {metric.value}
       </span>
-      <span className="text-label mt-2.5 block font-mono tracking-[0.14em] text-muted uppercase">
+      <span className="text-label text-muted mt-2.5 block font-mono tracking-[0.14em] uppercase">
         {metric.label}
       </span>
     </div>

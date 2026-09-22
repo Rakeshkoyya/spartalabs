@@ -41,8 +41,8 @@
   --text-h3--line-height: 1.22;
   --text-h3--letter-spacing: -0.015em;
 
-  --text-lede: 1.0625rem;
-  --text-lede--line-height: 1.68;
+  --text-lede: 1.125rem;
+  --text-lede--line-height: 1.7;
 
   --text-label: 0.6875rem;
   --text-label--line-height: 1.4;
@@ -70,13 +70,14 @@
   --hairline: rgb(242 240 237 / 0.1);
   --hairline-strong: rgb(242 240 237 / 0.2);
   --ink: #f2f0ed;
-  --muted: #a8adb6;
+  --muted: #b0b6bf;
   --accent: #e09a5b;
   --accent-core: #c07a3c;
   --accent-contrast: #160d05;
   --accent-wash: rgb(224 154 91 / 0.12);
   --signal: #5fb183;
   --grid-line: rgb(242 240 237 / 0.055);
+  --grid-torch: rgb(224 154 91 / 0.2);
   --glow: rgb(192 122 60 / 0.26);
   --shadow-lift: 0 24px 48px -16px rgb(0 0 0 / 0.55);
 }
@@ -90,7 +91,7 @@
   --hairline: rgb(20 22 26 / 0.11);
   --hairline-strong: rgb(20 22 26 / 0.22);
   --ink: #14161a;
-  --muted: #5c636e;
+  --muted: #4f5661;
   /* Bronze 500 is only 3.4:1 on paper — small text on light uses Bronze 700. */
   --accent: #8a5322;
   --accent-core: #c07a3c;
@@ -98,6 +99,7 @@
   --accent-wash: rgb(192 122 60 / 0.1);
   --signal: #3c7d57;
   --grid-line: rgb(20 22 26 / 0.055);
+  --grid-torch: rgb(192 122 60 / 0.22);
   --glow: rgb(192 122 60 / 0.16);
   --shadow-lift: 0 20px 44px -18px rgb(28 20 10 / 0.22);
 }
@@ -176,6 +178,17 @@
   background-size: 64px 64px;
 }
 
+@utility torch-grid {
+  background-image:
+    linear-gradient(var(--grid-torch) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-torch) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(210px circle at var(--px, -100px) var(--py, -100px), #000 0%, transparent 72%);
+  mask-image: radial-gradient(210px circle at var(--px, -100px) var(--py, -100px), #000 0%, transparent 72%);
+  opacity: var(--torch, 0);
+  transition: opacity 420ms var(--ease-out-expo);
+}
+
 @utility veil-hero {
   -webkit-mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
   mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
@@ -194,17 +207,6 @@
    MOTION
    Confidence is quiet: one entrance, no parallax, no scroll-jacking.
    ========================================================================= */
-@keyframes sl-rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -220,19 +222,146 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Hero entrance.
+   MOTION — "Formation"
 
-   The only scroll-independent motion on the site. Gated on `html.js`, set by an
-   inline script before first paint, so a page whose JavaScript never arrives
-   renders fully visible instead of stranded at opacity 0.
+   The name earns this one. A phalanx is individual units locking into a single
+   line, so nothing on this site floats in: a rule is drawn first, then content
+   locks to it. Every sequence is draw then lock.
 
-   There are deliberately no scroll reveals: staggered fade-ups on every section
-   are the most recognisable tell of a generated page, and a design whose whole
-   argument is restraint cannot afford them.
+   Staggered fade-ups appear nowhere. They are the generic default, they are the
+   clearest tell of a generated page, and an earlier build of this site proved
+   they are fragile too — one missed observer and the page is blank below the
+   fold. Everything here is gated on `html.js`, set before first paint, so a
+   page whose JavaScript never arrives renders complete instead.
    ------------------------------------------------------------------------- */
-.js [data-enter] {
-  animation: sl-rise 0.62s var(--ease-out-expo) both;
+
+@keyframes sl-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes sl-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sl-lock {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sl-sweep {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  55.01% {
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+/* The first beat of every sequence: a rule drawn from its left edge. */
+.js [data-draw] {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.js [data-draw].is-in {
+  animation: sl-draw 460ms var(--ease-out-expo) forwards;
+  animation-delay: var(--m-delay, 0ms);
+}
+
+/* Headings revealed by a passing edge — drawn rather than faded. */
+.js [data-wipe] {
+  clip-path: inset(0 100% 0 0);
+}
+
+.js [data-wipe].is-in {
+  animation: sl-wipe 620ms var(--ease-out-expo) forwards;
+  animation-delay: var(--m-delay, 0ms);
+}
+
+/* Blocks locking into alignment, from the edge they align to. */
+.js [data-lock] {
+  opacity: 0;
+  transform: translateX(-14px);
+}
+
+.js [data-lock].is-in {
+  animation: sl-lock 560ms var(--ease-out-expo) forwards;
+  animation-delay: var(--m-delay, 0ms);
+}
+
+/*
+ * Dropped by the observer the moment each animation ends. A retained clip-path
+ * would quietly crop hover lifts and shadows for the life of the page, and a
+ * retained transform would make the element a containing block for anything
+ * fixed inside it — the exact bug that broke the mobile menu.
+ */
+.js [data-draw].is-done,
+.js [data-wipe].is-done,
+.js [data-lock].is-done,
+.js [data-enter].is-done {
+  animation: none;
+  opacity: 1;
+  clip-path: none;
+  transform: none;
+}
+
+.js [data-enter="lock"] {
+  animation: sl-lock 560ms var(--ease-out-expo) both;
   animation-delay: var(--enter-delay, 0ms);
+}
+
+.js [data-enter="wipe"] {
+  animation: sl-wipe 720ms var(--ease-out-expo) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.js [data-enter="draw"] {
+  transform-origin: left center;
+  animation: sl-draw 520ms var(--ease-out-expo) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+/* Route change: one bronze line crossing the page and leaving. */
+.js [data-route-sweep] {
+  animation: sl-sweep 720ms var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-draw],
+  .js [data-wipe],
+  .js [data-lock],
+  .js [data-enter],
+  .js [data-route-sweep] {
+    animation: none;
+    opacity: 1;
+    clip-path: none;
+    transform: none;
+  }
 }
 
 /* Radix accordion height transition. */

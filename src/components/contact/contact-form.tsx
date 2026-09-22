@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const controlClass =
-  "w-full rounded-[var(--radius-control)] border border-hairline-strong bg-page px-3.5 py-3 text-[0.9375rem] text-ink transition-colors duration-200 placeholder:text-muted hover:border-accent-core/60 focus:border-accent-core focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-hairline-strong bg-page px-3.5 py-3 text-base text-ink transition-colors duration-200 placeholder:text-muted hover:border-accent-core/60 focus:border-accent-core focus:outline-none";
 
 export function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -52,10 +52,10 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-[var(--radius-card)] border border-hairline bg-surface p-8"
+        className="border-hairline bg-surface rounded-[var(--radius-card)] border p-8"
       >
         <h2 className="text-h3 font-semibold">Message received.</h2>
-        <p className="mt-3 max-w-[48ch] text-[0.9375rem] text-muted">
+        <p className="text-muted mt-3 max-w-[48ch] text-base">
           We reply {contact.responseTime}. If it is urgent before then, email{" "}
           <a href={`mailto:${contact.email}`} className="text-accent hover:underline">
             {contact.email}
@@ -69,12 +69,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
       <Field label="Your name" htmlFor="name" error={errors.name?.message}>
-        <input
-          id="name"
-          autoComplete="name"
-          className={controlClass}
-          {...register("name")}
-        />
+        <input id="name" autoComplete="name" className={controlClass} {...register("name")} />
       </Field>
 
       <Field label="Work email" htmlFor="email" error={errors.email?.message}>
@@ -125,7 +120,7 @@ export function ContactForm() {
       {serverError ? (
         <p
           role="alert"
-          className="rounded-[var(--radius-control)] border border-hairline-strong bg-accent-wash px-4 py-3 text-sm"
+          className="border-hairline-strong bg-accent-wash rounded-[var(--radius-control)] border px-4 py-3 text-sm"
         >
           {serverError}
         </p>
@@ -135,7 +130,7 @@ export function ContactForm() {
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Sending…" : "Send it"}
         </Button>
-        <p className="text-sm text-muted">We reply {contact.responseTime}.</p>
+        <p className="text-muted text-sm">We reply {contact.responseTime}.</p>
       </div>
     </form>
   );
@@ -158,14 +153,14 @@ function Field({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={htmlFor}
-        className="text-label flex items-center gap-2 font-mono tracking-[0.14em] text-muted uppercase"
+        className="text-label text-muted flex items-center gap-2 font-mono tracking-[0.14em] uppercase"
       >
         {label}
         {optional ? <span className="normal-case">(optional)</span> : null}
       </label>
       {children}
       {error ? (
-        <p role="alert" className="text-sm text-accent">
+        <p role="alert" className="text-accent text-sm">
           {error}
         </p>
       ) : null}

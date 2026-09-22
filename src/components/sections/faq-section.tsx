@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 
 export function FaqSection() {
   return (
-    <Section id="faq" className="border-t border-hairline">
+    <Section id="faq" label="Questions" className="border-hairline border-t">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-16">
         <SectionHeader
           kicker="Questions"
@@ -20,19 +20,19 @@ export function FaqSection() {
             <Accordion.Item
               key={item.question}
               value={`item-${index}`}
-              className="border-b border-hairline first:border-t"
+              className="border-hairline border-b first:border-t"
             >
               <Accordion.Header>
-                <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-4 text-left text-[0.9375rem] font-medium">
+                <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-4 text-left text-base font-medium">
                   {item.question}
                   <Plus
                     aria-hidden
-                    className="size-4 shrink-0 text-accent transition-transform duration-200 ease-[var(--ease-out-expo)] group-data-[state=open]:rotate-45"
+                    className="text-accent size-4 shrink-0 transition-transform duration-200 ease-[var(--ease-out-expo)] group-data-[state=open]:rotate-45"
                   />
                 </Accordion.Trigger>
               </Accordion.Header>
               <Accordion.Content className="accordion-content overflow-hidden">
-                <p className="max-w-[58ch] pb-5 text-sm text-muted">{item.answer}</p>
+                <p className="text-muted max-w-[58ch] pb-5 text-sm">{item.answer}</p>
               </Accordion.Content>
             </Accordion.Item>
           ))}

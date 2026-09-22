@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { FormationReveals } from "@/components/motion/formation-reveals";
+import { Spine } from "@/components/motion/spine";
 import { isIndexable, site, siteUrl } from "@/content/site";
 import "./globals.css";
 
@@ -78,13 +80,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-[var(--radius-control)] focus:bg-accent-core focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-accent-contrast"
+          className="focus:bg-accent-core focus:text-accent-contrast sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-[var(--radius-control)] focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold"
         >
           Skip to content
         </a>
         <SiteHeader />
+        <Spine />
         <main id="main">{children}</main>
         <SiteFooter />
+        <FormationReveals />
       </body>
     </html>
   );

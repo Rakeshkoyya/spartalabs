@@ -13,17 +13,17 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-hairline">
+    <footer className="border-hairline border-t">
       <Container>
         <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:py-16">
           <div className="flex flex-col gap-4 lg:col-span-1">
-            <span className="flex items-center gap-2.5 font-display text-base font-bold tracking-[-0.02em]">
+            <span className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]">
               <ChevronMark className="text-accent-core" />
               {site.name}
             </span>
-            <p className="max-w-[34ch] text-sm text-muted">{site.tagline}</p>
+            <p className="text-muted max-w-[34ch] text-sm">{site.tagline}</p>
             {company.addressLines ? (
-              <address className="text-sm text-muted not-italic">
+              <address className="text-muted text-sm not-italic">
                 {company.addressLines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -63,11 +63,11 @@ export function SiteFooter() {
               </FooterLink>
             ) : null}
             {contact.whatsapp ? <FooterLink href={contact.whatsapp}>WhatsApp</FooterLink> : null}
-            <li className="pt-1 text-sm text-muted">We reply {contact.responseTime}.</li>
+            <li className="text-muted pt-1 text-sm">We reply {contact.responseTime}.</li>
           </FooterColumn>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-hairline py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-hairline text-muted flex flex-col gap-3 border-t py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {company.legalName ?? site.name}
             {company.cin ? ` · CIN ${company.cin}` : ""}
@@ -76,7 +76,7 @@ export function SiteFooter() {
           <ul className="flex flex-wrap items-center gap-5">
             {legalNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="transition-colors duration-200 hover:text-accent">
+                <Link href={item.href} className="hover:text-accent transition-colors duration-200">
                   {item.label}
                 </Link>
               </li>
@@ -92,7 +92,7 @@ export function SiteFooter() {
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-label font-mono font-medium tracking-[0.15em] text-muted uppercase">
+      <h2 className="text-label text-muted font-mono font-medium tracking-[0.15em] uppercase">
         {title}
       </h2>
       <ul className="flex flex-col gap-2.5">{children}</ul>

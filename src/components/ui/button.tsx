@@ -15,9 +15,9 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Variant, Record<Size, string>> = {
-  primary: { sm: "px-4 py-2.5 text-sm", md: "px-5 py-3.5 text-[0.9375rem]" },
-  secondary: { sm: "px-4 py-2.5 text-sm", md: "px-5 py-3.5 text-[0.9375rem]" },
-  ghost: { sm: "px-1 py-1 text-sm", md: "px-1 py-1 text-[0.9375rem]" },
+  primary: { sm: "px-4 py-2.5 text-sm", md: "px-5 py-3.5 text-base" },
+  secondary: { sm: "px-4 py-2.5 text-sm", md: "px-5 py-3.5 text-base" },
+  ghost: { sm: "px-1 py-1 text-sm", md: "px-1 py-1 text-base" },
 };
 
 type CommonProps = {

@@ -37,7 +37,7 @@ export default function ContactPage() {
                 <li>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="text-[0.9375rem] transition-colors hover:text-accent"
+                    className="hover:text-accent text-base transition-colors"
                   >
                     {contact.email}
                   </a>
@@ -46,7 +46,7 @@ export default function ContactPage() {
                   <li>
                     <a
                       href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                      className="text-[0.9375rem] transition-colors hover:text-accent"
+                      className="hover:text-accent text-base transition-colors"
                     >
                       {contact.phone}
                     </a>
@@ -56,7 +56,7 @@ export default function ContactPage() {
                   <li>
                     <a
                       href={contact.whatsapp}
-                      className="text-[0.9375rem] transition-colors hover:text-accent"
+                      className="hover:text-accent text-base transition-colors"
                     >
                       WhatsApp
                     </a>
@@ -68,7 +68,7 @@ export default function ContactPage() {
             {company.addressLines ? (
               <div>
                 <Kicker rule={false}>Office</Kicker>
-                <address className="mt-4 text-[0.9375rem] text-muted not-italic">
+                <address className="text-muted mt-4 text-base not-italic">
                   {company.addressLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -78,13 +78,13 @@ export default function ContactPage() {
               </div>
             ) : null}
 
-            <div className="border-t border-hairline pt-8">
+            <div className="border-hairline border-t pt-8">
               <Kicker rule={false}>Before you write</Kicker>
               <dl className="mt-4 flex flex-col gap-5">
                 {faq.slice(0, 3).map((item) => (
                   <div key={item.question}>
-                    <dt className="text-[0.9375rem] font-medium">{item.question}</dt>
-                    <dd className="mt-1.5 text-sm text-muted">{item.answer}</dd>
+                    <dt className="text-base font-medium">{item.question}</dt>
+                    <dd className="text-muted mt-1.5 text-sm">{item.answer}</dd>
                   </div>
                 ))}
               </dl>

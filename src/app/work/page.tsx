@@ -65,9 +65,9 @@ export default async function WorkPage({
             ))}
           </ul>
         ) : (
-          <p className="mt-10 text-lede text-muted">
-            Nothing in that sector yet — but it is almost certainly a system we have built the
-            shape of before.{" "}
+          <p className="text-lede text-muted mt-10">
+            Nothing in that sector yet — but it is almost certainly a system we have built the shape
+            of before.{" "}
             <Link href="/contact" className="text-accent hover:underline">
               Ask us
             </Link>

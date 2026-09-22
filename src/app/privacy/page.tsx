@@ -69,8 +69,8 @@ export default function PrivacyPage() {
           <h2>Your rights</h2>
           <p>
             You can ask what we hold about you, ask for it to be corrected, or ask for it to be
-            deleted. Write to{" "}
-            <a href={`mailto:${contact.email}`}>{contact.email}</a> and we will act on it.
+            deleted. Write to <a href={`mailto:${contact.email}`}>{contact.email}</a> and we will
+            act on it.
           </p>
 
           <h2>Changes</h2>

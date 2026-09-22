@@ -43,71 +43,73 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ease-[var(--ease-out-expo)]",
-        scrolled
-          ? "border-b border-hairline bg-page/80 backdrop-blur-xl"
-          : "border-b border-transparent",
-      )}
-    >
-      <Container>
-        <div
-          className={cn(
-            "flex items-center justify-between gap-6 transition-[height] duration-300 ease-[var(--ease-out-expo)]",
-            scrolled ? "h-[60px]" : "h-[72px]",
-          )}
-        >
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 font-display text-base font-bold tracking-[-0.02em]"
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ease-[var(--ease-out-expo)]",
+          scrolled
+            ? "border-hairline bg-page/80 border-b backdrop-blur-xl"
+            : "border-b border-transparent",
+        )}
+      >
+        <Container>
+          <div
+            className={cn(
+              "flex items-center justify-between gap-6 transition-[height] duration-300 ease-[var(--ease-out-expo)]",
+              scrolled ? "h-[60px]" : "h-[72px]",
+            )}
           >
-            <ChevronMark className="text-accent-core" />
-            {site.name}
-          </Link>
-
-          <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-            {nav.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "text-sm transition-colors duration-200 hover:text-ink",
-                    active ? "text-ink" : "text-muted",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2.5">
-            <ThemeToggle />
-            <Button href={primaryCta.href} size="sm" className="hidden sm:inline-flex">
-              {primaryCta.label}
-            </Button>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
-              aria-expanded={open}
-              className="grid size-9 place-items-center rounded-[var(--radius-control)] border border-hairline-strong text-muted md:hidden"
+            <Link
+              href="/"
+              className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]"
             >
-              <Menu aria-hidden className="size-4" />
-            </button>
+              <ChevronMark className="text-accent-core" />
+              {site.name}
+            </Link>
+
+            <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+              {nav.map((item) => {
+                const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "hover:text-ink text-sm transition-colors duration-200",
+                      active ? "text-ink" : "text-muted",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="flex items-center gap-2.5">
+              <ThemeToggle />
+              <Button href={primaryCta.href} size="sm" className="hidden sm:inline-flex">
+                {primaryCta.label}
+              </Button>
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                aria-label="Open menu"
+                aria-expanded={open}
+                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-[var(--radius-control)] border md:hidden"
+              >
+                <Menu aria-hidden className="size-4" />
+              </button>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </header>
 
       {open ? (
-        <div className="fixed inset-0 z-50 flex flex-col bg-page md:hidden">
+        <div className="bg-page fixed inset-0 z-[60] flex flex-col md:hidden">
           <Container>
             <div className="flex h-[72px] items-center justify-between">
-              <span className="flex items-center gap-2.5 font-display text-base font-bold tracking-[-0.02em]">
+              <span className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]">
                 <ChevronMark className="text-accent-core" />
                 {site.name}
               </span>
@@ -115,7 +117,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="grid size-9 place-items-center rounded-[var(--radius-control)] border border-hairline-strong text-muted"
+                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-[var(--radius-control)] border"
               >
                 <X aria-hidden className="size-4" />
               </button>
@@ -129,9 +131,9 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="text-h3 flex items-baseline gap-4 border-b border-hairline py-5 font-display font-semibold"
+                  className="text-h3 border-hairline font-display flex items-baseline gap-4 border-b py-5 font-semibold"
                 >
-                  <span className="text-label font-mono text-accent">
+                  <span className="text-label text-accent font-mono">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}
@@ -144,6 +146,6 @@ export function SiteHeader() {
           </Container>
         </div>
       ) : null}
-    </header>
+    </>
   );
 }

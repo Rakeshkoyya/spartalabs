@@ -10,7 +10,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
  */
 export function Pods() {
   return (
-    <Section id="pods" className="border-y border-hairline bg-surface">
+    <Section id="pods" label="Specialist pods" className="border-hairline bg-surface border-y">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
         <SectionHeader
           kicker="Specialist pods"
@@ -22,17 +22,17 @@ export function Pods() {
           {pods.map((pod) => (
             <li
               key={pod.name}
-              className="flex flex-col gap-1.5 border-b border-hairline py-4 first:border-t sm:flex-row sm:items-baseline sm:gap-4 lg:first:border-t-0 lg:first:pt-0"
+              className="border-hairline flex flex-col gap-1.5 border-b py-4 first:border-t sm:flex-row sm:items-baseline sm:gap-4 lg:first:border-t-0 lg:first:pt-0"
             >
               <div className="flex items-baseline gap-3 sm:w-[11rem] sm:shrink-0">
-                <ChevronMark className="h-3 w-2.5 translate-y-0.5 text-accent-core" />
+                <ChevronMark className="text-accent-core h-3 w-2.5 translate-y-0.5" />
                 <h3 className="font-display text-[1rem] font-semibold tracking-[-0.01em]">
                   {pod.name}
                 </h3>
               </div>
-              <p className="flex-1 pl-[1.375rem] text-sm text-muted sm:pl-0">{pod.owns}</p>
+              <p className="text-muted flex-1 pl-[1.375rem] text-[0.9375rem] sm:pl-0">{pod.owns}</p>
               {pod.headcount ? (
-                <span className="text-label tabular font-mono text-muted">{pod.headcount}</span>
+                <span className="text-label tabular text-muted font-mono">{pod.headcount}</span>
               ) : null}
             </li>
           ))}

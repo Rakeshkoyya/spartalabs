@@ -39,15 +39,18 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <>
-      <div className="relative overflow-hidden border-b border-hairline">
-        <div aria-hidden className="blueprint-grid veil-hero pointer-events-none absolute inset-0" />
+      <div className="border-hairline relative overflow-hidden border-b">
+        <div
+          aria-hidden
+          className="blueprint-grid veil-hero pointer-events-none absolute inset-0"
+        />
         <Container className="relative pt-[8.5rem] pb-14 md:pt-[10rem] md:pb-18">
           <div className="max-w-[52rem]">
             <Kicker>
               {study.sector} — {study.client}
             </Kicker>
-            <h1 className="text-h1 mt-5 font-display font-bold">{study.title}</h1>
-            <p className="text-lede mt-5 max-w-[60ch] text-muted">{study.outcome}</p>
+            <h1 className="text-h1 font-display mt-5 font-bold">{study.title}</h1>
+            <p className="text-lede text-muted mt-5 max-w-[60ch]">{study.outcome}</p>
             <div className="mt-8">
               <Breadcrumbs
                 trail={[
@@ -60,15 +63,15 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </Container>
       </div>
 
-      <div className="border-b border-hairline bg-surface">
+      <div className="border-hairline bg-surface border-b">
         <Container>
-          <dl className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="bg-hairline grid gap-px sm:grid-cols-2 lg:grid-cols-4">
             {study.facts.map((fact) => (
               <div key={fact.label} className="bg-surface py-6 sm:px-6 sm:first:pl-0 lg:last:pr-0">
-                <dt className="text-label font-mono tracking-[0.14em] text-muted uppercase">
+                <dt className="text-label text-muted font-mono tracking-[0.14em] uppercase">
                   {fact.label}
                 </dt>
-                <dd className="mt-2 text-[0.9375rem]">{fact.value}</dd>
+                <dd className="mt-2 text-base">{fact.value}</dd>
               </div>
             ))}
           </dl>
@@ -80,7 +83,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <Kicker>The challenge</Kicker>
           <div className="flex flex-col gap-5">
             {study.challenge.map((paragraph) => (
-              <p key={paragraph} className="max-w-[68ch] text-lede">
+              <p key={paragraph} className="text-lede max-w-[68ch]">
                 {paragraph}
               </p>
             ))}
@@ -88,21 +91,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </div>
       </Section>
 
-      <Section className="border-y border-hairline bg-surface">
+      <Section className="border-hairline bg-surface border-y">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16">
           <Kicker>What we built</Kicker>
-          <ol className="grid border-t border-hairline">
+          <ol className="border-hairline grid border-t">
             {study.built.map((block, blockIndex) => (
               <li
                 key={block.title}
-                className="grid gap-2 border-b border-hairline py-6 sm:grid-cols-[3rem_1fr] sm:gap-6"
+                className="border-hairline grid gap-2 border-b py-6 sm:grid-cols-[3rem_1fr] sm:gap-6"
               >
-                <span className="text-label font-mono tracking-[0.12em] text-accent">
+                <span className="text-label text-accent font-mono tracking-[0.12em]">
                   {String(blockIndex + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <h2 className="text-h3 font-semibold">{block.title}</h2>
-                  <p className="mt-2 max-w-[62ch] text-[0.9375rem] text-muted">{block.body}</p>
+                  <p className="text-muted mt-2 max-w-[62ch] text-base">{block.body}</p>
                 </div>
               </li>
             ))}
@@ -113,14 +116,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <Section>
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16">
           <Kicker>How we worked</Kicker>
-          <p className="max-w-[68ch] text-lede">{study.collaboration}</p>
+          <p className="text-lede max-w-[68ch]">{study.collaboration}</p>
         </div>
       </Section>
 
-      <Section className="border-t border-hairline bg-surface">
+      <Section className="border-hairline bg-surface border-t">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16">
           <Kicker>Results</Kicker>
-          <ul className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="bg-hairline grid gap-px sm:grid-cols-2 lg:grid-cols-3">
             {study.results.map((result) => {
               const pending = result.value === null;
               return (
@@ -129,15 +132,15 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     data-pending={pending ? "" : undefined}
                     title={pending ? "Unconfirmed figure — pending client sign-off" : undefined}
                     className={cn(
-                      "tabular inline-block font-display text-h2 font-bold",
+                      "tabular font-display text-h2 inline-block font-bold",
                       pending
-                        ? "border-b border-dashed border-hairline-strong text-muted"
+                        ? "border-hairline-strong text-muted border-b border-dashed"
                         : "text-accent",
                     )}
                   >
                     {result.value ?? "TBD"}
                   </span>
-                  <span className="mt-2.5 block text-sm text-muted">{result.label}</span>
+                  <span className="text-muted mt-2.5 block text-sm">{result.label}</span>
                 </li>
               );
             })}
@@ -145,21 +148,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </div>
       </Section>
 
-      <div className="border-t border-hairline">
+      <div className="border-hairline border-t">
         <Container>
           <Link
             href={`/work/${next.slug}`}
             className="group flex flex-wrap items-baseline justify-between gap-4 py-10"
           >
             <div>
-              <span className="text-label font-mono tracking-[0.14em] text-muted uppercase">
+              <span className="text-label text-muted font-mono tracking-[0.14em] uppercase">
                 Next project
               </span>
-              <p className="text-h3 mt-2 font-display font-semibold">{next.title}</p>
+              <p className="text-h3 font-display mt-2 font-semibold">{next.title}</p>
             </div>
             <ArrowRight
               aria-hidden
-              className="size-5 text-muted transition-[color,transform] duration-200 group-hover:translate-x-1 group-hover:text-accent"
+              className="text-muted group-hover:text-accent size-5 transition-[color,transform] duration-200 group-hover:translate-x-1"
             />
           </Link>
         </Container>

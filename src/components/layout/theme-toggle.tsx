@@ -23,7 +23,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={toggle}
       aria-label="Switch colour theme"
-      className={`grid size-9 place-items-center rounded-[var(--radius-control)] border border-hairline-strong text-muted transition-colors duration-200 hover:border-accent-core hover:text-accent ${className ?? ""}`}
+      className={`border-hairline-strong text-muted hover:border-accent-core hover:text-accent grid size-9 place-items-center rounded-[var(--radius-control)] border transition-colors duration-200 ${className ?? ""}`}
     >
       <Moon aria-hidden className="size-4 [.light_&]:hidden" />
       <Sun aria-hidden className="hidden size-4 [.light_&]:block" />

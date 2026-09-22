@@ -20,9 +20,9 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
         }}
       />
       <nav aria-label="Breadcrumb">
-        <ol className="text-label flex flex-wrap items-center gap-2 font-mono tracking-[0.12em] text-muted uppercase">
+        <ol className="text-label text-muted flex flex-wrap items-center gap-2 font-mono tracking-[0.12em] uppercase">
           <li>
-            <Link href="/" className="transition-colors hover:text-accent">
+            <Link href="/" className="hover:text-accent transition-colors">
               Home
             </Link>
           </li>
@@ -36,7 +36,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
                     {crumb.label}
                   </span>
                 ) : (
-                  <Link href={crumb.href} className="transition-colors hover:text-accent">
+                  <Link href={crumb.href} className="hover:text-accent transition-colors">
                     {crumb.label}
                   </Link>
                 )}

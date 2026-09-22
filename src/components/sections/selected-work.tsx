@@ -7,7 +7,7 @@ export function SelectedWork() {
   const [featured, ...rest] = work;
 
   return (
-    <Section id="work" className="border-y border-hairline bg-surface">
+    <Section id="work" label="Selected work" className="border-hairline bg-surface border-y">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
           kicker="Selected work"
@@ -16,7 +16,7 @@ export function SelectedWork() {
         />
         <Link
           href="/work"
-          className="text-sm text-muted transition-colors duration-200 hover:text-accent"
+          className="text-muted hover:text-accent text-sm transition-colors duration-200"
         >
           All work →
         </Link>

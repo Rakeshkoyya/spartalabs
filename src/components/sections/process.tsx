@@ -8,7 +8,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
  */
 export function Process() {
   return (
-    <Section id="approach">
+    <Section id="approach" label="How we work">
       <SectionHeader
         kicker="How we work"
         title="You will always know where your project is."
@@ -17,13 +17,13 @@ export function Process() {
 
       <ol className="mt-12 grid gap-8 md:grid-cols-5 md:gap-5">
         {processSteps.map((step) => (
-          <li key={step.id} className="relative border-t border-hairline pt-5">
-            <span aria-hidden className="absolute -top-px left-0 h-px w-10 bg-accent-core" />
-            <span className="text-label font-mono tracking-[0.12em] text-accent">{step.id}</span>
-            <h3 className="mt-2 font-display text-[1.0625rem] font-semibold tracking-[-0.01em]">
+          <li key={step.id} className="border-hairline relative border-t pt-5">
+            <span aria-hidden className="bg-accent-core absolute -top-px left-0 h-px w-10" />
+            <span className="text-label text-accent font-mono tracking-[0.12em]">{step.id}</span>
+            <h3 className="font-display mt-2 text-[1.0625rem] font-semibold tracking-[-0.01em]">
               {step.title}
             </h3>
-            <p className="mt-2 text-sm text-muted">{step.body}</p>
+            <p className="text-muted mt-2 text-[0.9375rem]">{step.body}</p>
           </li>
         ))}
       </ol>
@@ -31,11 +31,11 @@ export function Process() {
       <ul className="mt-14 grid gap-4 md:grid-cols-3">
         {guarantees.map((guarantee) => (
           <li key={guarantee.title}>
-            <div className="h-full rounded-[var(--radius-card)] border border-hairline bg-surface p-6">
+            <div className="border-hairline bg-surface h-full rounded-[var(--radius-card)] border p-6">
               <h3 className="font-display text-[1.0625rem] font-semibold tracking-[-0.01em]">
                 {guarantee.title}
               </h3>
-              <p className="mt-2.5 text-[0.9375rem] text-muted">{guarantee.body}</p>
+              <p className="text-muted mt-2.5 text-base">{guarantee.body}</p>
             </div>
           </li>
         ))}
