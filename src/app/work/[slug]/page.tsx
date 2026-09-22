@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -23,7 +24,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
-  return { title: study.title, description: study.outcome };
+  return pageMetadata({
+    title: `${study.title} (${study.sector} case study)`,
+    description: study.outcome,
+    path: `/work/${study.slug}`,
+  });
 }
 
 /**

@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { contact, site } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { PageHero } from "@/components/ui/page-hero";
 import { Prose } from "@/components/ui/prose";
 import { Section } from "@/components/ui/section";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms",
   description: `The terms that apply to your use of the ${site.name} website.`,
-};
+  path: "/terms",
+});
 
 /**
  * TODO(legal): a plain-language starting point, not reviewed by a lawyer.

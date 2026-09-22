@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { FormationReveals } from "@/components/motion/formation-reveals";
 import { Spine } from "@/components/motion/spine";
 import { isIndexable, site, siteUrl } from "@/content/site";
+import { keywords, ogImage, seoTitle } from "@/lib/seo";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -21,38 +22,47 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const ogImage = {
-  url: "/og.png",
-  width: 1200,
-  height: 630,
-  alt: `${site.name} — ${site.tagline}`,
-};
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: seoTitle,
     template: `%s — ${site.name}`,
   },
   description: site.description,
-  alternates: { canonical: "/" },
+  keywords,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: siteUrl() }],
+  creator: site.name,
+  publisher: site.name,
+  category: "technology",
+  // No canonical here: a root canonical is inherited by every page that does not
+  // set its own, which marks them all as duplicates of the home page.
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: siteUrl(),
     siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    title: seoTitle,
     description: site.description,
     images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: seoTitle,
     description: site.description,
     images: [ogImage.url],
   },
   robots: isIndexable
-    ? { index: true, follow: true }
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
     : { index: false, follow: false, nocache: true },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Download } from "lucide-react";
 import { brochure, company, contact, telHref } from "@/content/site";
 import { Button } from "@/components/ui/button";
@@ -9,11 +10,12 @@ import { Kicker } from "@/components/ui/kicker";
 import { PageHero } from "@/components/ui/page-hero";
 import { Section } from "@/components/ui/section";
 
-export const metadata: Metadata = {
-  title: "Contact",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Us",
   description:
-    "Tell us what is not working. One call, no deck — and if we are not the right people for it, we will say so.",
-};
+    "Book a discovery call with Sparta Labs for custom software, website, mobile app or AI automation work. Email hello@spartalabs.in — we reply within one working day.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

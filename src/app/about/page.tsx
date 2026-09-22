@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { story, timeline, values } from "@/content/about";
 import { industries } from "@/content/industries";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -8,11 +9,12 @@ import { Pods } from "@/components/sections/pods";
 import { Kicker } from "@/components/ui/kicker";
 import { Section, SectionHeader } from "@/components/ui/section";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us",
   description:
-    "Who Sparta Labs is, how we are organised into specialist pods, and the behaviours we hold ourselves to on every engagement.",
-};
+    "Sparta Labs (Spartalabs) is an IT solutions and software development company in India. Meet the specialist pods behind our custom platforms, apps and AI systems.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

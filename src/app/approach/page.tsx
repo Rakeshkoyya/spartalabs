@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { engagementModels, sprintShape } from "@/content/engagement";
 import { guarantees, processSteps, whatWeNeed } from "@/content/process";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -7,11 +8,12 @@ import { Kicker } from "@/components/ui/kicker";
 import { PageHero } from "@/components/ui/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
 
-export const metadata: Metadata = {
-  title: "Approach",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Approach",
   description:
-    "How an engagement runs: five stages, a named lead, two-week sprints, a working demo every Friday, and three ways to work with us.",
-};
+    "How Sparta Labs runs a software project: five stages, a named lead, two-week sprints and a working demo every Friday. Fixed-scope, dedicated-pod and retainer models.",
+  path: "/approach",
+});
 
 export default function ApproachPage() {
   return (

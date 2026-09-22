@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { capabilities } from "@/content/capabilities";
 import { engagementModels } from "@/content/engagement";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -8,11 +9,12 @@ import { PageHero } from "@/components/ui/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata: Metadata = pageMetadata({
+  title: "Software, Web, App & AI Development Services",
   description:
-    "Custom platforms, web and mobile products, AI systems, brand and concept development, and ongoing operation — built by a dedicated specialist pod.",
-};
+    "Custom business platforms, website and mobile app development, AI solutions and automation, brand and concept, and ongoing support from a dedicated Sparta Labs pod.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

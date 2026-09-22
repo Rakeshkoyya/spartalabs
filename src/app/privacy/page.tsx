@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { contact, site } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { PageHero } from "@/components/ui/page-hero";
 import { Prose } from "@/components/ui/prose";
 import { Section } from "@/components/ui/section";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy",
   description: `How ${site.name} handles the information you send through this website.`,
-};
+  path: "/privacy",
+});
 
 /**
  * TODO(legal): describes what the site actually does today and is accurate as

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { sectors, work } from "@/content/work";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -8,11 +9,12 @@ import { Section } from "@/components/ui/section";
 import { StandardCard } from "@/components/work/case-card";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Work",
+export const metadata: Metadata = pageMetadata({
+  title: "Work & Case Studies",
   description:
-    "Delivered systems across education, film and media, advertising and operations — described by sector and outcome.",
-};
+    "Sparta Labs case studies: AI-tutor learning portals, school management platforms, film production and advertising systems — described by sector and outcome.",
+  path: "/work",
+});
 
 /**
  * Filtering runs on the server through the query string rather than in React
