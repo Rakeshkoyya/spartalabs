@@ -2,7 +2,7 @@
 
 Marketing website for **Sparta Labs** — spartalabs.in
 
-Sparta Labs builds and runs the software systems organisations depend on: custom
+Sparta Labs we build and runs the software systems organisations depend on: custom
 platforms, web and mobile products, AI-powered systems, and brand and concept
 development — delivered by a dedicated specialist pod per engagement.
 
