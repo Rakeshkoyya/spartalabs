@@ -82,13 +82,17 @@ For a software company, the website is a live work sample. If it is slow, generi
 /about                  Story, values, team, timeline, company facts
 /industries/[slug]      (Phase 2) Education, Media & Film, Advertising, Ops
 /contact                Form + direct channels + office
-/careers                (Phase 2) — hiring signals growth, growth signals trust
-/insights               (Phase 3) — long-term SEO and expertise proof
 /privacy, /terms        Legal
 ```
 
+**Not building:** `/careers` and `/insights`, decided 2026-09-22. Both were
+worth offering — a careers page signals growth, and long-form writing is the
+cheapest durable SEO a services firm has — but neither is wanted, so neither is
+in scope. If that changes, `/insights` is the one to add first: it compounds,
+and the site's structure already supports it without a redesign.
+
 **Nav (desktop):** `Services · Work · Approach · About` then a single filled CTA `Start a conversation`.
-Five items maximum. `Contact`, `Careers` and legal live in the footer — putting Contact in the nav *and* as the CTA wastes a slot.
+Five items maximum. `Contact` and the legal pages live in the footer — putting Contact in the nav *and* as the CTA wastes a slot.
 
 **Nav (mobile):** logo left, hamburger right, full-screen overlay panel with large tap targets, CTA pinned at the bottom of the panel.
 
@@ -468,7 +472,8 @@ Phases 0–3 can run without these. Phase 4 cannot.
 
 - **Hard blockers:** the four hero metrics and at least one real figure per case study; registered company name, address and founded year; email, phone, WhatsApp; headcount per pod.
 - **Needed for completeness:** the four project screenshot sets, a 150-word founding story (I draft, you correct), logo SVG if one exists, CIN/GSTIN if applicable.
-- **Still open, non-blocking:** `/careers` and `/insights` at launch or Phase 2? Any existing spartalabs.in URLs to preserve and redirect? A booking tool (Cal.com / Calendly) to wire into the CTAs? Reference sites you admire — or specifically want to avoid resembling?
+- **Still open, non-blocking:** Any existing spartalabs.in URLs to preserve and redirect? A booking tool (Cal.com / Calendly) to wire into the CTAs? Reference sites you admire — or specifically want to avoid resembling?
+- **Closed:** `/careers` and `/insights` are not being built (2026-09-22).
 - **Cut unless it appears:** testimonials. Real quotes with names and roles, or the section does not ship.
 
 ---
