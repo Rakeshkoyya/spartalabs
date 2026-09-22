@@ -1,5 +1,5 @@
 import { faq } from "@/content/faq";
-import { company, contact, site } from "@/content/site";
+import { company, contact, site, siteUrl } from "@/content/site";
 
 /** Only emits fields that have real values — partial structured data beats wrong. */
 export function organizationSchema() {
@@ -8,7 +8,7 @@ export function organizationSchema() {
     "@type": "Organization",
     name: company.legalName ?? site.name,
     alternateName: site.name,
-    url: site.url,
+    url: siteUrl(),
     description: site.description,
     email: contact.email,
     ...(company.founded ? { foundingDate: company.founded } : {}),
@@ -31,7 +31,7 @@ export function websiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: site.name,
-    url: site.url,
+    url: siteUrl(),
     inLanguage: site.locale,
   };
 }

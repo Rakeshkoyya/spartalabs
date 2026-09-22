@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/content/site";
+import { siteUrl } from "@/content/site";
 import { work } from "@/content/work";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const origin = siteUrl();
 
   const pages: { path: string; priority: number }[] = [
     { path: "", priority: 1 },
@@ -18,12 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...pages.map((page) => ({
-      url: `${site.url}${page.path}`,
+      url: `${origin}${page.path}`,
       lastModified: now,
       priority: page.priority,
     })),
     ...work.map((study) => ({
-      url: `${site.url}/work/${study.slug}`,
+      url: `${origin}/work/${study.slug}`,
       lastModified: now,
       priority: 0.7,
     })),

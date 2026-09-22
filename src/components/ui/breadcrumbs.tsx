@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { site } from "@/content/site";
+import { siteUrl } from "@/content/site";
 
 export type Crumb = { label: string; href: string };
 
@@ -15,7 +15,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
             "@type": "ListItem",
             position: index + 1,
             name: crumb.label,
-            item: `${site.url}${crumb.href === "/" ? "" : crumb.href}`,
+            item: `${siteUrl()}${crumb.href === "/" ? "" : crumb.href}`,
           })),
         }}
       />

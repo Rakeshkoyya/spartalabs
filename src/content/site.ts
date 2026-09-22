@@ -17,6 +17,32 @@ export const site = {
 } as const;
 
 /** TODO(content): supplied by the client before launch. */
+/**
+ * The canonical origin for this deployment.
+ *
+ * Set NEXT_PUBLIC_SITE_URL to https://spartalabs.in on the Vercel production
+ * environment so canonicals and structured data name the real domain even
+ * before DNS is pointed. Preview deploys fall back to their own URL, which
+ * keeps their metadata self-consistent instead of advertising production.
+ */
+export function siteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/+$/, "");
+  if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return site.url;
+}
+
+/**
+ * Preview deploys must never be indexed: a *.vercel.app copy of the site
+ * competing with spartalabs.in in search results is a self-inflicted wound.
+ * Anything that is not a Vercel preview is treated as indexable, so a
+ * non-Vercel host is never accidentally hidden.
+ */
+export const isIndexable =
+  process.env.VERCEL_ENV !== "preview" && process.env.VERCEL_ENV !== "development";
+
 export const company: {
   legalName: string | null;
   founded: string | null;

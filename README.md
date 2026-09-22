@@ -64,6 +64,53 @@ de-emphasised with a `data-pending` attribute. Grep for `data-pending` and
 `graphite-900` — so the light theme keeps working and a palette change stays a
 one-file edit.
 
+## Deploying to Vercel
+
+Import the repository at [vercel.com/new](https://vercel.com/new). Everything is
+auto-detected — Next.js framework preset, `npm run build`, output in `.next`.
+There is nothing to configure in the Vercel UI beyond the environment variables
+below, and no build command to override.
+
+`vercel.json` pins serverless functions to `bom1` (Mumbai), which is where the
+contact endpoint and the work index should run for an India-first audience.
+Static pages are served from the edge regardless.
+
+### Environment variables
+
+Set these under Settings → Environment Variables. Only the first is needed to
+deploy; the rest turn the contact form on.
+
+| Variable | Value | Environments | Why |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | `https://spartalabs.in` | Production | Canonical URLs, `og:url`, sitemap and JSON-LD name the real domain even before DNS is pointed. Leave it unset on Preview so previews reference themselves. |
+| `RESEND_API_KEY` | your key | Production | Contact form delivery |
+| `CONTACT_FROM_EMAIL` | a verified sender on your Resend domain | Production | Contact form delivery |
+| `CONTACT_TO_EMAIL` | where enquiries land | Production | Optional — defaults to `contact.email` in `src/content/site.ts` |
+
+Until `RESEND_API_KEY` and `CONTACT_FROM_EMAIL` are both set, the form returns a
+503 and tells the sender to email directly. That is deliberate: it never shows a
+success screen for a message that went nowhere.
+
+### What is already handled
+
+- **Preview deploys cannot be indexed.** A preview serves `Disallow: /` and
+  `noindex`, so a `*.vercel.app` copy never competes with `spartalabs.in` in
+  search. Production is unaffected.
+- **Security headers** — `nosniff`, `Referrer-Policy`, `X-Frame-Options`,
+  `Permissions-Policy` and HSTS, set in `next.config.ts`. `X-Powered-By` is off.
+- **Social cards** — `public/og.png`, referenced as both Open Graph and Twitter
+  card. Regenerate it from `scripts/og-template.html` if the tagline changes.
+- **`sitemap.xml` and `robots.txt`** are generated from the route list, so
+  adding a page does not mean remembering to update them.
+
+### After the first deploy
+
+1. Add `spartalabs.in` under Settings → Domains and point DNS as Vercel
+   instructs.
+2. Set `NEXT_PUBLIC_SITE_URL` and redeploy so canonicals name the real domain.
+3. Submit `https://spartalabs.in/sitemap.xml` to Google Search Console.
+4. Send a real message through the contact form and confirm it arrives.
+
 ## Before launch
 
 - Fill in everything `npm run content:status` reports, starting with the real
