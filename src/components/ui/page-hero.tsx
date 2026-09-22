@@ -1,10 +1,11 @@
-import { TorchGrid } from "@/components/motion/torch-grid";
+import Image from "next/image";
+import { FlowLines } from "@/components/brand/flow-lines";
 import { Container } from "./container";
 import { Kicker } from "./kicker";
 
 /**
- * Inner-page opener. Shorter than the home hero and without the metrics strip —
- * the proof already landed on the way in.
+ * Inner-page opener, set like the brochure's navy spreads: flow lines along
+ * the foot, the helmet mark standing off the right edge.
  *
  * Uses `data-enter` rather than the scroll observer: this content is above the
  * fold on arrival and should start drawing at first paint, not after hydration.
@@ -21,18 +22,26 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="border-hairline relative overflow-hidden border-b">
-      <div aria-hidden className="blueprint-grid veil-hero pointer-events-none absolute inset-0" />
-      <TorchGrid className="veil-hero pointer-events-none" />
-      <Container className="relative pt-[8.5rem] pb-16 md:pt-[10rem] md:pb-20">
-        <div className="max-w-[48rem]">
+    <div className="band-dark relative overflow-hidden">
+      <FlowLines className="bottom-0 h-[55%] min-h-48" />
+      <Image
+        src="/brand/logo-mark-white.png"
+        alt=""
+        aria-hidden
+        width={600}
+        height={693}
+        priority
+        className="pointer-events-none absolute top-24 -right-16 hidden w-[min(26vw,340px)] opacity-[0.14] md:block"
+      />
+      <Container className="relative pt-[8.5rem] pb-16 md:pt-[10rem] md:pb-24">
+        <div className="max-w-[50rem]">
           <span data-enter="lock">
             <Kicker>{kicker}</Kicker>
           </span>
           <h1
             data-enter="wipe"
             style={{ "--enter-delay": "110ms" } as React.CSSProperties}
-            className="text-h1 font-display mt-5 font-bold"
+            className="text-h1 font-display mt-5 font-semibold text-white"
           >
             {title}
           </h1>

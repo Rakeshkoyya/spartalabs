@@ -40,7 +40,7 @@ export default async function WorkPage({
         </div>
       </PageHero>
 
-      <Section>
+      <Section className="topo">
         <div className="flex flex-wrap items-center gap-2.5">
           <FilterChip href="/work" active={active === null}>
             All work
@@ -95,10 +95,10 @@ function FilterChip({
       href={href}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "text-label rounded-[var(--radius-hairline)] border px-3 py-1.5 font-mono tracking-[0.1em] uppercase transition-colors duration-200",
+        "font-display rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
         active
-          ? "border-accent-core bg-accent-wash text-accent"
-          : "border-hairline-strong text-muted hover:border-accent-core hover:text-accent",
+          ? "border-accent-core bg-accent-core text-white"
+          : "border-hairline-strong bg-surface text-muted hover:border-accent hover:text-accent",
       )}
     >
       {children}

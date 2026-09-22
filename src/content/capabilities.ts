@@ -1,45 +1,58 @@
 export type Capability = {
+  /** Stable key — the UI maps it to an icon and a place in the bento. */
+  key: "platforms" | "web" | "mobile" | "ai" | "brand" | "operate";
   title: string;
   outcome: string;
   items: string[];
 };
 
-/** Written as outcomes for an organisation. Never as a tech stack listing. */
+/** Written as outcomes for a business. Never as a tech stack listing. */
 export const capabilities: Capability[] = [
   {
-    title: "Custom platforms",
+    key: "platforms",
+    title: "Custom business platforms",
     outcome:
-      "An operating system for your organisation — the tool your team lives in all day, not a dashboard nobody opens twice.",
-    items: ["Operations and workflow systems", "Internal tooling", "Integrations with what you already run"],
+      "An operating system for your organisation. The tool your team lives in all day: operations, workflows, records and reports, shaped exactly to how you work.",
+    items: ["ERP and CRM systems", "Workflow tools", "Dashboards and reports", "Internal tooling"],
   },
   {
-    title: "Web & digital presence",
+    key: "web",
+    title: "Websites",
     outcome:
-      "Sites that make a serious company look serious, and load in under two seconds on a phone in a bad signal area.",
-    items: ["Marketing sites", "Portals and microsites", "Content systems your team can actually edit"],
+      "Sites that make a serious company look serious, and load fast on any phone, in any signal.",
+    items: ["Business websites", "Portals", "Easy-edit CMS"],
   },
   {
-    title: "Mobile applications",
-    outcome:
-      "iOS and Android products people keep on the home screen, built once and shipped to both.",
-    items: ["Customer apps", "Field and operations apps", "Release and store management"],
+    key: "mobile",
+    title: "Mobile apps",
+    outcome: "iOS and Android apps people keep on their home screen, built once for both.",
+    items: ["Customer apps", "Field and staff apps", "Store releases"],
   },
   {
-    title: "AI & intelligent systems",
+    key: "ai",
+    title: "AI solutions and automation",
     outcome:
-      "AI pointed at one job it does well — tutoring a student, triaging a queue, reading a document, finding the right record.",
-    items: ["AI tutors and assistants", "Document and data extraction", "Search and recommendation"],
+      "AI pointed at one job it does well, plus automations that remove the repetitive work your team does by hand.",
+    items: [
+      "AI assistants and chatbots",
+      "WhatsApp and email automation",
+      "Document data extraction",
+      "Smart search",
+      "AI tutors",
+    ],
   },
   {
-    title: "Brand & concept development",
+    key: "brand",
+    title: "Brand and concept",
     outcome:
-      "Positioning, identity and product concept — so the thing we build has something to be true to.",
-    items: ["Naming and positioning", "Identity systems", "Product concept and art direction"],
+      "Positioning, identity and product concept, so what we build has something to be true to.",
+    items: ["Identity", "Positioning", "Product concept"],
   },
   {
-    title: "Operate & support",
+    key: "operate",
+    title: "Operate and support",
     outcome:
-      "We keep it running. Monitoring, patching, iteration, and response times you can hold us to.",
-    items: ["Monitoring and incident response", "Security patching", "Continuous iteration"],
+      "Launch is the middle of the job, not the end. We keep your systems running, secure and improving, with response times you can hold us to.",
+    items: ["Monitoring", "Security patching", "Monthly improvements", "Agreed SLA"],
   },
 ];

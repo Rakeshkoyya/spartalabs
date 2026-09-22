@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { nav, primaryCta, site } from "@/content/site";
+import { nav, primaryCta } from "@/content/site";
+import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
-import { ChevronMark } from "@/components/ui/chevron-mark";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
@@ -47,9 +47,11 @@ export function SiteHeader() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ease-[var(--ease-out-expo)]",
+          // Every page opens on a navy band, so the bar reads as navy until it
+          // leaves it; after that it takes the page's own surface.
           scrolled
-            ? "border-hairline bg-page/80 border-b backdrop-blur-xl"
-            : "border-b border-transparent",
+            ? "border-hairline bg-page/85 border-b shadow-[0_8px_30px_-20px_rgb(11_40_90/0.35)] backdrop-blur-xl"
+            : "tone-dark border-b border-transparent",
         )}
       >
         <Container>
@@ -59,12 +61,8 @@ export function SiteHeader() {
               scrolled ? "h-[60px]" : "h-[72px]",
             )}
           >
-            <Link
-              href="/"
-              className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]"
-            >
-              <ChevronMark className="text-accent-core" />
-              {site.name}
+            <Link href="/" aria-label="Sparta Labs home" className="flex items-center">
+              <Logo variant="wordmark" priority className="w-[132px] md:w-[148px]" />
             </Link>
 
             <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
@@ -76,8 +74,9 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "hover:text-ink text-sm transition-colors duration-200",
-                      active ? "text-ink" : "text-muted",
+                      "font-display hover:text-ink relative text-[0.9375rem] font-medium transition-colors duration-200",
+                      "after:bg-accent-bright after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:rounded-full after:transition-transform after:duration-300",
+                      active ? "text-ink after:scale-x-100" : "text-muted after:scale-x-0",
                     )}
                   >
                     {item.label}
@@ -96,7 +95,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={open}
-                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-[var(--radius-control)] border md:hidden"
+                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-full border md:hidden"
               >
                 <Menu aria-hidden className="size-4" />
               </button>
@@ -106,18 +105,15 @@ export function SiteHeader() {
       </header>
 
       {open ? (
-        <div className="bg-page fixed inset-0 z-[60] flex flex-col md:hidden">
+        <div className="band-dark fixed inset-0 z-[60] flex flex-col md:hidden">
           <Container>
             <div className="flex h-[72px] items-center justify-between">
-              <span className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]">
-                <ChevronMark className="text-accent-core" />
-                {site.name}
-              </span>
+              <Logo variant="wordmark" className="w-[132px]" />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-[var(--radius-control)] border"
+                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-full border"
               >
                 <X aria-hidden className="size-4" />
               </button>
@@ -133,7 +129,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   className="text-h3 border-hairline font-display flex items-baseline gap-4 border-b py-5 font-semibold"
                 >
-                  <span className="text-label text-accent font-mono">
+                  <span className="text-label text-accent font-label">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}

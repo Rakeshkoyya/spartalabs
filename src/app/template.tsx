@@ -8,7 +8,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-px">
-        <div data-route-sweep="" className="h-px w-full bg-accent-core" />
+        <div
+          data-route-sweep=""
+          className="h-px w-full bg-linear-to-r from-blue-600 via-blue-400 to-cyan-400"
+        />
       </div>
       {children}
     </>

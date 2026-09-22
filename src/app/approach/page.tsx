@@ -38,7 +38,7 @@ export default function ApproachPage() {
               key={step.id}
               className="border-hairline grid gap-3 border-b py-8 sm:grid-cols-[4rem_minmax(0,14rem)_1fr] sm:items-baseline sm:gap-8"
             >
-              <span className="text-label text-accent font-mono tracking-[0.12em]">{step.id}</span>
+              <span className="text-label text-accent font-label tracking-[0.12em]">{step.id}</span>
               <h2 className="text-h3 font-semibold">{step.title}</h2>
               <p className="text-muted max-w-[62ch] text-base">{step.body}</p>
             </li>
@@ -76,7 +76,7 @@ export default function ApproachPage() {
                 key={day.label}
                 className="border-hairline grid gap-1.5 border-b py-5 sm:grid-cols-[minmax(0,12rem)_1fr] sm:gap-8"
               >
-                <span className="text-label text-accent font-mono tracking-[0.12em] uppercase">
+                <span className="text-label text-accent font-label tracking-[0.12em] uppercase">
                   {day.label}
                 </span>
                 <p className="text-muted max-w-[62ch] text-base">{day.body}</p>

@@ -1,7 +1,7 @@
-import { capabilities } from "@/content/capabilities";
 import Link from "next/link";
-import { company, contact, legalNav, nav, site, social } from "@/content/site";
-import { ChevronMark } from "@/components/ui/chevron-mark";
+import { capabilities } from "@/content/capabilities";
+import { company, contact, legalNav, nav, site, social, telHref } from "@/content/site";
+import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/ui/container";
 
 /**
@@ -13,15 +13,17 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-hairline border-t">
+    <footer className="tone-dark text-ink border-t border-white/10 bg-[#050b16]">
       <Container>
-        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:py-16">
-          <div className="flex flex-col gap-4 lg:col-span-1">
-            <span className="font-display flex items-center gap-2.5 text-base font-bold tracking-[-0.02em]">
-              <ChevronMark className="text-accent-core" />
-              {site.name}
-            </span>
+        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-16">
+          <div className="flex flex-col gap-5">
+            <Link href="/" aria-label="Sparta Labs home" className="w-fit">
+              <Logo variant="wordmark" tone="dark" className="w-[156px]" />
+            </Link>
             <p className="text-muted max-w-[34ch] text-sm">{site.tagline}</p>
+            <p className="text-label font-label flex flex-wrap items-center gap-2 tracking-[0.18em] text-[#7f93b3] uppercase">
+              {site.motto.join(" → ")}
+            </p>
             {company.addressLines ? (
               <address className="text-muted text-sm not-italic">
                 {company.addressLines.map((line) => (
@@ -35,7 +37,7 @@ export function SiteFooter() {
 
           <FooterColumn title="What we build">
             {capabilities.map((capability) => (
-              <FooterLink key={capability.title} href="/services">
+              <FooterLink key={capability.key} href="/services">
                 {capability.title}
               </FooterLink>
             ))}
@@ -57,17 +59,17 @@ export function SiteFooter() {
 
           <FooterColumn title="Talk to us">
             <FooterLink href={`mailto:${contact.email}`}>{contact.email}</FooterLink>
-            {contact.phone ? (
-              <FooterLink href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
-                {contact.phone}
+            {contact.phones.map((phone) => (
+              <FooterLink key={phone} href={telHref(phone)}>
+                {phone}
               </FooterLink>
-            ) : null}
+            ))}
             {contact.whatsapp ? <FooterLink href={contact.whatsapp}>WhatsApp</FooterLink> : null}
             <li className="text-muted pt-1 text-sm">We reply {contact.responseTime}.</li>
           </FooterColumn>
         </div>
 
-        <div className="border-hairline text-muted flex flex-col gap-3 border-t py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-muted flex flex-col gap-3 border-t border-white/10 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {company.legalName ?? site.name}
             {company.cin ? ` · CIN ${company.cin}` : ""}
@@ -81,7 +83,7 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li className="text-label font-mono tracking-[0.14em] uppercase">{site.domain}</li>
+            <li className="text-label font-label tracking-[0.14em] uppercase">{site.domain}</li>
           </ul>
         </div>
       </Container>
@@ -92,7 +94,7 @@ export function SiteFooter() {
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-label text-muted font-mono font-medium tracking-[0.15em] uppercase">
+      <h2 className="text-label text-accent font-label font-medium tracking-[0.18em] uppercase">
         {title}
       </h2>
       <ul className="flex flex-col gap-2.5">{children}</ul>
@@ -102,7 +104,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   const external = href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http");
-  const className = "text-sm text-muted transition-colors duration-200 hover:text-accent";
+  const className = "text-sm text-muted transition-colors duration-200 hover:text-white";
 
   return (
     <li>

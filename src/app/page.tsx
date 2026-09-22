@@ -1,28 +1,31 @@
+import { Approach } from "@/components/sections/approach";
 import { Capabilities } from "@/components/sections/capabilities";
+import { ConnectedSystem } from "@/components/sections/connected-system";
 import { CtaBand } from "@/components/sections/cta-band";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
-import { Industries } from "@/components/sections/industries";
 import { Pods } from "@/components/sections/pods";
+import { Problem } from "@/components/sections/problem";
 import { Process } from "@/components/sections/process";
 import { SelectedWork } from "@/components/sections/selected-work";
-import { TrustStrip } from "@/components/sections/trust-strip";
 import { JsonLd } from "@/components/json-ld";
 import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 
+/** Follows the brochure's running order, alternating paper and navy spreads. */
 export default function HomePage() {
   return (
     <>
       <JsonLd data={[organizationSchema(), websiteSchema(), faqSchema()]} />
       <Hero />
-      <TrustStrip />
+      <Problem />
+      <Approach />
       <Capabilities />
+      <ConnectedSystem />
       <SelectedWork />
       <Process />
       <Pods />
-      <Industries />
       <FaqSection />
-      <CtaBand />
+      <CtaBand showLogo />
     </>
   );
 }

@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 
 export function FaqSection() {
   return (
-    <Section id="faq" label="Questions" className="border-hairline border-t">
+    <Section id="faq" label="Questions" className="topo">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-16">
         <SectionHeader
           kicker="Questions"
@@ -15,19 +15,24 @@ export function FaqSection() {
           lede="Including the ones most agencies leave you to find out later."
         />
 
-        <Accordion.Root type="single" collapsible defaultValue="item-0" className="w-full">
+        <Accordion.Root
+          type="single"
+          collapsible
+          defaultValue="item-0"
+          className="card w-full self-start px-6 py-2 sm:px-8"
+        >
           {faq.map((item, index) => (
             <Accordion.Item
               key={item.question}
               value={`item-${index}`}
-              className="border-hairline border-b first:border-t"
+              className="border-hairline border-b last:border-b-0"
             >
               <Accordion.Header>
-                <Accordion.Trigger className="group flex w-full items-center justify-between gap-6 py-4 text-left text-base font-medium">
+                <Accordion.Trigger className="group font-display flex w-full items-center justify-between gap-6 py-5 text-left text-[1.0625rem] font-medium">
                   {item.question}
                   <Plus
                     aria-hidden
-                    className="text-accent size-4 shrink-0 transition-transform duration-200 ease-[var(--ease-out-expo)] group-data-[state=open]:rotate-45"
+                    className="text-accent bg-accent-wash size-7 shrink-0 rounded-full p-1.5 transition-transform duration-200 ease-[var(--ease-out-expo)] group-data-[state=open]:rotate-45"
                   />
                 </Accordion.Trigger>
               </Accordion.Header>

@@ -1,20 +1,20 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Mono spec label. One of the four signature devices — every section eyebrow and
- * card tag uses it, which is what gives the site its verbal texture.
+ * The brochure's section eyebrow: Outfit, widely tracked, in the accent blue
+ * (cyan on navy). Every section and card tag uses it.
  *
- * Its trailing rule carries `data-draw`, so it is the first beat of the
- * Formation sequence: the line is drawn, then the heading locks to it.
+ * With `animate`, the label locks in first and its optional trailing rule is
+ * drawn — the first beat of the Formation sequence.
  */
 export function Kicker({
   children,
-  rule = true,
+  rule = false,
   animate = false,
   className,
 }: {
   children: React.ReactNode;
-  /** The trailing hairline. Off inside cards, where it would fight the border. */
+  /** A trailing hairline, for places where the label heads a list. */
   rule?: boolean;
   /** Opt in where the kicker opens a section; off for decorative uses. */
   animate?: boolean;
@@ -23,7 +23,7 @@ export function Kicker({
   return (
     <span
       className={cn(
-        "text-label text-accent flex items-center gap-2.5 font-mono font-medium tracking-[0.15em] uppercase",
+        "text-label text-accent font-label flex items-center gap-3 font-medium tracking-[0.2em] uppercase",
         className,
       )}
     >

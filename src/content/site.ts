@@ -10,9 +10,11 @@ export const site = {
   name: "Sparta Labs",
   domain: "spartalabs.in",
   url: "https://spartalabs.in",
-  tagline: "We build the systems your organisation runs on.",
+  tagline: "Software built around how your business actually runs.",
+  /** The line under the logo. */
+  motto: ["Ideas", "Products", "Real impact"],
   description:
-    "Sparta Labs designs, builds and runs the software systems organisations depend on — custom platforms, web and mobile products, AI systems, and brand and concept development. A dedicated specialist pod on every engagement.",
+    "Sparta Labs studies your operations first, then designs and builds the system your team needs — custom business platforms, websites, mobile apps, AI and automation, under one plan. A dedicated specialist pod on every engagement.",
   locale: "en-IN",
 } as const;
 
@@ -63,15 +65,15 @@ export const company: {
   gstin: null,
 };
 
-/** TODO(content): phone and WhatsApp before launch — some buyers never use a form. */
+/** TODO(content): WhatsApp before launch — some buyers never use a form. */
 export const contact: {
   email: string;
-  phone: string | null;
+  phones: string[];
   whatsapp: string | null;
   responseTime: string;
 } = {
   email: "hello@spartalabs.in",
-  phone: null,
+  phones: ["+91 79939 91162", "+91 90305 95999"],
   whatsapp: null,
   responseTime: "within one working day",
 };
@@ -84,7 +86,20 @@ export const nav = [
   { label: "About", href: "/about" },
 ] as const;
 
-export const primaryCta = { label: "Start a conversation", href: "/contact" } as const;
+export const primaryCta = { label: "Book a discovery call", href: "/contact" } as const;
+
+/** The service lines printed under the logo and on the brochure cover. */
+export const serviceLines = [
+  "Websites",
+  "Apps",
+  "AI Automations",
+  "AI Solutions",
+  "Custom Platforms",
+] as const;
+
+export function telHref(phone: string) {
+  return `tel:${phone.replace(/\s+/g, "")}`;
+}
 
 export const legalNav = [
   { label: "Privacy", href: "/privacy" },
