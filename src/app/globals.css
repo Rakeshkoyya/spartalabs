@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   STATIC SCALES
+   Brand ramps, type scale, shape and motion. These never change with theme.
+   ========================================================================= */
+@theme {
+  --color-bronze-50: #fbf3ea;
+  --color-bronze-100: #f3e0cb;
+  --color-bronze-300: #ddb086;
+  --color-bronze-400: #e09a5b;
+  --color-bronze-500: #c07a3c;
+  --color-bronze-600: #a2632e;
+  --color-bronze-700: #8a5322;
+
+  --color-graphite-950: #0b0c0e;
+  --color-graphite-900: #131519;
+  --color-graphite-800: #1b1e24;
+  --color-graphite-700: #262a32;
+  --color-graphite-600: #363b45;
+
+  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
+  --font-sans: var(--font-instrument-sans), "Instrument Sans", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid scale — no per-breakpoint overrides anywhere in the codebase. */
+  --text-display: clamp(2.75rem, 1.55rem + 5.2vw, 5.5rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
+
+  --text-h1: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.028em;
+
+  --text-h2: clamp(1.875rem, 1.45rem + 1.8vw, 3rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.022em;
+
+  --text-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  --text-h3--line-height: 1.22;
+  --text-h3--letter-spacing: -0.015em;
+
+  --text-lede: 1.0625rem;
+  --text-lede--line-height: 1.68;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.15em;
+
+  /* Restrained curvature: engineered, not consumer-app. */
+  --radius-hairline: 2px;
+  --radius-control: 6px;
+  --radius-card: 12px;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================================
+   SEMANTIC TOKENS
+   Dark is the base identity; .light is the consistent swap. Every component
+   reads these and never a raw ramp value, so a theme change is a one-file edit.
+   ========================================================================= */
+:root {
+  color-scheme: dark;
+
+  --page: #0b0c0e;
+  --surface: #131519;
+  --raised: #1b1e24;
+  --hairline: rgb(242 240 237 / 0.1);
+  --hairline-strong: rgb(242 240 237 / 0.2);
+  --ink: #f2f0ed;
+  --muted: #a8adb6;
+  --accent: #e09a5b;
+  --accent-core: #c07a3c;
+  --accent-contrast: #160d05;
+  --accent-wash: rgb(224 154 91 / 0.12);
+  --signal: #5fb183;
+  --grid-line: rgb(242 240 237 / 0.055);
+  --glow: rgb(192 122 60 / 0.26);
+  --shadow-lift: 0 24px 48px -16px rgb(0 0 0 / 0.55);
+}
+
+.light {
+  color-scheme: light;
+
+  --page: #faf9f7;
+  --surface: #ffffff;
+  --raised: #f2f0ec;
+  --hairline: rgb(20 22 26 / 0.11);
+  --hairline-strong: rgb(20 22 26 / 0.22);
+  --ink: #14161a;
+  --muted: #5c636e;
+  /* Bronze 500 is only 3.4:1 on paper — small text on light uses Bronze 700. */
+  --accent: #8a5322;
+  --accent-core: #c07a3c;
+  --accent-contrast: #fffaf4;
+  --accent-wash: rgb(192 122 60 / 0.1);
+  --signal: #3c7d57;
+  --grid-line: rgb(20 22 26 / 0.055);
+  --glow: rgb(192 122 60 / 0.16);
+  --shadow-lift: 0 20px 44px -18px rgb(28 20 10 / 0.22);
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-core: var(--accent-core);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-wash: var(--accent-wash);
+  --color-signal: var(--signal);
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================= */
+@layer base {
+  * {
+    border-color: var(--hairline);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-hairline);
+  }
+
+  ::selection {
+    background: var(--accent-core);
+    color: var(--accent-contrast);
+  }
+
+  /* Digits that sit in columns must not jitter between values. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ============================================================================
+   SIGNATURE DEVICES
+   The four recurring elements that give the site its fingerprint.
+   ========================================================================= */
+@utility blueprint-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility veil-hero {
+  -webkit-mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
+  mask-image: radial-gradient(112% 88% at 18% 6%, #000 6%, transparent 72%);
+}
+
+@utility veil-cta {
+  -webkit-mask-image: radial-gradient(88% 100% at 82% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(88% 100% at 82% 0%, #000 0%, transparent 70%);
+}
+
+@utility section-y {
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+
+/* ============================================================================
+   MOTION
+   Confidence is quiet: one entrance, no parallax, no scroll-jacking.
+   ========================================================================= */
+@keyframes sl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Hero entrance.
+
+   The only scroll-independent motion on the site. Gated on `html.js`, set by an
+   inline script before first paint, so a page whose JavaScript never arrives
+   renders fully visible instead of stranded at opacity 0.
+
+   There are deliberately no scroll reveals: staggered fade-ups on every section
+   are the most recognisable tell of a generated page, and a design whose whole
+   argument is restraint cannot afford them.
+   ------------------------------------------------------------------------- */
+.js [data-enter] {
+  animation: sl-rise 0.62s var(--ease-out-expo) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+/* Radix accordion height transition. */
+@keyframes sl-accordion-open {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes sl-accordion-close {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.js .accordion-content[data-state="open"] {
+  animation: sl-accordion-open 0.24s var(--ease-out-expo);
+}
+
+.js .accordion-content[data-state="closed"] {
+  animation: sl-accordion-close 0.2s var(--ease-out-expo);
+}

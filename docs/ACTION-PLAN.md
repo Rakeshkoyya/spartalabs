@@ -369,7 +369,7 @@ Built once, used everywhere. Hand-rolled on Tailwind + Radix primitives — no h
 | Language | **TypeScript** (strict) | |
 | Styling | **Tailwind CSS v4** with the tokens in §6.2 as CSS custom properties | Tokens live in one file; Tailwind just consumes them. |
 | Primitives | Radix UI (accordion, dialog, select) | Accessibility for free on the hard components. |
-| Motion | `motion/react` | Tree-shakes well; used only for reveals and the mobile nav. |
+| Motion | **CSS only** — no animation library | Dropped during Phase 1. The hero entrance and hover states are all this design calls for, and staggered scroll reveals on every section are the clearest tell of a generated page. Saves the dependency and the bundle. |
 | Content | Typed TS data modules + MDX for case studies | No CMS at launch. Fast, versioned, zero cost. Sanity is the Phase-3 upgrade if you want non-developer editing. |
 | Forms | React Hook Form + Zod | |
 | Icons | Lucide + a small custom SVG set for the chevron glyph |
