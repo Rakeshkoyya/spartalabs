@@ -1,5 +1,6 @@
 import { capabilities } from "@/content/capabilities";
-import { company, contact, nav, site, social } from "@/content/site";
+import Link from "next/link";
+import { company, contact, legalNav, nav, site, social } from "@/content/site";
 import { ChevronMark } from "@/components/ui/chevron-mark";
 import { Container } from "@/components/ui/container";
 
@@ -34,7 +35,7 @@ export function SiteFooter() {
 
           <FooterColumn title="What we build">
             {capabilities.map((capability) => (
-              <FooterLink key={capability.title} href="#capabilities">
+              <FooterLink key={capability.title} href="/services">
                 {capability.title}
               </FooterLink>
             ))}
@@ -46,6 +47,7 @@ export function SiteFooter() {
                 {item.label}
               </FooterLink>
             ))}
+            <FooterLink href="/contact">Contact</FooterLink>
             {social.map((item) => (
               <FooterLink key={item.href} href={item.href}>
                 {item.label}
@@ -71,7 +73,16 @@ export function SiteFooter() {
             {company.cin ? ` · CIN ${company.cin}` : ""}
             {company.gstin ? ` · GSTIN ${company.gstin}` : ""}
           </p>
-          <p className="text-label font-mono tracking-[0.14em] uppercase">{site.domain}</p>
+          <ul className="flex flex-wrap items-center gap-5">
+            {legalNav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition-colors duration-200 hover:text-accent">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li className="text-label font-mono tracking-[0.14em] uppercase">{site.domain}</li>
+          </ul>
         </div>
       </Container>
     </footer>
@@ -90,11 +101,20 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const external = href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http");
+  const className = "text-sm text-muted transition-colors duration-200 hover:text-accent";
+
   return (
     <li>
-      <a href={href} className="text-sm text-muted transition-colors duration-200 hover:text-accent">
-        {children}
-      </a>
+      {external ? (
+        <a href={href} className={className}>
+          {children}
+        </a>
+      ) : (
+        <Link href={href} className={className}>
+          {children}
+        </Link>
+      )}
     </li>
   );
 }

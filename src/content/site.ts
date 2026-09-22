@@ -50,18 +50,20 @@ export const contact: {
   responseTime: "within one working day",
 };
 
-/**
- * Phase 2 ships the home page only, so these point at its sections. Phase 3
- * repoints them at the dedicated routes in docs/ACTION-PLAN.md §3.
- */
+/** Five items maximum. Contact is the CTA, so it does not also take a nav slot. */
 export const nav = [
-  { label: "Services", href: "#capabilities" },
-  { label: "Work", href: "#work" },
-  { label: "Approach", href: "#approach" },
-  { label: "About", href: "#pods" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Approach", href: "/approach" },
+  { label: "About", href: "/about" },
 ] as const;
 
-export const primaryCta = { label: "Start a conversation", href: "#contact" } as const;
+export const primaryCta = { label: "Start a conversation", href: "/contact" } as const;
+
+export const legalNav = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+] as const;
 
 export const social: { label: string; href: string }[] = [
   // TODO(content): confirm handles before launch.

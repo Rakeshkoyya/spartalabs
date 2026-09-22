@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { industries } from "@/content/industries";
 import { Section, SectionHeader } from "@/components/ui/section";
 
@@ -14,10 +15,17 @@ export function Industries() {
         {industries.map((industry) => (
           <li
             key={industry.name}
-            className="border-b border-hairline py-6 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
+            className="group border-b border-hairline md:border-r md:last:border-r-0"
           >
-            <h3 className="text-h3 font-semibold">{industry.name}</h3>
-            <p className="mt-2.5 text-sm text-muted">{industry.proof}</p>
+            <Link
+              href={`/work?sector=${encodeURIComponent(industry.name)}`}
+              className="block py-6 md:px-6 md:group-first:pl-0 md:group-last:pr-0"
+            >
+              <h3 className="text-h3 font-semibold transition-colors duration-200 group-hover:text-accent">
+                {industry.name}
+              </h3>
+              <p className="mt-2.5 text-sm text-muted">{industry.proof}</p>
+            </Link>
           </li>
         ))}
       </ul>

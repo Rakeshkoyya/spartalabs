@@ -56,3 +56,28 @@ export const guarantees: Guarantee[] = [
     body: "Full source handover, documented, on your infrastructure if you want it there. No licence, no lock-in.",
   },
 ];
+
+export type Expectation = { title: string; body: string };
+
+/**
+ * Stated plainly because it is disarming, and because the projects that go
+ * wrong are almost always the ones where these were assumed rather than agreed.
+ */
+export const whatWeNeed: Expectation[] = [
+  {
+    title: "One decision-maker",
+    body: "Someone who can settle a question in a day. Not a committee that meets fortnightly — that is where two-week sprints go to die.",
+  },
+  {
+    title: "Access to the people who do the work",
+    body: "An hour with the person who actually runs admissions, or the schedule, is worth more than a month of requirements documents written above them.",
+  },
+  {
+    title: "Honesty about the current mess",
+    body: "Every organisation has workarounds it is slightly embarrassed by. Show us those first. They are the requirements.",
+  },
+  {
+    title: "Attention at the demo",
+    body: "Thirty minutes every second Friday. Feedback at the demo is cheap; feedback after launch is not.",
+  },
+];

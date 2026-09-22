@@ -4,29 +4,34 @@ import { Container } from "@/components/ui/container";
 import { Kicker } from "@/components/ui/kicker";
 
 /**
- * Some buyers will never fill in a form, so the direct routes sit beside the
- * primary action rather than being buried in the footer.
+ * Closing band, shared by every page. Some buyers will never fill in a form, so
+ * the direct routes sit beside the primary action rather than in the footer.
  */
-export function CtaBand() {
+export function CtaBand({
+  kicker = "Start here",
+  title = "One call. No deck.",
+  body = "Describe the problem and we will tell you whether we are the right people for it. If we are not, we will say so.",
+}: {
+  kicker?: string;
+  title?: string;
+  body?: string;
+}) {
   return (
-    <div id="contact" className="relative scroll-mt-24 overflow-hidden border-t border-hairline bg-surface">
+    <div className="relative overflow-hidden border-t border-hairline bg-surface">
       <div aria-hidden className="blueprint-grid veil-cta pointer-events-none absolute inset-0" />
 
       <Container className="relative">
         <div className="grid gap-10 py-20 md:py-28 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-          <div className="max-w-[24ch]">
-            <Kicker rule={false}>Start here</Kicker>
-            <h2 className="text-h2 mt-4 font-semibold">One call. No deck.</h2>
-            <p className="mt-4 max-w-[52ch] text-lede text-muted">
-              Describe the problem and we will tell you whether we are the right people for it. If
-              we are not, we will say so. We reply {contact.responseTime}.
+          <div>
+            <Kicker rule={false}>{kicker}</Kicker>
+            <h2 className="text-h2 mt-4 max-w-[20ch] font-semibold">{title}</h2>
+            <p className="text-lede mt-4 max-w-[52ch] text-muted">
+              {body} We reply {contact.responseTime}.
             </p>
           </div>
 
           <div className="flex flex-col gap-4 lg:items-end">
-            <Button href={`mailto:${contact.email}`} size="md">
-              Email us
-            </Button>
+            <Button href="/contact">Start a conversation</Button>
             <div className="flex flex-col gap-1.5 text-sm text-muted lg:text-right">
               <a href={`mailto:${contact.email}`} className="transition-colors hover:text-accent">
                 {contact.email}

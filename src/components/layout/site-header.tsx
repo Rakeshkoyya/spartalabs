@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { nav, primaryCta, site } from "@/content/site";
 import { Button } from "@/components/ui/button";
@@ -12,6 +14,7 @@ import { ThemeToggle } from "./theme-toggle";
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -19,6 +22,11 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // A route change while the overlay is open would otherwise leave it stuck.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -50,24 +58,31 @@ export function SiteHeader() {
             scrolled ? "h-[60px]" : "h-[72px]",
           )}
         >
-          <a
-            href="#top"
+          <Link
+            href="/"
             className="flex items-center gap-2.5 font-display text-base font-bold tracking-[-0.02em]"
           >
             <ChevronMark className="text-accent-core" />
             {site.name}
-          </a>
+          </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-            {nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-sm text-muted transition-colors duration-200 hover:text-ink"
-              >
-                {item.label}
-              </a>
-            ))}
+            {nav.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "text-sm transition-colors duration-200 hover:text-ink",
+                    active ? "text-ink" : "text-muted",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2.5">
@@ -110,17 +125,17 @@ export function SiteHeader() {
           <Container className="flex flex-1 flex-col justify-between pb-10">
             <nav aria-label="Mobile" className="flex flex-col pt-6">
               {nav.map((item, index) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-4 border-b border-hairline py-5 font-display text-h3 font-semibold"
+                  className="text-h3 flex items-baseline gap-4 border-b border-hairline py-5 font-display font-semibold"
                 >
                   <span className="text-label font-mono text-accent">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
             <Button href={primaryCta.href} onClick={() => setOpen(false)} className="mt-10 w-full">

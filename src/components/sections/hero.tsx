@@ -45,7 +45,7 @@ export function Hero() {
             style={{ "--enter-delay": "210ms" } as React.CSSProperties}
             className="mt-9 flex flex-wrap gap-3"
           >
-            <Button href="#contact">Start a conversation</Button>
+            <Button href="/contact">Start a conversation</Button>
             <Button href="#work" variant="secondary">
               See our work
             </Button>

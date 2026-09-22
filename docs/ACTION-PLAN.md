@@ -1,7 +1,7 @@
 # Sparta Labs — Website Action Plan
 
 **Domain:** spartalabs.in
-**Document status:** Direction approved 2026-09-22. Phase 0 unblocked; see §12 for the decisions taken and the content still outstanding.
+**Document status:** Phases 0-3 built. Remaining: content (§11), then hardening and launch. Run `npm run content:status` in the repo for the live list.
 **Last updated:** 2026-09-22
 
 ---
@@ -401,10 +401,10 @@ Company facts live in exactly one file (`content/site.ts`). Phone number, addres
 
 | Phase | Scope | Output |
 | --- | --- | --- |
-| **0 — Foundation** | Next.js + TS + Tailwind v4 scaffold, tokens, fonts, ESLint/Prettier, base layout, header, footer, theme toggle | Deployable empty shell |
-| **1 — Design system** | Every primitive and composite in §7, all seven states, both themes, on a `/styleguide` route (kept out of the sitemap) | Visual sign-off point |
-| **2 — Home** | All twelve sections of §4, fully responsive, motion in place | **Main review gate — approve before Phase 3** |
-| **3 — Inner pages** | `/services`, `/work`, `/work/[slug]`, `/approach`, `/about`, `/contact`, legal | Complete site |
+| **0 — Foundation** ✅ | Next.js + TS + Tailwind v4 scaffold, tokens, fonts, ESLint/Prettier, base layout, header, footer, theme toggle | Deployable empty shell |
+| **1 — Design system** ✅ | Every primitive and composite in §7, all seven states, both themes, on a `/styleguide` route (kept out of the sitemap) | Visual sign-off point |
+| **2 — Home** ✅ | All twelve sections of §4, fully responsive, motion in place | **Main review gate — approve before Phase 3** |
+| **3 — Inner pages** ✅ | `/services`, `/work`, `/work/[slug]`, `/approach`, `/about`, `/contact`, legal | Complete site |
 | **4 — Content & SEO** | Real copy, case studies, images, metadata, JSON-LD, sitemap, robots, OG images | Content-complete |
 | **5 — Hardening** | Lighthouse, axe, keyboard pass, cross-browser, 404/500, form spam protection, analytics | Launch-ready |
 | **6 — Launch** | DNS for spartalabs.in, SSL, Search Console, redirects, final QA | Live |
