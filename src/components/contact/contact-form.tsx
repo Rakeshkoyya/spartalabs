@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const controlClass =
-  "w-full rounded-[var(--radius-control)] border border-hairline-strong bg-page px-3.5 py-3 text-base text-ink transition-colors duration-200 placeholder:text-muted hover:border-accent-core/60 focus:border-accent-core focus:outline-none";
+  "w-full rounded-[var(--radius-field)] border border-hairline-strong bg-page px-3.5 py-3 text-base text-ink transition-colors duration-200 placeholder:text-muted hover:border-accent-core/60 focus:border-accent-core focus:outline-none";
 
 export function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -120,7 +120,7 @@ export function ContactForm() {
       {serverError ? (
         <p
           role="alert"
-          className="border-hairline-strong bg-accent-wash rounded-[var(--radius-control)] border px-4 py-3 text-sm"
+          className="border-hairline-strong bg-accent-wash rounded-[var(--radius-field)] border px-4 py-3 text-sm"
         >
           {serverError}
         </p>
