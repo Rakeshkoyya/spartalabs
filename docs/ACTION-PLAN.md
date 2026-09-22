@@ -237,6 +237,8 @@ Two-column: form left, direct channels right. Form fields kept short — name, w
 
 ### 6.1 Direction: **Engineered Authority**
 
+> **Live preview:** https://claude.ai/artifact/CCgkQ1LKNrZdpotmod1xAD — the hero, palette, type specimen, components and section order rendered in the proposed language. Use the theme button in its header to see both themes resolve.
+
 Dark, precise and warm. Deep graphite surfaces, bronze as the single accent, hairline rules and mono labels borrowed from engineering drawings. The reference points are Linear, Vercel and Stripe for discipline — but warmed with bronze so it reads as *established and human* rather than *another dev-tools startup*. It also deliberately avoids the corporate blue that TCS, Infosys, Wipro and HCL all share; you will not be mistaken for a smaller copy of them.
 
 The site ships **dark-first** with a full light theme available, both fully specified below.
@@ -283,7 +285,7 @@ Every pairing above was contrast-checked. Two rules that follow from that maths 
 | Role | Family | Weight | Notes |
 | --- | --- | --- | --- |
 | Display & headings | **Archivo** | 600 / 700 | Grotesque, confident, wide optical range. Tighten to `-0.03em` at display sizes. |
-| Body & UI | **Inter** | 400 / 500 | Proven at small sizes on every screen. |
+| Body & UI | **Instrument Sans** | 400 / 500 | Narrower and more neutral than Archivo — the width contrast is what makes the pairing read as deliberate. Chosen over Inter, which is now the default on roughly every tech site. |
 | Eyebrows, labels, metrics | **IBM Plex Mono** | 500 | Uppercase, `0.14em` tracking. Carries engineering credibility and gives the brand its verbal texture. |
 
 All three are on Google Fonts and load via `next/font` — self-hosted, no render-blocking request, no layout shift.
