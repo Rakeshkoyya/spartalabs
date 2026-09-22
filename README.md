@@ -8,12 +8,12 @@ development — delivered by a dedicated specialist pod per engagement.
 
 ## Status
 
-Planning. No application code yet.
+Plan approved, implementation not yet started.
 
 The website plan — strategy, information architecture, page blueprints, UI design
 language and build phases — lives in **[`docs/ACTION-PLAN.md`](docs/ACTION-PLAN.md)**.
-Open questions that need answering before implementation begins are in §12 of that
-document.
+The four directional decisions are recorded in §12, along with the content still
+outstanding before Phase 4.
 
 ## Planned stack
 

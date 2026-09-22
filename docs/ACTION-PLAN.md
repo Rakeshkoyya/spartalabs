@@ -1,7 +1,7 @@
 # Sparta Labs — Website Action Plan
 
 **Domain:** spartalabs.in
-**Document status:** Plan for approval. No implementation until signed off.
+**Document status:** Direction approved 2026-09-22. Phase 0 unblocked; see §12 for the decisions taken and the content still outstanding.
 **Last updated:** 2026-09-22
 
 ---
@@ -135,7 +135,7 @@ Sticky, 72px tall, transparent over the hero, then on scroll >24px it gains a `b
 **Motion:** headline lines rise 20px and fade in on a 70ms stagger, sub-line and buttons follow. Total under 700ms. Fully skipped under `prefers-reduced-motion`.
 
 ### 4.3 Trust strip
-A quiet band directly under the hero: `Trusted by teams in` + sector word-marks or client logos in a single desaturated row (grayscale, 60% opacity, full colour on hover). If client logos are not cleared for use, this becomes sector labels instead — `Education · Film Production · Advertising · Retail Operations`. **Decision needed (§12, Q2).**
+**Decided: sector labels, no client logos.** A quiet band directly under the hero — `Delivering for teams in` followed by `Education · Film Production · Advertising · Retail Operations` set in mono, separated by hairlines. This sidesteps client sign-off entirely and, handled with this much typographic discipline, reads as deliberate rather than as a row of missing logos.
 
 ### 4.4 What we build — capabilities
 Six cards, 3×2 on desktop / 2×3 tablet / 1×6 mobile. Each card: bronze chevron glyph, title, one outcome sentence, and three plain-text sub-items. Hover lifts the card 2px and warms the border to bronze at 40%.
@@ -160,7 +160,9 @@ Planned entries from what you described:
 3. **Film production house — two projects** — Media & Entertainment
 4. **Advertising agency brand site** — Advertising
 
-Each needs a real case study page (§5.2). **Client naming and metrics need your input (§12, Q2).**
+Each needs a real case study page (§5.2).
+
+**Decided: anonymised clients, real numbers.** Cards and case studies identify clients by sector descriptor — *"a K-12 group in Hyderabad"*, *"a Hyderabad production house"*, *"an independent ad agency"* — with genuine metrics attached. This is the strongest configuration available without client sign-off: the number is what persuades, and the name mostly signals that you were allowed to use it. Descriptors must stay specific (segment + city + scale). A vague *"a leading enterprise client"* reads as a client who did not exist.
 
 ### 4.6 How we work — *the most important section on the page*
 
@@ -184,7 +186,8 @@ Answers "do they really have the depth?". A grid of discipline chips with headco
 `Product & UX · Frontend · Backend & Platform · Mobile · AI / ML · QA & Automation · DevOps & Cloud · Brand & Design`
 
 Supporting line: *"Every engagement draws from all eight. You are never handed to a generalist."*
-If real team photos and bios are available, they replace this section entirely and are strictly better for trust. **(§12, Q3.)**
+
+**Decided: pods, no faces.** Since the section carries no photographs, it has to earn its place on substance: each pod gets a headcount and one concrete line of what it owns on a project. A grid of eight bare labels is decoration; eight labels with ownership and numbers is an org chart, and an org chart is evidence.
 
 ### 4.8 Industries
 Four to six tiles with a one-line proof each, linking to `/work?sector=…`.
@@ -226,7 +229,9 @@ Consistency matters more than variety here. A repeatable template reads as a tra
 The home-page process, expanded. Adds: engagement models (fixed-scope · dedicated pod · retainer), a sample two-week sprint, the communication stack, and a "what we need from you" section — which is disarmingly honest and builds real credibility.
 
 ### 5.4 `/about`
-Founding story (short, specific, no mission-statement mush), values as behaviours rather than adjectives, team, timeline, and company facts. Values should read like commitments: *"We tell you when a deadline is at risk the week we see it, not the week it slips."*
+Founding story (short, specific, no mission-statement mush), values as behaviours rather than adjectives, timeline, and company facts. Values should read like commitments: *"We tell you when a deadline is at risk the week we see it, not the week it slips."*
+
+With no team photographs (§4.7), this page leans on the timeline and the company facts to do the humanising. A dated timeline — founded, first education client, first production project, team passing N — is the single best substitute for faces, because it is checkable. The page is built so a team section can drop in later without a redesign.
 
 ### 5.5 `/contact`
 Two-column: form left, direct channels right. Form fields kept short — name, work email, company, what you need (select), message. Every extra field costs conversions. Inline validation, clear success state, honeypot + rate limiting. Right column: email, phone, WhatsApp, office address, embedded map, response-time promise.
@@ -235,7 +240,7 @@ Two-column: form left, direct channels right. Form fields kept short — name, w
 
 ## 6. UI design language
 
-### 6.1 Direction: **Engineered Authority**
+### 6.1 Direction: **Engineered Authority** — approved 2026-09-22
 
 > **Live preview:** https://claude.ai/artifact/CCgkQ1LKNrZdpotmod1xAD — the hero, palette, type specimen, components and section order rendered in the proposed language. Use the theme button in its header to see both themes resolve.
 
@@ -369,7 +374,7 @@ Built once, used everywhere. Hand-rolled on Tailwind + Radix primitives — no h
 | Forms | React Hook Form + Zod | |
 | Icons | Lucide + a small custom SVG set for the chevron glyph |
 | Analytics | Plausible or Vercel Analytics | Cookieless — no consent banner, which keeps the first impression clean. |
-| Hosting | **Vercel** (recommended) | Preview deploys per commit, edge CDN, image optimisation, zero config. Static export to your existing host is the fallback — see §12, Q1. |
+| Hosting | **Vercel** — confirmed | Preview deploys per commit, edge CDN, image optimisation, zero config. Unlocks a real `/api/contact` route, so the form needs no third-party service. spartalabs.in points at Vercel via DNS at launch. |
 
 ### Repository structure
 
@@ -427,10 +432,10 @@ Phase 2 is the gate. Once the home page is approved, the rest is execution again
 | 1 | Logo — SVG, light and dark variants | Header, footer, OG, favicon | We set the wordmark in Archivo and propose a chevron mark |
 | 2 | Company facts — registered name, address, founded year, CIN/GSTIN | Footer, contact, JSON-LD | Cannot be faked — hard blocker for launch |
 | 3 | Contact — email, phone, WhatsApp, booking link | Every CTA | Hard blocker |
-| 4 | Client names + written permission to display | Trust strip, case studies | Anonymised descriptors: *"a K-12 group in Hyderabad"* |
-| 5 | Real project metrics | Hero strip, case results | Section cut — no invented numbers |
+| 4 | ~~Client names + permission~~ | — | **Resolved:** anonymised sector descriptors throughout |
+| 5 | Real project metrics — the actual figures | Hero strip, case results | **Hard blocker.** The plan now depends on these; see §12 |
 | 6 | Product screenshots (4 projects) | Case studies, work cards | Abstract typographic treatment |
-| 7 | Team names, roles, photos | About, pods section | Discipline pods without faces |
+| 7 | ~~Team names, roles, photos~~ | — | **Resolved:** discipline pods. Still need the eight headcounts |
 | 8 | Client testimonials with attribution | Testimonials | **Section cut entirely** |
 | 9 | Founding story, 150 words | About | We draft, you correct |
 
@@ -438,25 +443,33 @@ Items 2, 3 and 5 are where most agency sites quietly lie. We will not — the en
 
 ---
 
-## 12. Open questions
+## 12. Decisions taken
 
-These change the plan, so I need your answers before Phase 0.
+Approved 2026-09-22. These four were the plan's blockers; all are now settled.
 
-**Q1 — Hosting.** Vercel (recommended: preview deploys, edge CDN, working contact form API) or your existing spartalabs.in shared hosting? The second requires static export and a third-party form service like Web3Forms.
+| | Decision | Consequence |
+| --- | --- | --- |
+| **Q1 Hosting** | **Vercel** | Preview URL on every commit, so review happens on real pages. Contact form is a first-party `/api/contact` route — no third-party form service, no data leaving your stack. spartalabs.in repoints at launch (§9, Phase 6). |
+| **Q2 Proof** | **Anonymised clients, real metrics** | No client sign-off needed, so Phase 4 does not wait on anyone. Work cards and case studies carry sector descriptors plus genuine numbers. |
+| **Q3 Team** | **Specialist pods, no faces** | No photo shoot on the critical path. The pods section and the About timeline absorb the trust load instead. |
+| **Q4 Direction** | **Engineered Authority** | §6 is locked. Dark graphite, bronze accent, Archivo / Instrument Sans / IBM Plex Mono. |
 
-**Q2 — Client names and numbers.** Can we name the school group, film production house and ad agency, or do we use anonymised sector descriptors? And do you have real metrics — students on the platform, uptime, delivery time — or should the hero strip use company facts (years, projects, sectors, response time) instead?
+### What Q2 and Q3 shift onto the rest of the plan
 
-**Q3 — The team.** Real names, roles and photos on the About page, or the anonymous "specialist pods" treatment? Real people are meaningfully stronger for trust, but only if the photos are consistent and good.
+Removing client names and faces takes away the two easiest trust signals, so the remaining ones have to be stronger than they would otherwise need to be. Three specific consequences:
 
-**Q4 — Visual direction.** Does "Engineered Authority" — dark graphite with bronze, mono labels, hairline rules — match how you want Sparta Labs to feel? The main alternative is a light, editorial, Stripe-like treatment: warm white, deep ink, more whitespace, calmer. Both are credible; they attract slightly different buyers.
+1. **The numbers now carry the argument.** With no recognisable logo doing the work, the metric *is* the proof. Every case study needs at least one real figure in its Results block, and the hero strip needs four. This is the one hard content blocker left (§11, item 5).
+2. **Descriptors must be specific.** *"A K-12 group in Hyderabad running 4 campuses"* is credible. *"A leading education client"* reads as a client who did not exist. Segment, city and scale, every time.
+3. **Process detail replaces personal detail.** §4.6 and `/approach` get more room than a typical agency site gives them — a named engagement lead, a Friday demo, a real two-week sprint — because concrete process is what a buyer has left to judge you on when they cannot see the faces or the logos.
 
-**Also useful, but not blocking:**
+### Still needed before Phase 4 (content, not plan blockers)
 
-- Founded year, office city, team size.
-- Do you want `/careers` and `/insights` at launch or in Phase 2?
-- Is there an existing spartalabs.in site with content or URLs to preserve and redirect?
-- Do you have a booking tool (Cal.com / Calendly) we should wire into the CTAs?
-- Any competitor or reference sites you admire — or specifically want to avoid resembling?
+Phases 0–3 can run without these. Phase 4 cannot.
+
+- **Hard blockers:** the four hero metrics and at least one real figure per case study; registered company name, address and founded year; email, phone, WhatsApp; headcount per pod.
+- **Needed for completeness:** the four project screenshot sets, a 150-word founding story (I draft, you correct), logo SVG if one exists, CIN/GSTIN if applicable.
+- **Still open, non-blocking:** `/careers` and `/insights` at launch or Phase 2? Any existing spartalabs.in URLs to preserve and redirect? A booking tool (Cal.com / Calendly) to wire into the CTAs? Reference sites you admire — or specifically want to avoid resembling?
+- **Cut unless it appears:** testimonials. Real quotes with names and roles, or the section does not ship.
 
 ---
 
@@ -468,14 +481,17 @@ These change the plan, so I need your answers before Phase 0.
 | No real testimonials or metrics | Weakens the central trust argument | Lean harder on process transparency (§4.6) and detailed case studies, which we *can* write from your project knowledge |
 | Scope creep into a CMS mid-build | Delays launch by weeks | Ship with typed content files; CMS is an explicit Phase 3 decision |
 | Design-by-committee after Phase 2 | Language drifts and the site loses coherence | Phase 2 is a formal sign-off gate; changes after it are logged as scoped revisions |
-| Shared hosting constraints found late | Forces a rebuild of the form and image pipeline | Resolved by Q1 before any code is written |
+| Metrics never arrive, so anonymised clients carry no numbers either | Removes both halves of the proof — the failure mode this plan is least able to absorb | Escalate at the start of Phase 4; fall back to delivery facts we can count ourselves (projects, sectors, years, response time) |
 
 ---
 
-## 14. What happens on your approval
+## 14. Next step
 
-1. You answer Q1–Q4.
-2. I scaffold Phase 0 and push it, so you have a live preview URL within the first commit.
-3. Phase 1 gives you a `/styleguide` page — you approve the design language on real components, not on a description.
-4. Phase 2 delivers the home page for the main review gate.
-5. Phases 3–6 execute against the approved language.
+The plan is unblocked. On your go-ahead:
+
+1. **Phase 0** — I scaffold Next.js 15 + TypeScript + Tailwind v4 with the §6.2 tokens, wire the fonts, build the header, footer and theme, and push. You get a live Vercel preview URL from the first commit.
+2. **Phase 1** — a `/styleguide` route with every component in both themes, so you approve the design language on real, clickable components rather than on a description.
+3. **Phase 2** — the home page, all twelve sections. **This is the sign-off gate.** Changes after it are logged as scoped revisions.
+4. **Phases 3–6** — inner pages, content and SEO, hardening, launch.
+
+I will build with `TBD` placeholders where §12 says content is outstanding, clearly marked in the content files so nothing invented ever reaches the page.
