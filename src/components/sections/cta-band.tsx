@@ -1,5 +1,5 @@
-import { CalendarCheck, Globe, Mail, MessageCircle, Phone } from "lucide-react";
-import { contact, serviceLines, site, telHref } from "@/content/site";
+import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
+import { brochure, contact, serviceLines, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -57,10 +57,19 @@ export function CtaBand({
           <p className="text-lede mt-4 max-w-[52ch] text-[#c3d0e4]">
             {body} We reply {contact.responseTime}.
           </p>
-          <Button href="/contact" variant="light" className="mt-8">
-            <CalendarCheck aria-hidden className="text-accent-core size-4.5" />
-            Book a discovery call
-          </Button>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Button href="/contact" variant="light">
+              <CalendarCheck aria-hidden className="text-accent-core size-4.5" />
+              Book a discovery call
+            </Button>
+            <Button href={brochure.href} download={brochure.fileName} variant="secondary">
+              <Download aria-hidden className="size-4.5" />
+              {brochure.label}
+            </Button>
+          </div>
+          <p className="text-label font-label mt-3 tracking-[0.14em] text-[#8593a8] uppercase">
+            {brochure.meta}
+          </p>
         </div>
 
         <div className="glass mx-auto mt-14 grid max-w-[880px] gap-6 p-6 sm:grid-cols-3 sm:p-7">

@@ -48,6 +48,15 @@ export function Button(props: AsLink | AsButton) {
 
   if (rest.href !== undefined) {
     const { href, ...linkProps } = rest;
+    // Files such as the brochure PDF are not routes: a plain anchor lets the
+    // browser download them instead of Next prefetching them as a page.
+    if (linkProps.download !== undefined) {
+      return (
+        <a href={href} className={classes} {...(linkProps as React.ComponentProps<"a">)}>
+          {children}
+        </a>
+      );
+    }
     return (
       <Link href={href} className={classes} {...linkProps}>
         {children}

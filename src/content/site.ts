@@ -88,6 +88,17 @@ export const nav = [
 
 export const primaryCta = { label: "Book a discovery call", href: "/contact" } as const;
 
+/**
+ * The client brochure, served from /public. A copy of
+ * brochure/Sparta-Labs-Brochure.pdf — re-copy it whenever the PDF is rebuilt.
+ */
+export const brochure = {
+  href: "/sparta-labs-brochure.pdf",
+  fileName: "Sparta-Labs-Brochure.pdf",
+  label: "Download brochure",
+  meta: "PDF · 12 pages · 5 MB",
+} as const;
+
 /** The service lines printed under the logo and on the brochure cover. */
 export const serviceLines = [
   "Websites",

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { company, contact, telHref } from "@/content/site";
+import { Download } from "lucide-react";
+import { brochure, company, contact, telHref } from "@/content/site";
+import { Button } from "@/components/ui/button";
 import { faq } from "@/content/faq";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactForm } from "@/components/contact/contact-form";
@@ -63,6 +65,26 @@ export default function ContactPage() {
                   </li>
                 ) : null}
               </ul>
+            </div>
+
+            <div>
+              <Kicker>Brochure</Kicker>
+              <p className="text-muted mt-4 text-sm">
+                What we build and how we work, in one document to share with your team.
+              </p>
+              <Button
+                href={brochure.href}
+                download={brochure.fileName}
+                variant="secondary"
+                size="sm"
+                className="mt-4"
+              >
+                <Download aria-hidden className="size-4" />
+                {brochure.label}
+              </Button>
+              <p className="text-label font-label text-muted mt-2 tracking-[0.14em] uppercase">
+                {brochure.meta}
+              </p>
             </div>
 
             {company.addressLines ? (

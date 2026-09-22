@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { Download } from "lucide-react";
 import { capabilities } from "@/content/capabilities";
-import { company, contact, legalNav, nav, site, social, telHref } from "@/content/site";
+import { brochure, company, contact, legalNav, nav, site, social, telHref } from "@/content/site";
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/ui/container";
 
@@ -65,6 +66,16 @@ export function SiteFooter() {
               </FooterLink>
             ))}
             {contact.whatsapp ? <FooterLink href={contact.whatsapp}>WhatsApp</FooterLink> : null}
+            <li>
+              <a
+                href={brochure.href}
+                download={brochure.fileName}
+                className="text-muted inline-flex items-center gap-2 text-sm transition-colors duration-200 hover:text-white"
+              >
+                <Download aria-hidden className="size-4" />
+                {brochure.label}
+              </a>
+            </li>
             <li className="text-muted pt-1 text-sm">We reply {contact.responseTime}.</li>
           </FooterColumn>
         </div>
