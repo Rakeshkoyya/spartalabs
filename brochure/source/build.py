@@ -1,6 +1,6 @@
 import re, os
 # Fill these in when confirmed; rows are omitted while None.
-PHONE = None      # e.g. "+91 98xxx xxxxx"
+PHONES = ["+91 79939 91162", "+91 90305 95999"]
 WHATSAPP = None
 # Phosphor icons: `npm pack @phosphor-icons/core` and extract it as ./phosphor
 ICONS = "phosphor/assets/regular/"
@@ -13,7 +13,7 @@ def svg(name):
 src = re.sub(r"\{\{i:([\w-]+)\}\}", lambda m: f'<span class="ico">{svg(m.group(1))}</span>', src)
 src = re.sub(r"\{\{box:([\w-]+)\}\}", lambda m: f'<div class="icobox"><span class="ico">{svg(m.group(1))}</span></div>', src)
 rows = ""
-if PHONE: rows += f'<div class="row"><span class="ico">{svg("phone")}</span><div><small>PHONE</small>{PHONE}</div></div>'
+if PHONES: rows += f'<div class="row"><span class="ico">{svg("phone")}</span><div><small>CALL US</small>{" &nbsp;/&nbsp; ".join(PHONES)}</div></div>'
 if WHATSAPP: rows += f'<div class="row"><span class="ico">{svg("whatsapp-logo")}</span><div><small>WHATSAPP</small>{WHATSAPP}</div></div>'
 src = src.replace("{{phone}}", rows)
 assert "—" not in src and "–" not in src, "dash found"

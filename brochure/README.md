@@ -15,5 +15,5 @@ python3 build.py                 # brochure.src.html -> brochure.html (inlines i
 node render.mjs                  # brochure.html -> ../Sparta-Labs-Brochure.pdf (Playwright + Chromium)
 ```
 
-Phone and WhatsApp numbers are set at the top of `build.py`; their rows are hidden while empty.
+Contact numbers (`PHONES`) and an optional WhatsApp number are set at the top of `build.py`.
 All copy lives in `brochure.src.html`.
