@@ -85,6 +85,17 @@ front = over(front, lines_layer([
 ]))
 Image.fromarray((grain(front, 0.014, 5) * 255).astype(np.uint8)).save(OUT + "card-front-bg.jpg", quality=94)
 
+# Front, light version: a soft white-to-ice gradient for the original (dark) logo, crest lines low and faint.
+y, x = np.mgrid[0:H, 0:W]
+t = np.clip((x / W * 0.55 + y / H * 0.45), 0, 1)[..., None]
+light = PAPER * (1 - t) + np.array([214, 232, 255]) / 255 * t
+light = light * (1 - blob(0.5, 0.45, 0.42, 0.55)[..., None] * 0.7) + PAPER * blob(0.5, 0.45, 0.42, 0.55)[..., None] * 0.7
+light = over(light, lines_layer([
+    dict(n=44, y0=0.90, amp=0.07, color=BLUE, alpha=0.30, lw=1.0, phase=0.4, spread=0.55),
+    dict(n=20, y0=0.96, amp=0.06, color=ELEC, alpha=0.26, lw=0.8, phase=1.2, spread=0.35),
+]))
+Image.fromarray((grain(light, 0.006, 7) * 255).astype(np.uint8)).save(OUT + "card-front-light-bg.jpg", quality=94)
+
 # Back: bright paper with a faint ice wash and a quiet bundle of blue lines along the lower edge.
 back = wash(PAPER, [
     (1.00, 1.00, 0.55, 0.60, ICE, 0.95),

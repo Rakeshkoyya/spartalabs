@@ -29,6 +29,11 @@ body{font-family:"Plus Jakarta Sans",sans-serif;-webkit-print-color-adjust:exact
 .front .word{width:37mm;margin-top:2.6mm}
 .front .motto{margin-top:3.2mm;font-family:Outfit;font-weight:400;font-size:5.4pt;letter-spacing:.34em;color:#A9B8CF;display:flex;gap:1.6mm;align-items:center}
 .front .motto i{font-style:normal;color:var(--cyan);letter-spacing:0}
+/* Light front: the original logo on a soft gradient */
+.front.light{background:#F4F7FC}
+.front.light .mark{filter:drop-shadow(0 2.5mm 4mm rgba(0,70,184,.22))}
+.front.light .motto{color:var(--s600)}
+.front.light .motto i{color:var(--b500)}
 
 /* ---------- Back ---------- */
 .back{background:#FBFCFE;color:var(--n900)}
@@ -56,7 +61,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;-webkit-print-color-adjust:exact
 <body>
 
 <!-- ===================== FRONT ===================== -->
-<section class="card front">
+<section class="card front" id="front-dark">
   <img class="bg" src="img/card-front-bg.jpg" alt="">
   <div class="lockup">
     <img class="mark" src="img/logo-mark-white.png" alt="">
@@ -65,8 +70,18 @@ body{font-family:"Plus Jakarta Sans",sans-serif;-webkit-print-color-adjust:exact
   </div>
 </section>
 
+<!-- ===================== FRONT, LIGHT VERSION ===================== -->
+<section class="card front light" id="front-light">
+  <img class="bg" src="img/card-front-light-bg.jpg" alt="">
+  <div class="lockup">
+    <img class="mark" src="img/logo-mark.png" alt="">
+    <img class="word" src="img/logo-wordmark.png" alt="Sparta Labs">
+    <p class="motto">IDEAS <i>&rarr;</i> PRODUCTS <i>&rarr;</i> REAL IMPACT</p>
+  </div>
+</section>
+
 <!-- ===================== BACK ===================== -->
-<section class="card back">
+<section class="card back" id="back">
   <img class="bg" src="img/card-back-bg.jpg" alt="">
   <div class="edge"></div>
   <div class="in">

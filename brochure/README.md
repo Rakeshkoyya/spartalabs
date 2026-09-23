@@ -22,9 +22,13 @@ All copy lives in `brochure.src.html`.
 
 `business-card/` holds the print-ready card: 3.5 x 2 in (89 x 51 mm) with 0.125 in (3 mm) bleed on every side.
 
-- `Sparta-Labs-Business-Card.pdf`: send this to the printer. Page 1 is the front (dark, white logo), page 2 the back (light, contact details). Each page is 3.75 x 2.25 in including bleed.
-- `Sparta-Labs-Card-front.png` / `-back.png`: 600 dpi images at the final trimmed size, for preview or sharing.
-- `Sparta-Labs-Card-front-bleed.png` / `-back-bleed.png`: 600 dpi images with bleed, for printers that want images instead of a PDF.
+There are two versions; they share the same back and differ only on the front.
+
+- `Sparta-Labs-Business-Card.pdf`: dark version. Page 1 is the front (navy, white logo), page 2 the back (light, contact details).
+- `Sparta-Labs-Business-Card-Light.pdf`: light version. Page 1 is the front (soft white-to-ice gradient, original logo), page 2 the same back.
+- Each PDF page is 3.75 x 2.25 in including bleed; send one PDF to the printer.
+- `Sparta-Labs-Card-front.png`, `-front-light.png`, `-back.png`: 600 dpi images at the final trimmed size, for preview or sharing.
+- `...-bleed.png`: the same images with bleed, for printers that want images instead of a PDF.
 
 Rebuild (same icon setup as the brochure):
 
@@ -32,5 +36,5 @@ Rebuild (same icon setup as the brochure):
 cd brochure/source
 python3 gen_card_graphics.py     # optional: card backgrounds + vector QR (needs numpy, matplotlib, pillow, qrcode)
 python3 build_card.py            # card.src.html -> card.html (name, title, phones, address set at the top)
-node render_card.mjs             # card.html -> ../business-card/ (PDF + PNGs)
+node render_card.mjs             # card.html -> ../business-card/ (both PDFs + PNGs)
 ```
