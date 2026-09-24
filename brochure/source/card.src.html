@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sparta Labs Business Card</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* 3.5 x 2 in trim + 0.125 in bleed on every side. Keep type inside the safe area (0.125 in inside trim). */
+:root{
+  --n950:#060D1A; --n900:#0B1627; --n700:#1B3154;
+  --b700:#0046B8; --b600:#0052D1; --b500:#0A6CF0; --b400:#008BFE; --cyan:#19BEFF;
+  --s700:#34445C; --s600:#4A5A73; --s400:#8593A8; --line:#DCE4F0;
+  --bleed:0.125in; --safe:0.25in;
+}
+@page{size:3.75in 2.25in;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#2a2f38}
+body{font-family:"Plus Jakarta Sans",sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.card{width:3.75in;height:2.25in;position:relative;overflow:hidden;page-break-after:always;break-after:page}
+.card:last-child{page-break-after:auto}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ico svg{width:100%;height:100%;fill:currentColor}
+.ico{display:inline-block;flex:none}
+
+/* ---------- Front ---------- */
+.front{background:var(--n950)}
+.front .lockup{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:1.5mm}
+.front .mark{width:17.5mm;filter:drop-shadow(0 3mm 5mm rgba(0,40,140,.55))}
+.front .word{width:37mm;margin-top:2.6mm}
+.front .motto{margin-top:3.2mm;font-family:Outfit;font-weight:400;font-size:5.4pt;letter-spacing:.34em;color:#A9B8CF;display:flex;gap:1.6mm;align-items:center}
+.front .motto i{font-style:normal;color:var(--cyan);letter-spacing:0}
+/* Light front: the original logo on a soft gradient */
+.front.light{background:#F4F7FC}
+.front.light .mark{filter:drop-shadow(0 2.5mm 4mm rgba(0,70,184,.22))}
+.front.light .motto{color:var(--s600)}
+.front.light .motto i{color:var(--b500)}
+
+/* ---------- Back ---------- */
+.back{background:#FBFCFE;color:var(--n900)}
+.back .edge{position:absolute;left:0;top:0;bottom:0;width:calc(var(--bleed) + 1.6mm);background:linear-gradient(180deg,var(--cyan),var(--b500) 45%,var(--b700))}
+.back .in{position:absolute;inset:var(--safe);left:calc(var(--safe) + 2.2mm)}
+.back .brand{display:flex;align-items:center;gap:2.4mm}
+.back .brand .m{height:10.5mm}
+.back .brand .w{width:25mm}
+.back .rule{margin:2.8mm 0 2.6mm;width:30mm;height:.35mm;border-radius:1mm;background:linear-gradient(90deg,var(--b700),var(--b500) 55%,var(--cyan))}
+.back .person{margin:-.6mm 0 2.2mm}
+.back .person b{display:block;font-family:Outfit;font-weight:600;font-size:9.5pt;letter-spacing:-.01em;line-height:1.1}
+.back .person span{font-size:5.6pt;color:var(--b600);font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.back .rows{display:grid;gap:1.55mm}
+.back .row{display:flex;align-items:center;gap:1.9mm;font-size:6.6pt;font-weight:500;color:var(--n900);line-height:1.2}
+.back .row .ico{width:4.2mm;height:4.2mm;border-radius:1.1mm;display:grid;place-items:center;background:#E8F1FF;color:var(--b600);padding:.8mm}
+.back .qr{position:absolute;right:var(--safe);top:var(--safe);text-align:center}
+.back .qr .box{width:15.5mm;height:15.5mm;padding:1.3mm;background:#fff;border:.2mm solid var(--line);border-radius:1.6mm;box-shadow:0 1.5mm 3mm -1.5mm rgba(11,40,90,.25)}
+.back .qr svg{width:100%;height:100%;display:block}
+.back .qr svg path{fill:var(--n900)}
+.back .qr span{display:block;margin-top:1.1mm;font-family:Outfit;font-size:4.2pt;letter-spacing:.2em;color:var(--s400)}
+.back .svc{position:absolute;right:var(--safe);bottom:var(--safe);font-family:Outfit;font-size:4.5pt;letter-spacing:.2em;color:var(--s600);text-align:right;line-height:1.9}
+.back .svc i{font-style:normal;color:var(--b500);margin:0 .9mm}
+</style>
+</head>
+<body>
+
+<!-- ===================== FRONT ===================== -->
+<section class="card front" id="front-dark">
+  <img class="bg" src="img/card-front-bg.jpg" alt="">
+  <div class="lockup">
+    <img class="mark" src="img/logo-mark-white.png" alt="">
+    <img class="word" src="img/logo-wordmark-white.png" alt="Sparta Labs">
+    <p class="motto">IDEAS <i>&rarr;</i> PRODUCTS <i>&rarr;</i> REAL IMPACT</p>
+  </div>
+</section>
+
+<!-- ===================== FRONT, LIGHT VERSION ===================== -->
+<section class="card front light" id="front-light">
+  <img class="bg" src="img/card-front-light-bg.jpg" alt="">
+  <div class="lockup">
+    <img class="mark" src="img/logo-mark.png" alt="">
+    <img class="word" src="img/logo-wordmark.png" alt="Sparta Labs">
+    <p class="motto">IDEAS <i>&rarr;</i> PRODUCTS <i>&rarr;</i> REAL IMPACT</p>
+  </div>
+</section>
+
+<!-- ===================== BACK ===================== -->
+<section class="card back" id="back">
+  <img class="bg" src="img/card-back-bg.jpg" alt="">
+  <div class="edge"></div>
+  <div class="in">
+    <div class="brand">
+      <img class="m" src="img/logo-mark.png" alt="">
+      <img class="w" src="img/logo-wordmark.png" alt="Sparta Labs">
+    </div>
+    <div class="rule"></div>
+    {{person}}
+    <div class="rows">
+      {{phone}}
+      <div class="row">{{i:envelope-simple}}hello@spartalabs.in</div>
+      <div class="row">{{i:globe}}spartalabs.in</div>
+      {{address}}
+    </div>
+  </div>
+  <div class="qr"><div class="box">{{qr}}</div><span>SCAN TO VISIT</span></div>
+  <div class="svc">WEBSITES<i>|</i>APPS<i>|</i>AI AUTOMATIONS<br>AI SOLUTIONS<i>|</i>CUSTOM PLATFORMS</div>
+</section>
+
+</body>
+</html>
