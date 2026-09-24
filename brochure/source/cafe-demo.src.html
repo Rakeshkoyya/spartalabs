@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cafe and Restaurant Suite Demo</title>
+<link rel="stylesheet" href="fonts.css">
+<!--
+  Source for ../Sparta-Labs-Cafe-Restaurant-Suite-Demo.pdf, a 16:9 demo deck.
+  Build: python3 build_cafe_demo.py && node render_cafe_demo.mjs
+  Icon placeholders (i: and box: in double braces) are Phosphor icons inlined by the build script.
+  "Kaapi & Co." is a made-up sample cafe used only to fill the screens.
+-->
+<style>
+:root{
+  /* Sparta frame */
+  --n950:#060D1A; --n900:#0B1627; --n800:#12233D; --n700:#1B3154;
+  --b700:#0046B8; --b600:#0052D1; --b500:#0A6CF0; --b400:#008BFE; --cyan:#19BEFF;
+  --ice:#E8F1FF; --paper:#F4F7FC; --white:#FBFCFE;
+  --s700:#34445C; --s600:#4A5A73; --s400:#8593A8; --line:#DCE4F0;
+  --on-dark:#EEF3FB; --on-dark-2:#A9B8CF;
+  /* Sample cafe brand used inside the screens */
+  --esp:#2B1D16; --esp2:#4A3428; --cream:#FBF6EF; --latte:#F1E6D6; --sand:#E8DDCF;
+  --terra:#C8643B; --terra-w:#F8E5DA; --sage:#2F9E6E; --sage-w:#E0F2E9;
+  --gold:#B58A1B; --gold-w:#F7EDD2; --cblue:#2F6FD6; --cblue-w:#E3ECFB;
+  --red:#C9372C; --red-w:#FBE3E0; --mut:#7A6A5E;
+}
+@page{size:1600px 900px;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#2a2f38}
+body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--n900);-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:15px;line-height:1.5}
+h1,h2,h3,h4,.disp{font-family:"Outfit",sans-serif;letter-spacing:-0.02em;line-height:1.08;font-weight:600}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;background:var(--paper);break-after:page;page-break-after:always}
+.slide:last-child{break-after:auto;page-break-after:auto}
+.dark{background:var(--n950);color:var(--on-dark)}
+.ico svg{width:100%;height:100%;fill:currentColor}
+.ico{display:inline-block;width:20px;height:20px;flex:none;vertical-align:middle}
+.ico .ico{width:100%;height:100%;display:block}
+.icobox{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--ice);color:var(--b600)}
+.icobox .ico{width:24px;height:24px}
+.dark .icobox{background:rgba(25,190,255,.1);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(25,190,255,.22)}
+.kicker{font-family:"Outfit";font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--b600)}
+.dark .kicker{color:var(--cyan)}
+.bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* footer on every slide */
+.foot{position:absolute;left:64px;right:64px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-family:Outfit;font-size:12px;letter-spacing:.1em;color:var(--s400);text-transform:uppercase}
+.foot img{height:18px}
+.foot .n{color:var(--n900);font-weight:600}
+.dark .foot{color:#6F82A0}.dark .foot .n{color:#fff}
+
+/* ---------- feature slide layout ---------- */
+.feat .left{position:absolute;left:64px;top:60px;width:470px;bottom:70px;display:flex;flex-direction:column}
+.feat .mod{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.feat .mod .tag{font-family:Outfit;font-size:12px;font-weight:600;letter-spacing:.16em;color:#fff;background:var(--b600);padding:5px 10px;border-radius:999px}
+.feat h2{font-size:44px;line-height:1.04;color:var(--n900)}
+.feat h2 span{color:var(--b600)}
+.feat .lead{margin-top:14px;font-size:16.5px;line-height:1.55;color:var(--s700)}
+.how{list-style:none;margin-top:22px;display:grid;gap:11px}
+.how li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:14px;line-height:1.45;color:var(--s600)}
+.how li b{display:block;color:var(--n900);font-family:Outfit;font-size:15.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:1px}
+.num{width:28px;height:28px;border-radius:50%;background:var(--b500);color:#fff;font-family:Outfit;font-weight:600;font-size:14px;display:grid;place-items:center;box-shadow:0 0 0 3px #fff,0 4px 10px rgba(10,108,240,.35)}
+.wins{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.wins > span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--b700);background:var(--ice);border-radius:999px;padding:6px 12px}
+.wins span .ico{width:15px;height:15px}
+.wins-t{font-family:Outfit;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--s400);margin-bottom:8px;margin-top:auto}
+.wins-t + .wins{margin-top:0}
+.stage{position:absolute;left:580px;right:40px;top:40px;bottom:64px;border-radius:28px;background:radial-gradient(120% 90% at 70% 20%,#fff 0%,#EAF0F9 55%,#DFE7F3 100%);overflow:hidden}
+.stage.warm{background:radial-gradient(120% 90% at 70% 20%,#FFFDF9 0%,#F4ECE1 60%,#EBDFD0 100%)}
+.stage.night{background:radial-gradient(120% 90% at 70% 20%,#1B3154 0%,#0B1627 70%)}
+.stage > *{position:absolute}
+.cb{width:32px;height:32px;border-radius:50%;background:var(--b500);color:#fff;font-family:Outfit;font-style:normal;font-weight:600;font-size:16px;display:grid;place-items:center;box-shadow:0 0 0 4px #fff,0 8px 18px rgba(10,108,240,.45);z-index:20}
+.note{font-family:Outfit;font-size:12.5px;color:var(--s600);letter-spacing:.02em;display:flex;align-items:center;gap:8px;z-index:5}
+.note .ico{width:16px;height:16px;color:var(--b500)}
+
+/* ---------- device frames ---------- */
+.browser{border-radius:14px;background:#fff;box-shadow:0 40px 80px -30px rgba(11,40,90,.45),0 0 0 1px rgba(11,40,90,.08);overflow:hidden}
+.browser .bar{height:36px;background:#EEF1F5;display:flex;align-items:center;gap:7px;padding:0 14px;border-bottom:1px solid #E1E6EE}
+.browser .bar i{width:11px;height:11px;border-radius:50%;background:#D6DCE5}
+.browser .bar i:nth-child(1){background:#F26B5E}.browser .bar i:nth-child(2){background:#F5BE4F}.browser .bar i:nth-child(3){background:#5DC66A}
+.browser .bar .url{margin-left:16px;flex:1;max-width:340px;height:22px;border-radius:7px;background:#fff;font-size:11px;color:#6B7688;display:flex;align-items:center;padding:0 10px;gap:6px}
+.browser .bar .url .ico{width:11px;height:11px}
+.phone{width:280px;height:580px;border-radius:44px;background:#15120F;padding:10px;box-shadow:0 40px 70px -25px rgba(20,12,5,.55),inset 0 0 0 2px #3a322c}
+.phone .scr{border-radius:35px;overflow:hidden;height:100%;background:var(--cream);position:relative;font-size:12px;color:var(--esp)}
+.phone .scr:before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:84px;height:24px;border-radius:14px;background:#15120F;z-index:5}
+.sbar{height:42px;display:flex;justify-content:space-between;align-items:center;padding:6px 24px 0;font-size:11.5px;font-weight:700;color:var(--esp)}
+.sbar .r{display:flex;gap:4px;align-items:center}.sbar .r .ico{width:13px;height:13px}
+.tablet{border-radius:28px;background:#1A1D22;padding:14px;box-shadow:0 40px 80px -30px rgba(11,20,40,.6),inset 0 0 0 2px #30343b}
+.tablet .scr{border-radius:14px;overflow:hidden;height:100%;position:relative}
+
+/* ---------- sample cafe UI kit ---------- */
+.k{font-family:"Plus Jakarta Sans";color:var(--esp)}
+.klogo{display:flex;align-items:center;gap:7px;font-family:Outfit;font-weight:700;letter-spacing:-.01em;color:var(--esp)}
+.klogo .m{width:26px;height:26px;border-radius:8px;background:var(--esp);color:#F3D9B8;display:grid;place-items:center}
+.klogo .m .ico{width:16px;height:16px}
+.kbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;font-weight:700;font-size:12px;padding:9px 14px;background:var(--terra);color:#fff}
+.kbtn.ghost{background:transparent;color:var(--esp);box-shadow:inset 0 0 0 1.5px var(--esp)}
+.kbtn.dk{background:var(--esp);color:#fff}
+.kbtn.sage{background:var(--sage)}
+.kbtn .ico{width:14px;height:14px}
+.kcard{background:#fff;border-radius:14px;box-shadow:0 1px 0 var(--sand),0 8px 20px -14px rgba(43,29,22,.35);border:1px solid #EFE6DA}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;border-radius:999px;padding:3px 9px}
+.chip .ico{width:12px;height:12px}
+.c-sage{background:var(--sage-w);color:#1F7550}.c-terra{background:var(--terra-w);color:#9E4722}.c-gold{background:var(--gold-w);color:#7E5F0C}
+.c-red{background:var(--red-w);color:#A12A21}.c-blue{background:var(--cblue-w);color:#1F55AF}.c-esp{background:var(--esp);color:#F3D9B8}
+.food{display:grid;place-items:center;border-radius:12px;color:#fff}
+.food .ico{width:55%;height:55%}
+.f1{background:linear-gradient(140deg,#8A5A3C,#4A2E1F)}.f2{background:linear-gradient(140deg,#E3A857,#B7702B)}.f3{background:linear-gradient(140deg,#6FB38F,#2F7D5B)}
+.f4{background:linear-gradient(140deg,#E48A6A,#B24D2B)}.f5{background:linear-gradient(140deg,#D9B77E,#9B7640)}.f6{background:linear-gradient(140deg,#7EA5E0,#3A67B5)}
+.veg{width:11px;height:11px;border:1.5px solid var(--sage);border-radius:2px;display:inline-grid;place-items:center}
+.veg:after{content:"";width:5px;height:5px;border-radius:50%;background:var(--sage)}
+.veg.nv{border-color:var(--red)}.veg.nv:after{background:var(--red)}
+
+/* ---------- 1. cover ---------- */
+.cover .top{position:absolute;top:40px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center}
+.cover .top img{height:78px}
+.cover .top span{font-family:Outfit;font-size:13px;letter-spacing:.18em;color:var(--on-dark-2);text-transform:uppercase}
+.cover .hero{position:absolute;left:72px;top:210px;width:640px}
+.cover h1{font-size:76px;line-height:1;color:#fff;font-weight:600;letter-spacing:-.03em}
+.cover h1 em{font-style:normal;color:#4DBBFF}
+.cover .sub{margin-top:26px;font-size:20px;line-height:1.55;color:#C3D0E4;width:560px}
+.cover .mods{position:absolute;left:72px;bottom:120px;width:660px;display:flex;flex-wrap:wrap;gap:10px}
+.cover .mods > span{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);border-radius:999px;padding:8px 15px;font-size:14px;color:var(--on-dark)}
+.cover .mods .ico{width:17px;height:17px;color:var(--cyan)}
+.cover .meta{position:absolute;left:72px;right:72px;bottom:48px;display:flex;justify-content:space-between;font-family:Outfit;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7F93B3;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+.cover .devs{position:absolute;right:-40px;top:120px;width:860px;height:680px}
+.cover .devs > *{position:absolute}
+
+/* ---------- 2. overview ---------- */
+.ov h2{font-size:50px;width:900px}
+.ov h2 span{color:var(--b600)}
+.ov .lead{font-size:18px;color:var(--s700);margin-top:14px;width:1080px}
+.ov .grid8{position:absolute;left:64px;right:64px;top:320px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ov .t{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px 22px 20px;box-shadow:0 10px 30px -18px rgba(11,40,90,.25);min-height:218px;display:flex;flex-direction:column}
+.ov .t .row{display:flex;justify-content:space-between;align-items:flex-start}
+.ov .t .no{font-family:Outfit;font-size:30px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(10,108,240,.55);line-height:1}
+.ov .t h3{font-size:20px;margin:16px 0 7px}
+.ov .t p{font-size:13.5px;color:var(--s600);line-height:1.5}
+.ov .t .who{margin-top:auto;padding-top:12px;font-size:11.5px;font-weight:600;color:var(--b700);display:flex;gap:6px;flex-wrap:wrap}
+.ov .t .who span{background:var(--ice);border-radius:999px;padding:3px 9px}
+
+/* ---------- 3. journey ---------- */
+.jr h2{font-size:48px;color:#fff;width:980px}
+.jr h2 span{color:var(--cyan)}
+.jr .lead{font-size:18px;color:#C3D0E4;margin-top:14px;width:900px}
+.jr .track{position:absolute;left:64px;right:64px;top:320px;display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+.jr .track:before{content:"";position:absolute;left:40px;right:40px;top:31px;height:2px;background:linear-gradient(90deg,rgba(25,190,255,.1),rgba(25,190,255,.7),rgba(25,190,255,.1))}
+.jr .st{position:relative}
+.jr .st .dot{width:64px;height:64px;border-radius:18px;background:#0F2140;border:1px solid rgba(25,190,255,.35);display:grid;place-items:center;color:var(--cyan);box-shadow:0 10px 30px rgba(0,80,220,.35)}
+.jr .st .dot .ico{width:30px;height:30px}
+.jr .st small{display:block;margin-top:18px;font-family:Outfit;font-size:12px;letter-spacing:.16em;color:#7F93B3;text-transform:uppercase}
+.jr .st h3{font-size:19px;color:#fff;margin:6px 0 8px}
+.jr .st p{font-size:13.5px;color:var(--on-dark-2);line-height:1.5}
+.jr .st .m{margin-top:10px;display:inline-block;font-size:11px;font-weight:600;color:var(--cyan);border:1px solid rgba(25,190,255,.35);border-radius:999px;padding:2px 9px}
+.jr .behind{position:absolute;left:64px;right:64px;bottom:80px;border-radius:18px;padding:22px 26px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.11);display:grid;grid-template-columns:230px repeat(3,1fr);gap:26px;align-items:center}
+.jr .behind h3{font-size:20px;color:#fff}
+.jr .behind h3 small{display:block;font-family:"Plus Jakarta Sans";font-size:13px;font-weight:400;color:var(--on-dark-2);margin-top:6px;letter-spacing:0;line-height:1.45}
+.jr .behind .b{display:flex;gap:14px;align-items:flex-start}
+.jr .behind .b b{display:block;font-family:Outfit;font-size:16px;color:#fff;font-weight:600;margin-bottom:3px}
+.jr .behind .b span{font-size:13px;color:var(--on-dark-2);line-height:1.45}
+
+/* ---------- 13. rollout ---------- */
+.ro h2{font-size:48px;width:980px}
+.ro h2 span{color:var(--b600)}
+.ro .lead{font-size:18px;color:var(--s700);margin-top:14px;width:960px}
+.ro .phases{position:absolute;left:64px;right:64px;top:280px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ro .ph{border-radius:20px;padding:26px 26px 24px;background:var(--white);border:1px solid var(--line);box-shadow:0 10px 30px -18px rgba(11,40,90,.25);position:relative;overflow:hidden}
+.ro .ph.dk{background:var(--n900);border-color:var(--n800);color:var(--on-dark)}
+.ro .ph small{font-family:Outfit;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--b600);font-weight:600}
+.ro .ph.dk small{color:var(--cyan)}
+.ro .ph h3{font-size:26px;margin:8px 0 6px}
+.ro .ph.dk h3{color:#fff}
+.ro .ph p{font-size:14px;color:var(--s600)}
+.ro .ph.dk p{color:var(--on-dark-2)}
+.ro .ph ul{list-style:none;margin-top:16px;display:grid;gap:9px}
+.ro .ph li{display:flex;gap:10px;align-items:center;font-size:14.5px;font-weight:600;color:var(--n900);background:var(--paper);border-radius:10px;padding:9px 12px}
+.ro .ph.dk li{background:rgba(255,255,255,.06);color:#fff}
+.ro .ph li .ico{width:18px;height:18px;color:var(--b500)}
+.ro .ph.dk li .ico{color:var(--cyan)}
+.ro .ph .out{margin-top:16px;font-size:13px;color:var(--s600);border-top:1px solid var(--line);padding-top:12px}
+.ro .ph.dk .out{border-color:rgba(255,255,255,.1);color:var(--on-dark-2)}
+.ro .ph .out b{color:var(--n900)}.ro .ph.dk .out b{color:#fff}
+.ro .bottom{position:absolute;left:64px;right:64px;bottom:76px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ro .bx{border-radius:18px;padding:20px 24px;background:var(--ice);display:flex;gap:18px;align-items:flex-start}
+.ro .bx h4{font-size:17px;margin-bottom:8px}
+.ro .bx .list{display:flex;flex-wrap:wrap;gap:8px}
+.ro .bx .list > span{display:inline-flex;gap:6px;align-items:center;background:#fff;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600;color:var(--s700)}
+.ro .bx .list .ico{width:14px;height:14px;color:var(--b500)}
+
+/* ---------- 14. close ---------- */
+.cl h2{position:absolute;left:72px;top:190px;width:820px;font-size:68px;line-height:1.02;color:#fff}
+.cl h2 em{font-style:normal;color:#4DBBFF}
+.cl .sub{position:absolute;left:72px;top:370px;width:700px;font-size:19px;line-height:1.55;color:#C3D0E4}
+.cl .qs{position:absolute;left:72px;top:500px;width:760px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cl .qs div{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--on-dark);padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.cl .qs .ico{width:20px;height:20px;color:var(--cyan);margin-top:1px}
+.cl .card{position:absolute;right:72px;top:190px;width:520px;border-radius:24px;padding:34px;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14)}
+.cl .card img{height:96px;margin-bottom:26px}
+.cl .card .row{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);font-size:18px;color:#fff;font-family:Outfit}
+.cl .card .row small{display:block;font-family:Outfit;font-size:11px;letter-spacing:.18em;color:#7F93B3}
+.cl .card .row .ico{width:22px;height:22px;color:var(--cyan)}
+.cl .card .row{justify-content:flex-start}
+</style>
+</head>
+<body>
+
+<!-- ================= 1. COVER ================= -->
+<section class="slide dark cover">
+  <img class="bgimg" src="img/bg-cover.jpg" alt="">
+  <div class="top"><img src="img/logo-full-white.png" alt="Sparta Labs"><span>Product demo · Cafe &amp; Restaurant Suite</span></div>
+  <div class="hero">
+    <div class="kicker" style="margin-bottom:22px">Software for cafes &amp; restaurants</div>
+    <h1>Run the whole cafe from <em>one connected system.</em></h1>
+    <p class="sub">A walk-through of the screens your guests, your counter staff, your kitchen and you as the owner would use every day. Every module here can be picked on its own or rolled out together.</p>
+  </div>
+  <div class="mods">
+    <span>{{i:globe}}Website</span><span>{{i:storefront}}Counter &amp; kitchen</span><span>{{i:gift}}Loyalty app</span><span>{{i:desk}}Cowork booking</span><span>{{i:ticket}}Events</span><span>{{i:package}}Inventory</span><span>{{i:chart-line-up}}Finance analytics</span><span>{{i:receipt}}Billing</span>
+  </div>
+  <div class="devs">
+    <!-- tablet: POS teaser -->
+    <div class="tablet" style="left:170px;top:40px;width:640px;height:440px;transform:rotate(-4deg)">
+      <div class="scr k" style="background:var(--cream);display:grid;grid-template-columns:1fr 190px">
+        <div style="padding:16px">
+          <div class="klogo" style="font-size:15px;margin-bottom:12px"><span class="m">{{i:coffee}}</span>Kaapi &amp; Co.</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
+            <div class="kcard" style="padding:8px"><div class="food f1" style="height:62px">{{i:coffee}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Filter Kaapi</div><div style="font-size:10px;color:var(--mut)">₹90</div></div>
+            <div class="kcard" style="padding:8px"><div class="food f2" style="height:62px">{{i:bread}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Butter Croissant</div><div style="font-size:10px;color:var(--mut)">₹160</div></div>
+            <div class="kcard" style="padding:8px"><div class="food f3" style="height:62px">{{i:leaf}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Matcha Latte</div><div style="font-size:10px;color:var(--mut)">₹240</div></div>
+            <div class="kcard" style="padding:8px"><div class="food f4" style="height:62px">{{i:bowl-food}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Shakshuka</div><div style="font-size:10px;color:var(--mut)">₹320</div></div>
+            <div class="kcard" style="padding:8px"><div class="food f5" style="height:62px">{{i:cake}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Banana Bread</div><div style="font-size:10px;color:var(--mut)">₹140</div></div>
+            <div class="kcard" style="padding:8px"><div class="food f6" style="height:62px">{{i:ice-cream}}</div><div style="font-size:10.5px;font-weight:700;margin-top:6px">Cold Brew</div><div style="font-size:10px;color:var(--mut)">₹210</div></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-left:1px solid var(--sand);padding:14px;display:flex;flex-direction:column;gap:8px;font-size:10.5px">
+          <b style="font-family:Outfit;font-size:14px">Table 4</b>
+          <div style="display:flex;justify-content:space-between"><span>2 × Filter Kaapi</span><b>₹180</b></div>
+          <div style="display:flex;justify-content:space-between"><span>1 × Croissant</span><b>₹160</b></div>
+          <div style="display:flex;justify-content:space-between"><span>1 × Shakshuka</span><b>₹320</b></div>
+          <div style="margin-top:auto;border-top:1px dashed var(--sand);padding-top:8px;display:flex;justify-content:space-between;font-size:13px"><b>Total</b><b>₹693</b></div>
+          <span class="kbtn" style="font-size:11px">Send to kitchen</span>
+        </div>
+      </div>
+    </div>
+    <!-- dashboard card -->
+    <div class="kcard k" style="left:40px;top:420px;width:300px;padding:16px;transform:rotate(-4deg)">
+      <div style="font-size:11px;color:var(--mut);font-weight:600">Today's sales</div>
+      <div style="font-family:Outfit;font-size:30px;font-weight:700;letter-spacing:-.02em">₹48,250</div>
+      <span class="chip c-sage">{{i:trend-up}}12% vs last Tuesday</span>
+      <svg viewBox="0 0 260 60" style="width:100%;height:60px;margin-top:8px"><path d="M0 48 L26 44 L52 46 L78 36 L104 38 L130 28 L156 30 L182 20 L208 24 L234 12 L260 8" fill="none" stroke="#C8643B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 48 L26 44 L52 46 L78 36 L104 38 L130 28 L156 30 L182 20 L208 24 L234 12 L260 8 L260 60 L0 60Z" fill="#C8643B" opacity=".12"/></svg>
+    </div>
+    <!-- phone: loyalty -->
+    <div class="phone" style="left:570px;top:170px;transform:rotate(5deg) scale(.84);transform-origin:top left">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:6px 16px">
+          <div style="font-size:12px;color:var(--mut)">Good morning,</div>
+          <div style="font-family:Outfit;font-size:22px;font-weight:700">Priya</div>
+          <div style="margin-top:12px;border-radius:18px;padding:16px;background:linear-gradient(140deg,#3B2A20,#1E140F);color:#F3D9B8">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span>KAAPI REWARDS</span><span class="chip" style="background:#B58A1B;color:#fff">{{i:crown}}Gold</span></div>
+            <div style="font-family:Outfit;font-size:34px;font-weight:700;color:#fff;margin-top:10px">1,240 <span style="font-size:14px;color:#F3D9B8">pts</span></div>
+            <div style="height:6px;border-radius:9px;background:rgba(255,255,255,.15);margin-top:10px"><div style="width:72%;height:100%;border-radius:9px;background:#E3A857"></div></div>
+            <div style="font-size:10.5px;margin-top:6px">260 pts to a free brunch</div>
+          </div>
+          <div class="kcard" style="margin-top:12px;padding:12px;display:flex;gap:10px;align-items:center"><div class="food f2" style="width:44px;height:44px">{{i:cookie}}</div><div><b style="font-size:12px">Free cookie</b><div style="font-size:10.5px;color:var(--mut)">App-only offer · today</div></div></div>
+          <div class="kcard" style="margin-top:10px;padding:12px;display:flex;gap:10px;align-items:center"><div class="food f6" style="width:44px;height:44px">{{i:ticket}}</div><div><b style="font-size:12px">Open Mic Friday</b><div style="font-size:10.5px;color:var(--mut)">12 seats left</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="meta"><span>spartalabs.in</span><span>Sample screens · Kaapi &amp; Co. is a demo brand</span></div>
+</section>
+
+<!-- ================= 2. OVERVIEW ================= -->
+<section class="slide ov">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">What's inside</div>
+    <h2 style="margin-top:14px">Eight modules. <span>One login, one menu, one set of numbers.</span></h2>
+    <p class="lead">Each module is useful on its own. Together they share the same customers, menu and stock, so an order at the counter updates the kitchen, the stock room, the customer's points and your sales report at the same moment.</p>
+  </div>
+  <div class="grid8">
+    <div class="t"><div class="row">{{box:globe}}<span class="no">01</span></div><h3>Website &amp; landing page</h3><p>Your menu, online orders, table bookings, events and desk booking on one fast site.</p><div class="who"><span>Guests</span></div></div>
+    <div class="t"><div class="row">{{box:storefront}}<span class="no">02</span></div><h3>Counter &amp; kitchen</h3><p>Cashier screen that sends each order straight to a kitchen screen. No paper slips.</p><div class="who"><span>Cashier</span><span>Kitchen</span></div></div>
+    <div class="t"><div class="row">{{box:gift}}<span class="no">03</span></div><h3>Loyalty &amp; rewards app</h3><p>Points, stamps, tiers and app-only offers that bring regulars back more often.</p><div class="who"><span>Guests</span><span>Owner</span></div></div>
+    <div class="t"><div class="row">{{box:desk}}<span class="no">04</span></div><h3>Cowork space booking</h3><p>Guests see free desks and rooms by the hour, pick a seat and pay in advance.</p><div class="who"><span>Guests</span><span>Front desk</span></div></div>
+    <div class="t"><div class="row">{{box:ticket}}<span class="no">05</span></div><h3>Events &amp; programs</h3><p>Publish an event, followers get notified, they book, get reminders and check in by QR.</p><div class="who"><span>Guests</span><span>Owner</span></div></div>
+    <div class="t"><div class="row">{{box:package}}<span class="no">06</span></div><h3>Inventory</h3><p>Stock goes down by itself with every sale. Low stock alerts and one-tap purchase orders.</p><div class="who"><span>Store manager</span></div></div>
+    <div class="t"><div class="row">{{box:chart-line-up}}<span class="no">07</span></div><h3>Finance analytics</h3><p>Live sales, best sellers, busy hours, costs and profit on one owner dashboard.</p><div class="who"><span>Owner</span><span>Accountant</span></div></div>
+    <div class="t"><div class="row">{{box:receipt}}<span class="no">08</span></div><h3>Billing &amp; payments</h3><p>GST-ready bills, split payments, UPI QR, digital receipts and a clean day-end close.</p><div class="who"><span>Cashier</span><span>Accountant</span></div></div>
+  </div>
+  <div class="foot"><span>Cafe &amp; Restaurant Suite · Overview</span><span class="n">02</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 3. JOURNEY ================= -->
+<section class="slide dark jr">
+  <img class="bgimg" src="img/bg-dark.jpg" alt="" style="opacity:.8">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">How it fits together</div>
+    <h2 style="margin-top:14px">Follow one guest, Priya, <span>through a normal week.</span></h2>
+    <p class="lead">This is the easiest way to see how the modules connect. Each step below is a screen shown later in this deck.</p>
+  </div>
+  <div class="track">
+    <div class="st"><div class="dot">{{i:globe}}</div><small>Monday</small><h3>Finds the cafe</h3><p>Searches "cafe near me", lands on the website, sees the menu and today's offer.</p><span class="m">01 Website</span></div>
+    <div class="st"><div class="dot">{{i:device-mobile}}</div><small>Monday</small><h3>Gets the app</h3><p>Downloads the app to claim a free cookie. She is now a rewards member.</p><span class="m">03 Loyalty</span></div>
+    <div class="st"><div class="dot">{{i:storefront}}</div><small>Tuesday</small><h3>Orders at the counter</h3><p>Cashier scans her app QR, takes the order and sends it to the kitchen.</p><span class="m">02 Counter</span></div>
+    <div class="st"><div class="dot">{{i:receipt}}</div><small>Tuesday</small><h3>Pays &amp; earns</h3><p>Pays by UPI, gets a bill on WhatsApp and 42 points in her app.</p><span class="m">08 Billing</span></div>
+    <div class="st"><div class="dot">{{i:desk}}</div><small>Wednesday</small><h3>Books a desk</h3><p>Sees 6 desks free, books 10 AM to 2 PM and walks in with a QR pass.</p><span class="m">04 Cowork</span></div>
+    <div class="st"><div class="dot">{{i:bell-ringing}}</div><small>Thursday</small><h3>Hears of an event</h3><p>Gets a notification for Open Mic Friday, books a seat, gets a reminder.</p><span class="m">05 Events</span></div>
+    <div class="st"><div class="dot">{{i:arrows-clockwise}}</div><small>Next week</small><h3>Comes back</h3><p>A "we miss you" offer brings her back. She redeems points for a free coffee.</p><span class="m">03 Loyalty</span></div>
+  </div>
+  <div class="behind">
+    <h3>Meanwhile, behind the counter<small>Nobody types anything twice. Each step above quietly updates these.</small></h3>
+    <div class="b">{{box:package}}<div><b>Stock goes down</b><span>Every coffee sold deducts beans, milk and a cup. Low items raise an alert.</span></div></div>
+    <div class="b">{{box:chart-line-up}}<div><b>Numbers go up</b><span>Sales, busy hours and profit on the owner dashboard update live.</span></div></div>
+    <div class="b">{{box:users-three}}<div><b>You learn your guests</b><span>Visits, favourites and spend build a profile you can reward and invite.</span></div></div>
+  </div>
+  <div class="foot"><span>Cafe &amp; Restaurant Suite · A guest's journey</span><span class="n">03</span><img src="img/logo-wordmark-white.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 4. WEBSITE ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 01</span><span class="kicker">For your guests</span></div>
+    <h2>Website &amp; <span>landing page</span></h2>
+    <p class="lead">Your cafe's front door on the internet. It shows who you are, and lets people order, book and sign up without calling you.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Menu &amp; online ordering</b>Live menu with photos and prices, synced with the counter. Items that run out hide themselves.</div></li>
+      <li><span class="num">2</span><div><b>Reserve a table</b>Guests pick date, time and party size. You see it on the counter screen.</div></li>
+      <li><span class="num">3</span><div><b>Live desk availability</b>Shows how many cowork seats are free right now, with a Book button.</div></li>
+      <li><span class="num">4</span><div><b>Upcoming events</b>Every event you create appears here automatically.</div></li>
+      <li><span class="num">5</span><div><b>App download offer</b>A banner that turns website visitors into rewards members.</div></li>
+      <li><span class="num">6</span><div><b>Found on Google &amp; WhatsApp</b>Reviews, map, opening hours and a one-tap WhatsApp chat. Built to rank for "cafe near me".</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:magnifying-glass}}More people find you</span><span>{{i:percent}}No aggregator commission on direct orders</span><span>{{i:device-mobile}}Works on every phone</span></div>
+  </div>
+  <div class="stage warm">
+    <div class="browser k" style="left:36px;top:44px;width:720px;height:640px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}kaapiandco.in</span></div>
+      <div style="background:var(--cream);height:100%">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-bottom:1px solid var(--sand)">
+          <div class="klogo" style="font-size:16px"><span class="m">{{i:coffee}}</span>Kaapi &amp; Co.</div>
+          <div data-cb="1" data-at="l" data-dx="-36" style="display:flex;gap:18px;font-size:12px;font-weight:600;color:var(--esp2)"><span>Menu</span><span>Order</span><span>Events</span><span>Cowork</span><span>Rewards</span></div>
+          <span class="kbtn dk" data-cb="2" data-at="b" data-dy="10" style="padding:7px 12px">{{i:calendar-check}}Reserve a table</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:20px;padding:26px 26px 18px;align-items:center">
+          <div>
+            <span class="chip c-terra">{{i:map-pin}}Indiranagar · Open till 11 PM</span>
+            <div style="font-family:Outfit;font-size:36px;font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-top:12px">Filter coffee, fresh bakes &amp; a desk to work from.</div>
+            <div style="font-size:12.5px;color:var(--mut);margin-top:10px;line-height:1.5">Slow mornings, laptop afternoons and live music on Fridays.</div>
+            <div style="display:flex;gap:10px;margin-top:16px"><span class="kbtn">{{i:bowl-steam}}Order online</span><span class="kbtn ghost">{{i:desk}}Book a desk</span></div>
+          </div>
+          <div style="height:200px;border-radius:18px;background:radial-gradient(circle at 30% 30%,#E9B679,#A45A2C 60%,#5B2F18);position:relative;overflow:hidden">
+            <div style="position:absolute;right:-20px;bottom:-30px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.12)"></div>
+            <div style="position:absolute;inset:0;display:grid;place-items:center;color:#FFF3E2"><span class="ico" style="width:110px;height:110px">{{i:coffee}}</span></div>
+            <div class="kcard" data-cb="6" data-at="l" data-dx="-20" style="position:absolute;left:12px;bottom:12px;padding:6px 10px;display:flex;gap:6px;align-items:center;font-size:11px;font-weight:700"><span class="ico" style="color:#E3A857;width:14px;height:14px">{{i:star}}</span>4.7 · 1,280 Google reviews</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 26px">
+          <div class="kcard" style="padding:12px">
+            <div style="font-size:10.5px;font-weight:700;color:var(--mut);letter-spacing:.08em">TODAY'S SPECIALS</div>
+            <div style="display:flex;gap:9px;margin-top:9px;align-items:center"><div class="food f2" style="width:40px;height:40px">{{i:bread}}</div><div style="font-size:11.5px"><b>Almond Croissant</b><br><span style="color:var(--mut)">₹180 · <span class="veg"></span></span></div></div>
+            <div style="display:flex;gap:9px;margin-top:8px;align-items:center"><div class="food f3" style="width:40px;height:40px">{{i:leaf}}</div><div style="font-size:11.5px"><b>Iced Matcha</b><br><span style="color:var(--mut)">₹240 · <span class="veg"></span></span></div></div>
+          </div>
+          <div class="kcard" style="padding:12px">
+            <div style="font-size:10.5px;font-weight:700;color:var(--mut);letter-spacing:.08em" data-cb="3" data-at="tl" data-dx="-12" data-dy="-8">COWORK · RIGHT NOW</div>
+            <div style="font-family:Outfit;font-size:30px;font-weight:700;margin-top:6px">6 <span style="font-size:14px;color:var(--mut);font-weight:500">of 20 desks free</span></div>
+            <div style="display:flex;gap:3px;margin-top:8px">
+              <i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--esp2)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--sage)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--sage)"></i><i style="flex:1;height:8px;border-radius:3px;background:var(--sage)"></i>
+            </div>
+            <div style="font-size:11px;color:var(--sage);font-weight:700;margin-top:8px">Book from ₹300 / 4 hrs →</div>
+          </div>
+          <div class="kcard" style="padding:12px">
+            <div style="font-size:10.5px;font-weight:700;color:var(--mut);letter-spacing:.08em" data-cb="4" data-at="tl" data-dx="-12" data-dy="-8">UPCOMING EVENT</div>
+            <div style="display:flex;gap:10px;margin-top:9px"><div style="width:44px;border-radius:10px;background:var(--esp);color:#fff;text-align:center;padding:5px 0;font-family:Outfit"><div style="font-size:9px;color:#F3D9B8">FRI</div><div style="font-size:18px;font-weight:700;line-height:1">27</div></div><div style="font-size:11.5px"><b>Open Mic Night</b><br><span style="color:var(--mut)">7 PM · ₹199 incl. a drink</span></div></div>
+            <div style="font-size:11px;color:var(--terra);font-weight:700;margin-top:10px">12 seats left · Book →</div>
+          </div>
+        </div>
+        <div data-cb="5" data-at="l" style="margin:14px 26px 0;border-radius:14px;background:var(--esp);color:#F3D9B8;display:flex;align-items:center;gap:14px;padding:12px 16px">
+          <span class="ico" style="width:28px;height:28px">{{i:gift}}</span>
+          <div style="flex:1;font-size:12px"><b style="color:#fff;font-size:13px">Get the Kaapi app, get a free cookie</b><br>Earn points on every order. Members get early event access.</div>
+          <span class="kbtn" style="padding:7px 12px">Download</span>
+        </div>
+      </div>
+    </div>
+    <div class="phone" style="left:720px;top:150px;transform:scale(.86);transform-origin:top left">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:4px 14px;display:flex;justify-content:space-between;align-items:center"><div class="klogo" style="font-size:13px"><span class="m" style="width:22px;height:22px">{{i:coffee}}</span>Kaapi &amp; Co.</div><span class="ico" style="width:18px;height:18px">{{i:list-checks}}</span></div>
+        <div style="margin:10px 14px;height:150px;border-radius:16px;background:radial-gradient(circle at 30% 30%,#E9B679,#A45A2C 60%,#5B2F18);display:grid;place-items:center;color:#FFF3E2"><span class="ico" style="width:70px;height:70px">{{i:coffee}}</span></div>
+        <div style="padding:0 14px;font-family:Outfit;font-size:20px;font-weight:700;line-height:1.1">Filter coffee, fresh bakes &amp; a desk.</div>
+        <div style="padding:10px 14px;display:flex;gap:8px"><span class="kbtn" style="flex:1;padding:8px 6px;font-size:11px">Order</span><span class="kbtn ghost" style="flex:1;padding:8px 6px;font-size:11px">Book desk</span></div>
+        <div class="kcard" style="margin:4px 14px;padding:10px;display:flex;gap:9px;align-items:center"><div class="food f6" style="width:36px;height:36px">{{i:ticket}}</div><div style="font-size:11px"><b>Open Mic · Fri 7 PM</b><br><span style="color:var(--mut)">12 seats left</span></div></div>
+        <div class="kcard" style="margin:8px 14px;padding:10px;display:flex;gap:9px;align-items:center"><div class="food f3" style="width:36px;height:36px">{{i:desk}}</div><div style="font-size:11px"><b>6 desks free now</b><br><span style="color:var(--mut)">From ₹300</span></div></div>
+        <div style="position:absolute;right:14px;bottom:18px;width:46px;height:46px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 8px 16px rgba(0,0,0,.2)"><span class="ico" style="width:26px;height:26px">{{i:whatsapp-logo}}</span></div>
+      </div>
+    </div>
+    <div class="note" style="left:760px;top:670px;width:200px">{{i:device-mobile}}Same site on a phone, with a WhatsApp chat button</div>
+  </div>
+  <div class="foot"><span>Module 01 · Website &amp; landing page</span><span class="n">04</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 5. COUNTER POS ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 02</span><span class="kicker">For the cashier</span></div>
+    <h2>Counter <span>ordering screen</span></h2>
+    <p class="lead">A tablet at the counter that anyone can learn in ten minutes. Tap items, add notes, send to the kitchen, take payment.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Dine-in, takeaway or delivery</b>Pick the order type and table. Online orders land in the same list.</div></li>
+      <li><span class="num">2</span><div><b>Tap to add items</b>Big picture buttons by category, with search. Sold-out items are greyed out.</div></li>
+      <li><span class="num">3</span><div><b>Customise the order</b>Oat milk, less sugar, extra shot. Add-ons are priced automatically.</div></li>
+      <li><span class="num">4</span><div><b>Attach the rewards member</b>Scan the guest's app QR or type their phone number to add points.</div></li>
+      <li><span class="num">5</span><div><b>Send to kitchen</b>One tap sends the order to the kitchen screen. No handwritten slips.</div></li>
+      <li><span class="num">6</span><div><b>Take payment</b>UPI, card, cash or a mix. Bill prints or goes to WhatsApp.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:timer}}Faster queue</span><span>{{i:check-circle}}Fewer wrong orders</span><span>{{i:wifi-high}}Keeps working if the internet drops</span></div>
+  </div>
+  <div class="stage">
+    <div class="tablet k" style="left:44px;top:64px;width:900px;height:640px">
+      <div class="scr" style="background:var(--cream);display:grid;grid-template-columns:120px 1fr 280px">
+        <div style="background:var(--esp);color:#F3D9B8;padding:16px 10px;display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600">
+          <div class="klogo" style="color:#fff;font-size:13px;margin-bottom:10px;justify-content:center"><span class="m" style="background:#F3D9B8;color:var(--esp)">{{i:coffee}}</span></div>
+          <div style="background:var(--terra);color:#fff;border-radius:10px;padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span>Coffee</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:leaf}}</span>Tea</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:bread}}</span>Bakes</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:egg}}</span>Breakfast</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:bowl-food}}</span>Meals</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:cake}}</span>Desserts</div>
+          <div style="padding:10px;display:flex;gap:7px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:ice-cream}}</span>Coolers</div>
+          <div style="margin-top:auto;padding:10px;font-size:10.5px;color:#BFA88F">Cashier: Arjun<br>Shift 2</div>
+        </div>
+        <div style="padding:16px">
+          <div style="display:flex;gap:8px;align-items:center">
+            <div style="display:flex;background:#fff;border-radius:10px;padding:3px;box-shadow:inset 0 0 0 1px var(--sand);font-size:11.5px;font-weight:700">
+              <span data-cb="1" data-at="t" data-dy="-18" style="background:var(--esp);color:#fff;border-radius:8px;padding:7px 12px">Dine-in · Table 4</span><span style="padding:7px 12px;color:var(--mut)">Takeaway</span><span style="padding:7px 12px;color:var(--mut)">Delivery</span>
+            </div>
+            <div style="flex:1;height:34px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--sand);display:flex;align-items:center;gap:6px;padding:0 10px;color:var(--mut);font-size:11.5px"><span class="ico" style="width:14px;height:14px">{{i:magnifying-glass}}</span>Search menu</div>
+          </div>
+          <div data-cb="2" data-at="l" data-dx="-4" style="display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:14px">
+            <div class="kcard" style="padding:9px"><div class="food f1" style="height:76px">{{i:coffee}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Filter Kaapi</b><span class="veg"></span></div><div style="font-size:11px;color:var(--mut)">₹90</div></div>
+            <div class="kcard" style="padding:9px;box-shadow:0 0 0 2px var(--terra)"><div class="food f1" style="height:76px;background:linear-gradient(140deg,#A8795A,#5A3A26)">{{i:coffee}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Cappuccino</b><span class="veg"></span></div><div style="font-size:11px;color:var(--mut)">₹180</div></div>
+            <div class="kcard" style="padding:9px"><div class="food f6" style="height:76px">{{i:ice-cream}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Cold Brew</b><span class="veg"></span></div><div style="font-size:11px;color:var(--mut)">₹210</div></div>
+            <div class="kcard" style="padding:9px"><div class="food f3" style="height:76px">{{i:leaf}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Matcha Latte</b><span class="veg"></span></div><div style="font-size:11px;color:var(--mut)">₹240</div></div>
+            <div class="kcard" style="padding:9px"><div class="food f5" style="height:76px">{{i:coffee-bean}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Mocha</b><span class="veg"></span></div><div style="font-size:11px;color:var(--mut)">₹220</div></div>
+            <div class="kcard" style="padding:9px;opacity:.45"><div class="food f4" style="height:76px">{{i:fire}}</div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px"><b>Spiced Latte</b><span class="chip c-red" style="font-size:9px;padding:1px 6px">Sold out</span></div><div style="font-size:11px;color:var(--mut)">₹230</div></div>
+          </div>
+          <div class="kcard" data-cb="3" data-at="l" data-dx="-4" style="margin-top:14px;padding:12px 14px">
+            <div style="font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.08em">CAPPUCCINO · CUSTOMISE</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:11px;font-weight:700">
+              <span style="border-radius:8px;padding:6px 10px;background:var(--esp);color:#fff">Oat milk +₹40</span><span style="border-radius:8px;padding:6px 10px;box-shadow:inset 0 0 0 1px var(--sand)">Almond milk +₹50</span><span style="border-radius:8px;padding:6px 10px;background:var(--esp);color:#fff">Extra shot +₹30</span><span style="border-radius:8px;padding:6px 10px;box-shadow:inset 0 0 0 1px var(--sand)">Decaf</span><span style="border-radius:8px;padding:6px 10px;background:var(--esp);color:#fff">Less sugar</span><span style="border-radius:8px;padding:6px 10px;box-shadow:inset 0 0 0 1px var(--sand)">Large +₹40</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border-left:1px solid var(--sand);padding:16px;display:flex;flex-direction:column;font-size:11.5px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:17px">Order #A-107</b><span class="chip c-blue">Table 4</span></div>
+          <div data-cb="4" data-at="l" data-dx="-6" style="margin-top:10px;border-radius:10px;background:var(--gold-w);padding:8px 10px;display:flex;gap:8px;align-items:center"><span class="ico" style="width:18px;height:18px;color:#7E5F0C">{{i:crown}}</span><div><b>Priya S.</b> · Gold member<br><span style="color:var(--mut)">1,240 pts · usual: Cappuccino</span></div></div>
+          <div style="margin-top:12px;display:grid;gap:10px">
+            <div><div style="display:flex;justify-content:space-between"><b>2 × Cappuccino</b><b>₹500</b></div><div style="color:var(--mut);font-size:10.5px">Oat milk, extra shot, less sugar</div></div>
+            <div style="display:flex;justify-content:space-between"><b>1 × Butter Croissant</b><b>₹160</b></div>
+            <div><div style="display:flex;justify-content:space-between"><b>1 × Shakshuka</b><b>₹320</b></div><div style="color:var(--mut);font-size:10.5px">No coriander</div></div>
+          </div>
+          <div style="margin-top:auto;border-top:1px dashed var(--sand);padding-top:10px;display:grid;gap:4px;color:var(--mut)">
+            <div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>₹980</span></div>
+            <div style="display:flex;justify-content:space-between"><span>GST 5%</span><span>₹49</span></div>
+            <div style="display:flex;justify-content:space-between;color:var(--esp);font-size:17px;font-family:Outfit;font-weight:700;margin-top:4px"><span>Total</span><span>₹1,029</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><span class="kbtn dk" data-cb="5" data-at="l" data-dx="-6">{{i:chef-hat}}To kitchen</span><span class="kbtn sage" data-cb="6" data-at="r" data-dx="6">{{i:wallet}}Pay</span></div>
+          <div style="display:flex;gap:6px;margin-top:8px;justify-content:center;color:var(--mut);font-size:10px"><span>UPI</span>·<span>Card</span>·<span>Cash</span>·<span>Split</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 02 · Counter ordering</span><span class="n">05</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 6. KITCHEN ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 02</span><span class="kicker">For the kitchen</span></div>
+    <h2>Kitchen <span>display screen</span></h2>
+    <p class="lead">A screen in the kitchen replaces paper order slips. Orders appear the second the cashier taps "send", and the kitchen taps them done.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Orders arrive instantly</b>With table number, notes and add-ons in large, readable text.</div></li>
+      <li><span class="num">2</span><div><b>Colour-coded timers</b>Green is on time, amber is getting slow, red needs attention now.</div></li>
+      <li><span class="num">3</span><div><b>Each station sees its part</b>The barista sees drinks, the kitchen sees food, the bakery sees bakes.</div></li>
+      <li><span class="num">4</span><div><b>Tap to mark ready</b>The ticket moves along. The cashier and waiter know it is ready.</div></li>
+      <li><span class="num">5</span><div><b>Guest gets called</b>Token number shows on a TV and the guest gets a "your order is ready" message.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:trash}}No lost slips</span><span>{{i:timer}}See average prep time</span><span>{{i:smiley}}Calmer rush hours</span></div>
+  </div>
+  <div class="stage night">
+    <div class="tablet" style="left:40px;top:50px;width:900px;height:420px;background:#0D0F12">
+      <div class="scr" style="background:#14171C;color:#E8ECF2;padding:14px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;gap:6px;font-weight:700;font-size:11.5px">
+            <span style="background:#2A2F37;border-radius:8px;padding:6px 12px">All stations</span><span data-cb="3" data-at="t" data-dy="-26" style="background:var(--terra);border-radius:8px;padding:6px 12px">Kitchen</span><span style="background:#2A2F37;border-radius:8px;padding:6px 12px">Barista</span><span style="background:#2A2F37;border-radius:8px;padding:6px 12px">Bakery</span>
+          </div>
+          <div style="font-size:11px;color:#9AA3B2">Avg prep today <b style="color:#fff">7m 40s</b> · 11:42 AM</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#9AA3B2;margin-bottom:8px">NEW · 2</div>
+            <div data-cb="1" data-at="l" data-dx="-8" style="background:#1E232A;border-radius:12px;overflow:hidden;margin-bottom:10px;box-shadow:inset 0 0 0 1px #2C333D"><div style="background:#2F9E6E;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-107 · Table 4</span><span>0:42</span></div><div style="padding:10px 11px;display:grid;gap:5px"><div><b>1 × Shakshuka</b><div style="color:#F0B08F;font-size:11px">No coriander</div></div><div><b>1 × Butter Croissant</b><div style="color:#9AA3B2;font-size:11px">Warm it</div></div><div style="margin-top:4px;text-align:center;border-radius:8px;background:#2A2F37;padding:7px;font-weight:700">Start</div></div></div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px #2C333D"><div style="background:#2F9E6E;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#W-022 · Online</span><span>1:15</span></div><div style="padding:10px 11px;display:grid;gap:5px"><div><b>2 × Veg Club Sandwich</b></div><div><b>1 × Masala Fries</b><div style="color:#F0B08F;font-size:11px">Extra spicy</div></div></div></div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#9AA3B2;margin-bottom:8px">PREPARING · 3</div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;margin-bottom:10px;box-shadow:inset 0 0 0 1px #2C333D"><div style="background:#2F9E6E;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-105 · Takeaway</span><span>4:10</span></div><div style="padding:10px 11px"><b>1 × Egg Benedict</b></div></div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;margin-bottom:10px;box-shadow:inset 0 0 0 1px #2C333D"><div style="background:#C98A1B;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-103 · Table 9</span><span>9:05</span></div><div style="padding:10px 11px;display:grid;gap:5px"><div><b>2 × Pancake Stack</b></div><div><b>1 × Avocado Toast</b><div style="color:#F0B08F;font-size:11px">Gluten-free bread</div></div></div></div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px #C9372C"><div style="background:#C9372C;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-101 · Table 2</span><span data-cb="2" data-at="r" data-dx="26">13:20</span></div><div style="padding:10px 11px"><b>1 × Pasta Arrabbiata</b></div></div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#9AA3B2;margin-bottom:8px">READY · 2</div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;margin-bottom:10px;box-shadow:inset 0 0 0 1px #2C333D;opacity:.85"><div style="background:#3A414C;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-104 · Takeaway</span><span>{{i:check}}</span></div><div style="padding:10px 11px"><b>1 × Paneer Wrap</b></div></div>
+            <div style="background:#1E232A;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px #2C333D;opacity:.85"><div style="background:#3A414C;padding:7px 11px;display:flex;justify-content:space-between;font-weight:700"><span>#A-102 · Table 6</span><span>{{i:check}}</span></div><div style="padding:10px 11px"><b>2 × French Toast</b></div></div>
+            <div data-cb="4" data-at="b" data-dy="20" style="margin-top:12px;text-align:center;border-radius:10px;background:var(--sage);padding:10px;font-weight:700;font-size:13px">Tap ticket to bump</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- token TV -->
+    <div data-cb="5" data-at="tr" style="left:440px;top:510px;width:290px;height:150px;border-radius:12px;background:#0D0F12;padding:8px;box-shadow:0 20px 40px rgba(0,0,0,.5)">
+      <div style="height:100%;border-radius:6px;background:var(--esp);color:#F3D9B8;display:grid;grid-template-columns:1fr 1fr;padding:12px;gap:10px;font-family:Outfit">
+        <div><div style="font-size:10px;letter-spacing:.14em">NOW SERVING</div><div style="font-size:34px;font-weight:700;color:#fff;line-height:1.1">A-104</div><div style="font-size:24px;font-weight:600;color:#fff;opacity:.7">A-102</div></div>
+        <div style="border-left:1px solid rgba(255,255,255,.15);padding-left:10px"><div style="font-size:10px;letter-spacing:.14em">PREPARING</div><div style="font-size:15px;margin-top:4px;line-height:1.5">A-105<br>A-103<br>A-101</div></div>
+      </div>
+    </div>
+    <div class="note" style="left:440px;top:672px;color:#A9B8CF">{{i:monitor}}Token screen for guests</div>
+    <!-- phone notification -->
+    <div class="kcard k" style="left:750px;top:530px;width:200px;padding:12px;display:flex;gap:10px;align-items:flex-start">
+      <div style="width:32px;height:32px;border-radius:8px;background:#25D366;color:#fff;display:grid;place-items:center;flex:none"><span class="ico" style="width:18px;height:18px">{{i:whatsapp-logo}}</span></div>
+      <div style="font-size:11.5px"><b>Kaapi &amp; Co.</b> <span style="color:var(--mut)">now</span><br>Your order A-104 is ready at the pickup counter. Enjoy!</div>
+    </div>
+    <!-- flow -->
+    <div style="left:40px;top:530px;width:390px;display:flex;align-items:center;gap:8px;color:#C3D0E4;font-family:Outfit;font-size:13px">
+      <span style="display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px">{{i:storefront}}Counter</span>{{i:arrow-right}}
+      <span style="display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px">{{i:chef-hat}}Kitchen</span>{{i:arrow-right}}
+      <span style="display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px">{{i:bell}}Guest</span>
+    </div>
+    <div style="left:40px;top:590px;width:370px;color:#A9B8CF;font-size:13px;line-height:1.5">The same order moves from the cashier to the kitchen to the guest's phone, without anyone shouting a number.</div>
+  </div>
+  <div class="foot"><span>Module 02 · Kitchen display</span><span class="n">06</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 7. LOYALTY APP ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 03</span><span class="kicker">For your regulars</span></div>
+    <h2>Loyalty &amp; <span>rewards app</span></h2>
+    <p class="lead">Like the big chains' apps, in your own brand. Guests earn on every visit and get offers that are only in the app, so they keep coming back.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>A reason to download</b>"Free cookie on your first app order." Big chains use the same trick.</div></li>
+      <li><span class="num">2</span><div><b>Scan at the counter</b>The guest shows their QR, the cashier scans it. Points land in seconds.</div></li>
+      <li><span class="num">3</span><div><b>Points &amp; stamp card</b>1 point per ₹10, plus a "buy 9 coffees, 10th free" card anyone understands.</div></li>
+      <li><span class="num">4</span><div><b>Offers just for them</b>Birthday treat, weekday deals, rewards for their favourite items.</div></li>
+      <li><span class="num">5</span><div><b>Spend points on rewards</b>A simple catalogue: 200 pts for a coffee, 450 for a sandwich.</div></li>
+      <li><span class="num">6</span><div><b>Tiers that feel special</b>Bronze, Silver and Gold, with faster earning and early event access.</div></li>
+    </ol>
+  </div>
+  <div class="stage warm">
+    <!-- phone A: home card -->
+    <div class="phone" style="left:40px;top:70px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:4px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:11px;color:var(--mut)">Good morning,</div><div style="font-family:Outfit;font-size:21px;font-weight:700">Priya</div></div><span class="ico" style="width:20px;height:20px">{{i:bell}}</span></div>
+          <div style="margin-top:12px;border-radius:18px;padding:14px;background:linear-gradient(140deg,#3B2A20,#1E140F);color:#F3D9B8">
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:600"><span>KAAPI REWARDS</span><span class="chip" style="background:#B58A1B;color:#fff">{{i:crown}}Gold</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px">
+              <div style="font-family:Outfit;font-size:32px;font-weight:700;color:#fff;line-height:1">1,240<span style="font-size:13px;color:#F3D9B8"> pts</span></div>
+              <div data-cb="2" data-at="r" data-dx="30" style="width:64px;height:64px;background:#fff;border-radius:8px;padding:5px;color:var(--esp)"><span class="ico" style="width:54px;height:54px">{{i:qr-code}}</span></div>
+            </div>
+            <div style="font-size:10px;margin-top:6px">Show this QR at the counter</div>
+          </div>
+          <div class="kcard" data-cb="3" data-at="l" data-dx="-8" style="margin-top:12px;padding:12px">
+            <div style="display:flex;justify-content:space-between;font-size:11.5px"><b>Coffee card</b><span style="color:var(--mut)">7 of 9</span></div>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:9px">
+              <span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span>
+              <span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;background:var(--esp);color:#F3D9B8;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:coffee}}</span></span><span style="aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--sand)"></span><span style="aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--sand)"></span><span style="aspect-ratio:1;border-radius:50%;background:var(--terra-w);color:var(--terra);display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:gift}}</span></span>
+            </div>
+            <div style="font-size:10.5px;color:var(--mut);margin-top:8px">2 more coffees and the next one is free</div>
+          </div>
+          <div class="kcard" data-cb="1" data-at="l" data-dx="-8" style="margin-top:10px;padding:10px 12px;display:flex;gap:10px;align-items:center;background:var(--terra-w);border-color:#F0CDB9"><span class="ico" style="width:24px;height:24px;color:var(--terra)">{{i:cookie}}</span><div style="font-size:11px"><b>Welcome gift unlocked</b><br>Free cookie on your first app order</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- phone B: offers -->
+    <div class="phone" style="left:350px;top:40px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:4px 16px">
+          <div style="font-family:Outfit;font-size:21px;font-weight:700">Offers for you</div>
+          <div style="display:flex;gap:6px;margin-top:8px"><span class="chip c-esp">All</span><span class="chip" style="box-shadow:inset 0 0 0 1px var(--sand)">App only</span><span class="chip" style="box-shadow:inset 0 0 0 1px var(--sand)">Rewards</span></div>
+          <div class="kcard" data-cb="4" data-at="tr" data-dx="4" style="margin-top:12px;overflow:hidden">
+            <div class="food f2" style="height:86px;border-radius:0">{{i:cookie}}</div>
+            <div style="padding:10px 12px"><span class="chip c-terra">{{i:device-mobile}}App only</span><div style="font-weight:700;font-size:12.5px;margin-top:6px">Free cookie with any coffee</div><div style="font-size:10.5px;color:var(--mut)">First app order · ends Sunday</div></div>
+          </div>
+          <div class="kcard" style="margin-top:10px;padding:10px 12px;display:flex;gap:10px;align-items:center"><div class="food f6" style="width:44px;height:44px">{{i:ice-cream}}</div><div style="flex:1;font-size:11px"><b style="font-size:12px">Cold Brew Tuesdays</b><br><span style="color:var(--mut)">Buy 1, get 1 free</span></div><span class="kbtn" style="padding:6px 10px;font-size:10.5px">Use</span></div>
+          <div class="kcard" style="margin-top:10px;padding:10px 12px;display:flex;gap:10px;align-items:center"><div class="food f4" style="width:44px;height:44px">{{i:cake}}</div><div style="flex:1;font-size:11px"><b style="font-size:12px">Happy birthday, Priya!</b><br><span style="color:var(--mut)">Free dessert this week</span></div><span class="kbtn" style="padding:6px 10px;font-size:10.5px">Use</span></div>
+          <div class="kcard" style="margin-top:10px;padding:10px 12px;display:flex;gap:10px;align-items:center"><div class="food f3" style="width:44px;height:44px">{{i:desk}}</div><div style="flex:1;font-size:11px"><b style="font-size:12px">Work from Kaapi</b><br><span style="color:var(--mut)">2x points on desk bookings</span></div><span class="kbtn" style="padding:6px 10px;font-size:10.5px">Use</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- phone C: rewards & tiers -->
+    <div class="phone" style="left:660px;top:70px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:4px 16px">
+          <div style="font-family:Outfit;font-size:21px;font-weight:700">Rewards</div>
+          <div style="font-size:11px;color:var(--mut)">You have <b style="color:var(--esp)">1,240 pts</b></div>
+          <div style="display:grid;gap:8px;margin-top:10px">
+            <div class="kcard" data-cb="5" data-at="r" data-dx="30" style="padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:coffee}}</span><b>Any coffee</b></span><span class="chip c-sage">200 pts</span></div>
+            <div class="kcard" style="padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:bread}}</span><b>Croissant</b></span><span class="chip c-sage">250 pts</span></div>
+            <div class="kcard" style="padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:hamburger}}</span><b>Any sandwich</b></span><span class="chip c-sage">450 pts</span></div>
+            <div class="kcard" style="padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;opacity:.6"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:bowl-food}}</span><b>Brunch for two</b></span><span class="chip" style="box-shadow:inset 0 0 0 1px var(--sand)">1,500 pts</span></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.08em;margin-top:14px">YOUR TIER</div>
+          <div style="display:grid;gap:6px;margin-top:8px;font-size:11px">
+            <div style="display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;background:#F3E6D9"><b style="width:52px">Bronze</b><span style="color:var(--mut)">1 pt per ₹10</span></div>
+            <div style="display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;background:#ECEEF1"><b style="width:52px">Silver</b><span style="color:var(--mut)">1.25x pts · free upsize</span></div>
+            <div data-cb="6" data-at="r" data-dx="30" style="display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;background:var(--gold-w);box-shadow:inset 0 0 0 1.5px var(--gold)"><b style="width:52px">Gold</b><span style="color:var(--mut)">1.5x pts · early events</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="left:40px;top:680px">{{i:device-mobile}}Android &amp; iPhone app in your cafe's name and colours</div>
+  </div>
+  <div class="foot"><span>Module 03 · Loyalty app, what the guest sees</span><span class="n">07</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 8. LOYALTY ENGINE ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 03</span><span class="kicker">For the owner</span></div>
+    <h2>How the <span>rewards engine</span> works</h2>
+    <p class="lead">You set the rules once in plain words. The system applies them to every bill and sends the right offer to the right guest on its own.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Set how guests earn</b>For example 1 point for every ₹10, double points on slow weekday afternoons.</div></li>
+      <li><span class="num">2</span><div><b>Set tier levels</b>Guests move up as they spend more, and earn faster once they do.</div></li>
+      <li><span class="num">3</span><div><b>Create automatic campaigns</b>"Not seen in 30 days" gets a comeback offer by app and WhatsApp.</div></li>
+      <li><span class="num">4</span><div><b>See what worked</b>How many came back, what they spent, and the cost of the rewards.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:arrows-clockwise}}More repeat visits</span><span>{{i:users-three}}Your own customer list</span><span>{{i:percent}}Discounts only where they pay back</span></div>
+  </div>
+  <div class="stage">
+    <!-- worked example -->
+    <div style="left:40px;top:36px;right:40px;border-radius:18px;background:var(--n900);color:#fff;padding:20px 24px">
+      <div style="font-family:Outfit;font-size:12px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase">A worked example</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px;align-items:stretch">
+        <div style="padding-right:18px"><div style="font-family:Outfit;font-size:28px;font-weight:600">₹420</div><div style="font-size:13px;color:var(--on-dark-2)">Priya's bill for coffee and brunch</div></div>
+        <div style="padding:0 18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600">42 <span style="font-size:15px;color:var(--on-dark-2)">pts</span></div><div style="font-size:13px;color:var(--on-dark-2)">1 point for every ₹10 spent</div></div>
+        <div style="padding:0 18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600;color:#E3A857">63 <span style="font-size:15px;color:var(--on-dark-2)">pts</span></div><div style="font-size:13px;color:var(--on-dark-2)">She is Gold, so she earns 1.5 times</div></div>
+        <div style="padding-left:18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600;color:var(--cyan)">4 visits</div><div style="font-size:13px;color:var(--on-dark-2)">and she has a free coffee (200 pts)</div></div>
+      </div>
+    </div>
+    <!-- rules card -->
+    <div class="kcard k" style="left:40px;top:214px;width:440px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:17px" data-cb="1" data-at="r" data-dx="30">Earning rules</b><span class="chip c-sage">{{i:check-circle}}Live</span></div>
+      <div style="display:grid;gap:8px;margin-top:12px;font-size:12.5px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:10px;background:var(--cream)"><span>Points per ₹10 spent</span><b style="background:#fff;border-radius:7px;padding:4px 12px;box-shadow:inset 0 0 0 1px var(--sand)">1</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:var(--cream)"><span>Happy hours, Mon to Thu 3 to 5 PM</span><b style="background:#fff;border-radius:7px;padding:4px 12px;box-shadow:inset 0 0 0 1px var(--sand)">2x</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:var(--cream)"><span>Welcome gift on app download</span><b style="background:#fff;border-radius:7px;padding:4px 12px;box-shadow:inset 0 0 0 1px var(--sand)">Free cookie</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:var(--cream)"><span>Points expire after</span><b style="background:#fff;border-radius:7px;padding:4px 12px;box-shadow:inset 0 0 0 1px var(--sand)">12 months</b></div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.08em;margin-top:16px">TIERS · SPEND IN LAST 6 MONTHS</div>
+      <div data-cb="2" data-at="r" data-dx="30" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;font-size:12px;text-align:center">
+        <div style="border-radius:10px;padding:9px;background:#F3E6D9"><b>Bronze</b><br><span style="color:var(--mut)">from ₹0</span></div>
+        <div style="border-radius:10px;padding:9px;background:#ECEEF1"><b>Silver</b><br><span style="color:var(--mut)">from ₹10,000</span></div>
+        <div style="border-radius:10px;padding:9px;background:var(--gold-w)"><b>Gold</b><br><span style="color:var(--mut)">from ₹30,000</span></div>
+      </div>
+    </div>
+    <!-- campaign card -->
+    <div class="kcard k" style="left:500px;top:214px;width:436px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:17px" data-cb="3" data-at="l" data-dx="-36">Campaign: We miss you</b><span class="chip c-blue">{{i:arrows-clockwise}}Automatic</span></div>
+      <div style="display:grid;gap:0;margin-top:14px;font-size:12.5px">
+        <div style="display:flex;gap:10px;align-items:center;padding:10px 0"><span class="chip c-esp" style="width:52px;justify-content:center">WHO</span>Guests who have not visited in 30 days</div>
+        <div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--sand)"><span class="chip c-esp" style="width:52px;justify-content:center">GETS</span>Double points on their next visit</div>
+        <div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--sand)"><span class="chip c-esp" style="width:52px;justify-content:center">HOW</span><span style="display:flex;gap:6px"><span class="chip c-terra">{{i:bell}}App</span><span class="chip c-sage">{{i:whatsapp-logo}}WhatsApp</span></span></div>
+      </div>
+      <div style="margin-top:10px;border-radius:12px;background:var(--cream);padding:12px;font-size:12px;display:flex;gap:10px"><span class="ico" style="width:22px;height:22px;color:var(--terra)">{{i:coffee}}</span><div>"Hi Priya, it's been a while! Come by this week for <b>2x points</b> on anything. Your usual cappuccino is waiting."</div></div>
+    </div>
+    <!-- results -->
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-6" data-dy="6" style="left:500px;top:548px;width:436px;padding:16px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div><div style="font-size:11px;color:var(--mut);font-weight:600">Messages sent</div><div style="font-family:Outfit;font-size:26px;font-weight:700">412</div></div>
+      <div><div style="font-size:11px;color:var(--mut);font-weight:600">Came back</div><div style="font-family:Outfit;font-size:26px;font-weight:700">157 <span style="font-size:13px;color:var(--sage)">38%</span></div></div>
+      <div><div style="font-size:11px;color:var(--mut);font-weight:600">Extra sales (sample)</div><div style="font-family:Outfit;font-size:26px;font-weight:700">₹61,200</div></div>
+    </div>
+    <div class="kcard k" style="left:40px;top:646px;width:896px;padding:14px 20px;display:flex;gap:14px;align-items:center">
+      {{box:qr-code}}
+      <div style="font-size:12.5px"><b style="font-size:14px">No app yet? No problem.</b><br><span style="color:var(--mut)">The cashier can add points with just a phone number. The guest gets an SMS with a link to the app.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 03 · Loyalty, how the owner sets it up</span><span class="n">08</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 9. COWORK ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 04</span><span class="kicker">For remote workers</span></div>
+    <h2>Cowork <span>space booking</span></h2>
+    <p class="lead">Turn quiet hours into paid hours. Guests book a desk or meeting room by the hour, and you always know who is sitting where.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Choose the space</b>Hot desk, window desk or a meeting room for 4 or 8.</div></li>
+      <li><span class="num">2</span><div><b>See free slots live</b>Green is free, amber is filling up, grey is full. No phone calls.</div></li>
+      <li><span class="num">3</span><div><b>Pick a seat on the map</b>Near a power socket, by the window, or in the quiet zone.</div></li>
+      <li><span class="num">4</span><div><b>Pay &amp; get a QR pass</b>Price can include a coffee. Day passes and monthly packs too.</div></li>
+      <li><span class="num">5</span><div><b>Front desk view</b>See every desk and room for the day, check people in and extend time.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:money}}Earn from quiet afternoons</span><span>{{i:calendar-check}}No double bookings</span><span>{{i:coffee}}Workers order more</span></div>
+  </div>
+  <div class="stage warm">
+    <div class="phone" style="left:40px;top:40px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:2px 16px">
+          <div style="font-family:Outfit;font-size:20px;font-weight:700">Book a space</div>
+          <div data-cb="1" data-at="l" data-dx="-8" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;font-size:10.5px;font-weight:700;text-align:center">
+            <div style="border-radius:10px;padding:8px 4px;background:var(--esp);color:#fff"><span class="ico" style="width:18px;height:18px">{{i:desk}}</span><br>Hot desk</div>
+            <div style="border-radius:10px;padding:8px 4px;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)"><span class="ico" style="width:18px;height:18px">{{i:armchair}}</span><br>Window</div>
+            <div style="border-radius:10px;padding:8px 4px;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)"><span class="ico" style="width:18px;height:18px">{{i:users-three}}</span><br>Room</div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:12px;font-size:10.5px;text-align:center">
+            <div style="flex:1;border-radius:10px;padding:5px 0;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)">Tue<br><b style="font-size:13px">24</b></div>
+            <div style="flex:1;border-radius:10px;padding:5px 0;background:var(--terra);color:#fff">Wed<br><b style="font-size:13px">25</b></div>
+            <div style="flex:1;border-radius:10px;padding:5px 0;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)">Thu<br><b style="font-size:13px">26</b></div>
+            <div style="flex:1;border-radius:10px;padding:5px 0;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)">Fri<br><b style="font-size:13px">27</b></div>
+            <div style="flex:1;border-radius:10px;padding:5px 0;background:#fff;box-shadow:inset 0 0 0 1px var(--sand)">Sat<br><b style="font-size:13px">28</b></div>
+          </div>
+          <div data-cb="2" data-at="l" data-dx="-8" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;font-size:10.5px;font-weight:700;text-align:center">
+            <div style="border-radius:8px;padding:7px 0;background:#ECEAE6;color:#A59C92">8 AM<br><span style="font-weight:500">Full</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--gold-w);color:#7E5F0C">9 AM<br><span style="font-weight:500">2 left</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--esp);color:#fff">10 AM<br><span style="font-weight:500">8 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--esp);color:#fff">11 AM<br><span style="font-weight:500">8 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--esp);color:#fff">12 PM<br><span style="font-weight:500">6 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--esp);color:#fff">1 PM<br><span style="font-weight:500">6 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--sage-w);color:#1F7550">2 PM<br><span style="font-weight:500">11 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--sage-w);color:#1F7550">3 PM<br><span style="font-weight:500">12 free</span></div>
+            <div style="border-radius:8px;padding:7px 0;background:var(--sage-w);color:#1F7550">4 PM<br><span style="font-weight:500">12 free</span></div>
+          </div>
+          <div style="font-size:10px;color:var(--mut);margin-top:6px">Selected: 10 AM to 2 PM (4 hours)</div>
+          <div class="kcard" style="margin-top:10px;padding:10px 12px;font-size:11px">
+            <div style="display:flex;justify-content:space-between"><b>Hot desk D7 · 4 hrs</b><b>₹300</b></div>
+            <div style="color:var(--mut);font-size:10.5px">Wi-Fi, power socket, 1 free coffee</div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="color:var(--sage);font-weight:700">+ 60 reward points</span><span style="color:var(--mut)">incl. GST</span></div>
+          </div>
+          <span class="kbtn" style="width:100%;margin-top:10px">Pay ₹300 &amp; get pass</span>
+        </div>
+      </div>
+    </div>
+    <!-- seat map -->
+    <div class="kcard k" data-cb="3" data-at="tr" data-dx="-4" data-dy="4" style="left:350px;top:40px;width:300px;padding:16px">
+      <b style="font-family:Outfit;font-size:15px">Pick your seat</b>
+      <div style="font-size:11px;color:var(--mut)">Ground floor · Wed 10 AM</div>
+      <div style="margin-top:12px;border-radius:12px;background:var(--cream);padding:12px;position:relative;height:190px">
+        <div style="position:absolute;left:12px;top:10px;right:12px;height:6px;border-radius:3px;background:#BFD8EE"></div>
+        <div style="position:absolute;left:12px;top:22px;font-size:9px;color:var(--mut)">WINDOW</div>
+        <div style="position:absolute;left:12px;top:40px;display:grid;grid-template-columns:repeat(5,40px);gap:8px">
+          <span style="height:30px;border-radius:7px;background:#D9D2C9"></span><span style="height:30px;border-radius:7px;background:var(--sage)"></span><span style="height:30px;border-radius:7px;background:#D9D2C9"></span><span style="height:30px;border-radius:7px;background:var(--sage)"></span><span style="height:30px;border-radius:7px;background:#D9D2C9"></span>
+          <span style="height:30px;border-radius:7px;background:var(--sage)"></span><span style="height:30px;border-radius:7px;background:var(--terra);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--terra);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center">D7</span><span style="height:30px;border-radius:7px;background:#D9D2C9"></span><span style="height:30px;border-radius:7px;background:var(--sage)"></span><span style="height:30px;border-radius:7px;background:var(--sage)"></span>
+        </div>
+        <div style="position:absolute;left:12px;bottom:12px;width:120px;height:52px;border-radius:9px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--esp2);font-size:10px;font-weight:700;display:grid;place-items:center">Room A · 4 seats</div>
+        <div style="position:absolute;right:12px;bottom:12px;width:100px;height:52px;border-radius:9px;background:#ECEAE6;font-size:10px;font-weight:700;color:#A59C92;display:grid;place-items:center">Room B · booked</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;font-size:10.5px;color:var(--mut)"><span><i style="display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--sage)"></i> Free</span><span><i style="display:inline-block;width:9px;height:9px;border-radius:3px;background:#D9D2C9"></i> Taken</span><span><i style="display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--terra)"></i> Yours</span></div>
+    </div>
+    <!-- QR pass -->
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-4" data-dy="4" style="left:670px;top:40px;width:270px;padding:16px;text-align:center">
+      <span class="chip c-sage">{{i:check-circle}}Booked</span>
+      <div style="width:130px;height:130px;margin:10px auto 8px;color:var(--esp)"><span class="ico" style="width:130px;height:130px">{{i:qr-code}}</span></div>
+      <b style="font-family:Outfit;font-size:15px">Desk D7 · Wed 25 Sep</b>
+      <div style="font-size:11px;color:var(--mut)">10:00 AM to 2:00 PM · Scan at entry</div>
+      <div style="font-size:11px;color:var(--terra);font-weight:700;margin-top:6px">Reminder 30 min before</div>
+    </div>
+    <!-- admin board -->
+    <div class="browser k" data-cb="5" data-at="tr" data-dx="-4" data-dy="4" style="left:350px;top:360px;width:590px;height:370px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.kaapiandco.in/cowork</span></div>
+      <div style="padding:14px 16px;background:#fff;height:100%">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Today · Wed 25 Sep</b><span style="display:flex;gap:6px"><span class="chip c-sage">72% occupied</span><span class="chip c-gold">₹8,400 booked</span></span></div>
+        <div style="display:grid;grid-template-columns:70px repeat(9,1fr);font-size:9.5px;color:var(--mut);margin-top:12px;border-bottom:1px solid var(--sand);padding-bottom:4px"><span></span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div style="position:relative;display:grid;gap:7px;margin-top:8px;font-size:10.5px;font-weight:600">
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Desk D5</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:0;width:44%;top:0;bottom:0;border-radius:6px;background:var(--esp2);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Rahul K.</i></div></div>
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Desk D6</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:22%;width:56%;top:0;bottom:0;border-radius:6px;background:var(--esp2);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Ananya M. · day pass</i></div></div>
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Desk D7</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:22%;width:44%;top:0;bottom:0;border-radius:6px;background:var(--terra);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Priya S. · checked in</i></div></div>
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Desk D8</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:66%;width:34%;top:0;bottom:0;border-radius:6px;background:var(--esp2);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Vikram</i></div></div>
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Room A</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:11%;width:22%;top:0;bottom:0;border-radius:6px;background:var(--cblue);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Team sync</i><i style="position:absolute;left:55%;width:22%;top:0;bottom:0;border-radius:6px;background:var(--cblue);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Interview</i></div></div>
+          <div style="display:grid;grid-template-columns:70px 1fr;align-items:center"><span>Room B</span><div style="position:relative;height:22px;background:var(--cream);border-radius:6px"><i style="position:absolute;left:0;width:100%;top:0;bottom:0;border-radius:6px;background:var(--cblue);color:#fff;font-style:normal;font-size:9.5px;padding:4px 7px">Startup workshop · full day</i></div></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px"><span class="kbtn dk" style="font-size:11px;padding:7px 12px">{{i:qr-code}}Scan check-in</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">{{i:plus}}Walk-in booking</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">{{i:users-three}}Monthly members</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 04 · Cowork space booking</span><span class="n">09</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 10. EVENTS ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 05</span><span class="kicker">For your community</span></div>
+    <h2>Events &amp; <span>programs</span></h2>
+    <p class="lead">Open mics, workshops, tastings, book clubs. Create an event once and the system does the promoting, booking, reminding and check-in.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Create it once</b>Title, date, seats and price. It appears on the website and in the app.</div></li>
+      <li><span class="num">2</span><div><b>Followers get notified</b>App notification and WhatsApp to guests who like this kind of event.</div></li>
+      <li><span class="num">3</span><div><b>Book &amp; pay in a tap</b>Free RSVP or paid ticket, with a drink included if you like.</div></li>
+      <li><span class="num">4</span><div><b>Automatic reminders</b>A day before and 2 hours before, so fewer people forget.</div></li>
+      <li><span class="num">5</span><div><b>QR check-in at the door</b>See who came, who didn't, and award points for attending.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:users-three}}Full seats on slow nights</span><span>{{i:bell-ringing}}Fewer no-shows</span><span>{{i:megaphone}}Free promotion</span></div>
+  </div>
+  <div class="stage warm">
+    <!-- phone: event detail -->
+    <div class="phone" style="left:40px;top:40px">
+      <div class="scr">
+        <div style="height:210px;background:radial-gradient(circle at 70% 30%,#6E4BB8,#2A1B4F 70%);position:relative;color:#fff">
+          <div class="sbar" style="color:#fff"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+          <div style="position:absolute;right:20px;top:54px;opacity:.9"><span class="ico" style="width:90px;height:90px">{{i:microphone-stage}}</span></div>
+          <div style="position:absolute;left:16px;bottom:14px"><span class="chip" style="background:rgba(255,255,255,.2);color:#fff">Music</span><div style="font-family:Outfit;font-size:24px;font-weight:700;margin-top:6px">Open Mic Night</div></div>
+        </div>
+        <div style="padding:12px 16px;font-size:11.5px">
+          <div style="display:grid;gap:8px">
+            <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:calendar-dots}}</span>Fri 27 Sep · 7:00 to 10:00 PM</div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:map-pin}}</span>Kaapi &amp; Co., first floor</div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--terra)">{{i:coffee}}</span>Ticket includes one drink</div>
+          </div>
+          <div style="margin-top:12px;color:var(--mut);line-height:1.5">Bring a song, a poem or a joke. Sign up to perform or just come to listen.</div>
+          <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11px"><b>48 going</b><span style="color:var(--terra);font-weight:700">12 seats left</span></div><div style="height:6px;border-radius:9px;background:var(--sand);margin-top:5px"><div style="width:80%;height:100%;border-radius:9px;background:var(--terra)"></div></div></div>
+          <div style="display:flex;gap:8px;margin-top:14px"><span class="kbtn ghost" style="padding:9px 10px">{{i:microphone-stage}}Perform</span><span class="kbtn" data-cb="3" data-at="tr" data-dx="-2" data-dy="-6" style="flex:1">Book · ₹199</span></div>
+          <div style="font-size:10.5px;color:var(--sage);font-weight:700;margin-top:8px;text-align:center">Gold members: early access + 50 pts</div>
+        </div>
+      </div>
+    </div>
+    <!-- lock screen with notifications -->
+    <div class="phone" style="left:350px;top:70px">
+      <div class="scr" style="background:linear-gradient(180deg,#3B2A20,#1E140F);color:#fff">
+        <div class="sbar" style="color:#fff"><span></span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="text-align:center;font-family:Outfit;font-weight:300;font-size:56px;line-height:1;margin-top:10px">6:02</div>
+        <div style="text-align:center;font-size:12px;opacity:.7;margin-bottom:18px">Friday, 27 September</div>
+        <div style="padding:0 12px;display:grid;gap:9px">
+          <div data-cb="4" data-at="r" data-dx="12" style="background:rgba(255,255,255,.14);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4"><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>KAAPI &amp; CO.</span><span>now</span></div><b>Starts in 1 hour!</b><br>Open Mic Night at 7 PM. Your QR ticket is in the app.</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4"><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>WHATSAPP</span><span>yesterday</span></div><b>Kaapi &amp; Co.</b><br>Reminder: Open Mic Night is tomorrow, 7 PM. Reply 1 to cancel.</div>
+          <div data-cb="2" data-at="l" data-dx="-10" style="background:rgba(255,255,255,.08);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4"><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>KAAPI &amp; CO.</span><span>Mon</span></div><b>New: Latte Art Workshop</b><br>Sat 5 Oct, 11 AM. Only 10 spots. Members book first.</div>
+        </div>
+      </div>
+    </div>
+    <!-- admin -->
+    <div class="kcard k" data-cb="1" data-at="tr" data-dx="-4" data-dy="4" style="left:660px;top:40px;width:280px;padding:16px">
+      <b style="font-family:Outfit;font-size:15px">Create event</b>
+      <div style="display:grid;gap:7px;margin-top:10px;font-size:11px">
+        <div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--sand)"><span style="color:var(--mut);font-size:9.5px">TITLE</span><br><b>Latte Art Workshop</b></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px"><div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--sand)"><span style="color:var(--mut);font-size:9.5px">DATE</span><br><b>Sat 5 Oct</b></div><div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--sand)"><span style="color:var(--mut);font-size:9.5px">SEATS</span><br><b>10</b></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px"><div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--sand)"><span style="color:var(--mut);font-size:9.5px">PRICE</span><br><b>₹899</b></div><div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--sand)"><span style="color:var(--mut);font-size:9.5px">EARLY ACCESS</span><br><b>Gold, 48 hrs</b></div></div>
+        <div style="font-size:10px;font-weight:700;color:var(--mut);letter-spacing:.06em;margin-top:4px">NOTIFY</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap"><span class="chip c-terra">{{i:check}}App</span><span class="chip c-sage">{{i:check}}WhatsApp</span><span class="chip c-blue">{{i:check}}Website</span></div>
+        <span class="kbtn" style="margin-top:4px">Publish event</span>
+      </div>
+    </div>
+    <div class="kcard k" style="left:660px;top:440px;width:280px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Tonight: Open Mic</b><span class="chip c-esp" data-cb="5" data-at="t" data-dy="-16">{{i:qr-code}}Scan</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+        <div><div style="font-size:10.5px;color:var(--mut);font-weight:600">Booked</div><div style="font-family:Outfit;font-size:24px;font-weight:700">48<span style="font-size:13px;color:var(--mut)">/60</span></div></div>
+        <div><div style="font-size:10.5px;color:var(--mut);font-weight:600">Checked in</div><div style="font-family:Outfit;font-size:24px;font-weight:700">41</div></div>
+        <div><div style="font-size:10.5px;color:var(--mut);font-weight:600">Ticket sales</div><div style="font-family:Outfit;font-size:20px;font-weight:700">₹9,552</div></div>
+        <div><div style="font-size:10.5px;color:var(--mut);font-weight:600">Food &amp; drinks</div><div style="font-family:Outfit;font-size:20px;font-weight:700">₹14,300</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 05 · Events &amp; programs</span><span class="n">10</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 11. INVENTORY ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 06</span><span class="kicker">For the store manager</span></div>
+    <h2>Inventory <span>management</span></h2>
+    <p class="lead">Know what is on your shelves without counting every day. Each item on the menu has a recipe, so every sale reduces the right ingredients.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Stock at a glance</b>Every ingredient, how much is left and how many days it will last.</div></li>
+      <li><span class="num">2</span><div><b>Recipes deduct stock</b>Sell one cappuccino and 18 g beans, 150 ml milk and one cup are taken off.</div></li>
+      <li><span class="num">3</span><div><b>Low stock alerts</b>A warning before you run out, not after a guest is told "sorry".</div></li>
+      <li><span class="num">4</span><div><b>One-tap purchase orders</b>The system suggests how much to order and sends it to your supplier.</div></li>
+      <li><span class="num">5</span><div><b>Expiry &amp; wastage</b>Use-first warnings for milk and bakes, and a log of what was thrown away.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:trash}}Less waste</span><span>{{i:shield-check}}Spot theft &amp; over-pouring</span><span>{{i:truck}}Never run out</span></div>
+  </div>
+  <div class="stage">
+    <div class="browser k" style="left:40px;top:40px;width:900px;height:456px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.kaapiandco.in/inventory</span></div>
+      <div style="background:#fff;height:100%;padding:16px 20px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <b style="font-family:Outfit;font-size:18px">Stock room</b>
+          <div style="display:flex;gap:6px"><span class="chip c-red">{{i:warning}}3 low</span><span class="chip c-gold">{{i:clock}}2 expiring</span><span class="chip c-sage">{{i:check-circle}}42 OK</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;font-size:10.5px;font-weight:700;color:var(--mut);letter-spacing:.06em;margin-top:14px;padding:0 10px 8px;border-bottom:1px solid var(--sand)"><span data-cb="1" data-at="l" data-dx="-34">ITEM</span><span>IN STOCK</span><span>LEVEL</span><span>LASTS</span><span>STATUS</span></div>
+        <div style="font-size:12px">
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3;background:var(--red-w)"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:coffee-bean}}</span><b>Coffee beans, house blend</b></span><span>4.2 kg</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:21%;height:100%;border-radius:9px;background:var(--red)"></div></div></span><span>2 days</span><span class="chip c-red" data-cb="3" data-at="r" data-dx="34" style="width:max-content">{{i:warning}}Reorder</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:drop}}</span><b>Full cream milk</b></span><span>38 L</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:62%;height:100%;border-radius:9px;background:var(--sage)"></div></div></span><span>3 days</span><span class="chip c-gold" data-cb="5" data-at="r" data-dx="34" style="width:max-content">{{i:clock}}Use first</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3;background:var(--red-w)"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:plant}}</span><b>Oat milk</b></span><span>3 L</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:15%;height:100%;border-radius:9px;background:var(--red)"></div></div></span><span>1 day</span><span class="chip c-red" style="width:max-content">{{i:warning}}Reorder</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:bread}}</span><b>Croissant dough</b></span><span>64 pcs</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:70%;height:100%;border-radius:9px;background:var(--sage)"></div></div></span><span>4 days</span><span class="chip c-gold" style="width:max-content">{{i:clock}}Expires Fri</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:egg}}</span><b>Eggs</b></span><span>210 pcs</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:80%;height:100%;border-radius:9px;background:var(--sage)"></div></div></span><span>6 days</span><span class="chip c-sage" style="width:max-content">{{i:check}}OK</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px;border-bottom:1px solid #F3ECE3;background:var(--red-w)"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:package}}</span><b>Takeaway cups, 12 oz</b></span><span>140 pcs</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:18%;height:100%;border-radius:9px;background:var(--red)"></div></div></span><span>2 days</span><span class="chip c-red" style="width:max-content">{{i:warning}}Reorder</span></div>
+          <div style="display:grid;grid-template-columns:2fr 1.1fr 1.6fr 1fr 1.1fr;align-items:center;padding:9px 10px"><span style="display:flex;gap:8px;align-items:center"><span class="ico" style="color:var(--esp2)">{{i:cube}}</span><b>Brown sugar</b></span><span>12 kg</span><span><div style="height:6px;border-radius:9px;background:var(--sand);width:90%"><div style="width:88%;height:100%;border-radius:9px;background:var(--sage)"></div></div></span><span>20 days</span><span class="chip c-sage" style="width:max-content">{{i:check}}OK</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- recipe -->
+    <div class="kcard k" data-cb="2" data-at="tl" data-dx="4" data-dy="4" style="left:40px;top:514px;width:430px;padding:16px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Recipe: 1 Cappuccino</b><span class="chip c-blue">{{i:arrows-clockwise}}Auto deduct</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;text-align:center;font-size:11px">
+        <div style="border-radius:10px;background:var(--cream);padding:9px 4px"><span class="ico" style="width:20px;height:20px;color:var(--esp2)">{{i:coffee-bean}}</span><br><b>18 g</b><br><span style="color:var(--mut)">beans</span></div>
+        <div style="border-radius:10px;background:var(--cream);padding:9px 4px"><span class="ico" style="width:20px;height:20px;color:var(--esp2)">{{i:drop}}</span><br><b>150 ml</b><br><span style="color:var(--mut)">milk</span></div>
+        <div style="border-radius:10px;background:var(--cream);padding:9px 4px"><span class="ico" style="width:20px;height:20px;color:var(--esp2)">{{i:coffee}}</span><br><b>1</b><br><span style="color:var(--mut)">cup</span></div>
+        <div style="border-radius:10px;background:var(--cream);padding:9px 4px"><span class="ico" style="width:20px;height:20px;color:var(--esp2)">{{i:money}}</span><br><b>₹38</b><br><span style="color:var(--mut)">cost</span></div>
+      </div>
+      <div style="font-size:11px;color:var(--mut);margin-top:10px">Sells for ₹180, so each cup makes <b style="color:var(--sage)">₹142 (79%)</b> before rent and staff.</div>
+    </div>
+    <!-- PO -->
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-4" data-dy="4" style="left:494px;top:514px;width:446px;padding:16px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Suggested order · Bean Bros Roasters</b><span class="chip c-gold">Draft</span></div>
+      <div style="display:grid;gap:6px;margin-top:10px;font-size:11.5px">
+        <div style="display:flex;justify-content:space-between"><span>House blend beans · 10 kg</span><b>₹9,800</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Oat milk · 24 L</span><b>₹5,280</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Takeaway cups 12 oz · 1,000</span><b>₹3,400</b></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px"><span class="kbtn sage" style="font-size:11px;padding:7px 12px">{{i:whatsapp-logo}}Send to supplier</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">Edit</span><span style="margin-left:auto;font-family:Outfit;font-weight:700;font-size:16px;align-self:center">₹18,480</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 06 · Inventory management</span><span class="n">11</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 12. FINANCE ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 07</span><span class="kicker">For the owner</span></div>
+    <h2>Finance <span>analytics</span></h2>
+    <p class="lead">Your whole business on one screen, on your phone or laptop, updated with every bill. No waiting for the accountant at month end.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Today in four numbers</b>Sales, orders, average bill and profit margin, compared to last week.</div></li>
+      <li><span class="num">2</span><div><b>Sales trend</b>See the last 30 days and spot good and bad weeks at once.</div></li>
+      <li><span class="num">3</span><div><b>Busy hours</b>Plan staff shifts and happy hours around real footfall.</div></li>
+      <li><span class="num">4</span><div><b>Where money comes from</b>Dine-in, takeaway, online, cowork and events side by side.</div></li>
+      <li><span class="num">5</span><div><b>Best sellers &amp; profit</b>Which items sell most, and which actually make you money.</div></li>
+      <li><span class="num">6</span><div><b>Profit &amp; loss</b>Sales minus ingredients, staff, rent and bills, every month.</div></li>
+    </ol>
+  </div>
+  <div class="stage">
+    <div class="browser k" style="left:36px;top:44px;width:908px;height:690px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.kaapiandco.in/dashboard</span></div>
+      <div style="background:#F7F4EF;height:100%;padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <b style="font-family:Outfit;font-size:18px">Good evening, Karthik</b>
+          <div style="display:flex;background:#fff;border-radius:9px;padding:3px;box-shadow:inset 0 0 0 1px var(--sand);font-size:11px;font-weight:700"><span style="background:var(--esp);color:#fff;border-radius:7px;padding:5px 10px">Today</span><span style="padding:5px 10px;color:var(--mut)">Week</span><span style="padding:5px 10px;color:var(--mut)">Month</span><span style="padding:5px 10px;color:var(--mut)">Custom</span></div>
+        </div>
+        <!-- KPIs -->
+        <div data-cb="1" data-at="l" data-dx="-2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--mut);font-weight:600">Sales</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">₹48,250</div><span class="chip c-sage">{{i:trend-up}}12% vs last Tue</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--mut);font-weight:600">Orders</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">312</div><span class="chip c-sage">{{i:trend-up}}8%</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--mut);font-weight:600">Average bill</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">₹155</div><span class="chip c-sage">{{i:trend-up}}₹6</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--mut);font-weight:600">Gross margin</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">64%</div><span class="chip c-red">{{i:trend-down}}2 pts · milk price</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:10px;margin-top:10px">
+          <!-- trend -->
+          <div class="kcard" style="padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;font-size:12px"><b data-cb="2" data-at="l" data-dx="-30">Daily sales · last 30 days</b><span style="color:var(--mut)">Total ₹12.4 L</span></div>
+            <svg viewBox="0 0 500 170" style="width:100%;height:170px;margin-top:6px;font-family:'Plus Jakarta Sans';font-size:10px">
+              <g stroke="#EFE6DA" stroke-width="1"><line x1="34" y1="20" x2="500" y2="20"/><line x1="34" y1="65" x2="500" y2="65"/><line x1="34" y1="110" x2="500" y2="110"/><line x1="34" y1="150" x2="500" y2="150" stroke="#D9CDBE"/></g>
+              <g fill="#7A6A5E"><text x="0" y="24">₹60k</text><text x="0" y="69">₹40k</text><text x="0" y="114">₹20k</text><text x="34" y="166">1 Sep</text><text x="236" y="166">15 Sep</text><text x="462" y="166">30 Sep</text></g>
+              <path id="ar" d="M34 92 L50 86 L66 80 L82 58 L98 50 L114 88 L130 90 L146 84 L162 82 L178 76 L194 56 L210 44 L226 86 L242 84 L258 80 L274 78 L290 70 L306 52 L322 40 L338 82 L354 78 L370 76 L386 72 L402 66 L418 46 L434 30 L450 74 L466 72 L482 68 L498 60 L498 150 L34 150Z" fill="#C8643B" opacity=".12"/>
+              <path d="M34 92 L50 86 L66 80 L82 58 L98 50 L114 88 L130 90 L146 84 L162 82 L178 76 L194 56 L210 44 L226 86 L242 84 L258 80 L274 78 L290 70 L306 52 L322 40 L338 82 L354 78 L370 76 L386 72 L402 66 L418 46 L434 30 L450 74 L466 72 L482 68 L498 60" fill="none" stroke="#C8643B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="434" cy="30" r="4.5" fill="#C8643B" stroke="#fff" stroke-width="2"/>
+              <g><rect x="352" y="4" width="76" height="20" rx="5" fill="#2B1D16"/><text x="360" y="18" fill="#fff" font-weight="700">Sat · ₹58,900</text></g>
+            </svg>
+            <div style="font-size:10.5px;color:var(--mut)">Weekends peak. Mondays are the slowest day.</div>
+          </div>
+          <!-- donut -->
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="4" data-at="r" data-dx="60">Where sales come from</b>
+            <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+              <svg viewBox="0 0 120 120" style="width:130px;height:130px;flex:none">
+                <g transform="rotate(-90 60 60)" fill="none" stroke-width="20">
+                  <circle cx="60" cy="60" r="44" stroke="#C8643B" stroke-dasharray="125.2 151.3" stroke-dashoffset="0"/>
+                  <circle cx="60" cy="60" r="44" stroke="#2F6FD6" stroke-dasharray="58.8 217.7" stroke-dashoffset="-127.2"/>
+                  <circle cx="60" cy="60" r="44" stroke="#2F9E6E" stroke-dasharray="47.8 228.7" stroke-dashoffset="-188"/>
+                  <circle cx="60" cy="60" r="44" stroke="#B58A1B" stroke-dasharray="36.7 239.8" stroke-dashoffset="-237.8"/>
+                </g>
+                <text x="60" y="58" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="15" fill="#2B1D16">₹48k</text>
+                <text x="60" y="72" text-anchor="middle" font-size="8.5" fill="#7A6A5E">today</text>
+              </svg>
+              <div style="display:grid;gap:7px;font-size:11px;flex:1">
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#C8643B"></i><span style="flex:1">Dine-in</span><b>46%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#2F6FD6"></i><span style="flex:1">Takeaway</span><b>22%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#2F9E6E"></i><span style="flex:1">Online orders</span><b>18%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#B58A1B"></i><span style="flex:1">Cowork &amp; events</span><b>14%</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px">
+          <!-- hours -->
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="3" data-at="l" data-dx="-30">Busy hours · orders</b>
+            <svg viewBox="0 0 260 130" style="width:100%;height:130px;margin-top:6px;font-family:'Plus Jakarta Sans';font-size:9px">
+              <line x1="0" y1="112" x2="260" y2="112" stroke="#D9CDBE"/>
+              <g fill="#C8643B">
+                <path d="M4 112 V96 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M26 112 V72 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M48 112 V44 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M70 112 V52 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M92 112 V70 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M114 112 V40 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M136 112 V58 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M158 112 V86 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M180 112 V80 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M202 112 V30 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+                <path d="M224 112 V22 a4 4 0 0 1 4 -4 h10 a4 4 0 0 1 4 4 V112Z"/>
+              </g>
+              <g fill="#7A6A5E"><text x="4" y="125">8a</text><text x="48" y="125">10a</text><text x="114" y="125">1p</text><text x="180" y="125">4p</text><text x="228" y="125">7p</text></g>
+              <text x="222" y="13" fill="#2B1D16" font-weight="700">Peak</text>
+            </svg>
+          </div>
+          <!-- top items -->
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="5" data-at="r" data-dx="50">Best sellers · this week</b>
+            <div style="display:grid;gap:8px;margin-top:10px;font-size:11px">
+              <div><div style="display:flex;justify-content:space-between"><span>Cappuccino</span><b>612</b></div><div style="height:6px;border-radius:9px;background:#F1E9DF;margin-top:3px"><div style="width:100%;height:100%;border-radius:9px;background:#C8643B"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Filter Kaapi</span><b>540</b></div><div style="height:6px;border-radius:9px;background:#F1E9DF;margin-top:3px"><div style="width:88%;height:100%;border-radius:9px;background:#C8643B"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Butter Croissant</span><b>388</b></div><div style="height:6px;border-radius:9px;background:#F1E9DF;margin-top:3px"><div style="width:63%;height:100%;border-radius:9px;background:#C8643B"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Cold Brew</span><b>301</b></div><div style="height:6px;border-radius:9px;background:#F1E9DF;margin-top:3px"><div style="width:49%;height:100%;border-radius:9px;background:#C8643B"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Shakshuka</span><b>174</b></div><div style="height:6px;border-radius:9px;background:#F1E9DF;margin-top:3px"><div style="width:28%;height:100%;border-radius:9px;background:#C8643B"></div></div></div>
+            </div>
+          </div>
+          <!-- P&L -->
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="6" data-at="r" data-dx="50">Profit &amp; loss · September</b>
+            <div style="display:grid;gap:6px;margin-top:10px;font-size:11px">
+              <div style="display:flex;justify-content:space-between"><span>Sales</span><b>₹12,40,000</b></div>
+              <div style="display:flex;justify-content:space-between;color:var(--mut)"><span>Ingredients</span><span>− ₹4,46,000</span></div>
+              <div style="display:flex;justify-content:space-between;color:var(--mut)"><span>Staff salaries</span><span>− ₹2,90,000</span></div>
+              <div style="display:flex;justify-content:space-between;color:var(--mut)"><span>Rent</span><span>− ₹1,80,000</span></div>
+              <div style="display:flex;justify-content:space-between;color:var(--mut)"><span>Power, gas, other</span><span>− ₹96,000</span></div>
+              <div style="display:flex;justify-content:space-between;border-top:1px dashed var(--sand);padding-top:7px;font-size:13px"><b>Net profit</b><b style="color:var(--sage)">₹2,28,000</b></div>
+              <div style="font-size:10px;color:var(--mut)">18.4% of sales · export to Tally or Excel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 07 · Finance analytics · sample numbers</span><span class="n">12</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 13. BILLING ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 08</span><span class="kicker">For cashier &amp; accountant</span></div>
+    <h2>Billing &amp; <span>payments</span></h2>
+    <p class="lead">Correct, GST-ready bills every time, paid the way the guest prefers, and a till that balances at the end of the day.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>GST done for you</b>CGST and SGST split on every bill, with your GSTIN and FSSAI number.</div></li>
+      <li><span class="num">2</span><div><b>Every way to pay</b>UPI QR on the bill, card machine, cash, or wallet and points.</div></li>
+      <li><span class="num">3</span><div><b>Split the bill</b>Equally, by item or by amount, for groups and office lunches.</div></li>
+      <li><span class="num">4</span><div><b>Digital receipts</b>Printed or sent on WhatsApp and SMS. Saves paper, collects numbers.</div></li>
+      <li><span class="num">5</span><div><b>Day-end closing</b>Cash expected vs counted, and every payment type totalled in one report.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:shield-check}}Tax-ready books</span><span>{{i:scales}}Till always balances</span><span>{{i:timer}}Quicker checkout</span></div>
+  </div>
+  <div class="stage warm">
+    <!-- receipt -->
+    <div style="left:40px;top:34px;width:300px;background:#fff;padding:22px 20px 26px;box-shadow:0 30px 60px -25px rgba(43,29,22,.45);font-family:'Courier New',monospace;font-size:11.5px;color:#222;line-height:1.45;-webkit-mask:radial-gradient(circle at 8px 100%,transparent 7px,#000 7.5px) 0 0/16px 100% repeat-x">
+      <div style="text-align:center"><div class="klogo" style="justify-content:center;font-size:16px"><span class="m">{{i:coffee}}</span>Kaapi &amp; Co.</div><div style="font-size:10px;margin-top:6px">12th Main, Indiranagar, Bengaluru<br>GSTIN 29ABCDE1234F1Z5 · FSSAI 11223344556677</div></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="display:flex;justify-content:space-between;font-size:10.5px"><span>Bill #KC-24-08812</span><span>Table 4</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:10.5px"><span>25 Sep 2026, 12:18</span><span>Arjun</span></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="display:flex;justify-content:space-between"><span>2 Cappuccino</span><span>360.00</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:10.5px;color:#666"><span>  + oat milk, extra shot</span><span>140.00</span></div>
+      <div style="display:flex;justify-content:space-between"><span>1 Butter Croissant</span><span>160.00</span></div>
+      <div style="display:flex;justify-content:space-between"><span>1 Shakshuka</span><span>320.00</span></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>980.00</span></div>
+      <div style="display:flex;justify-content:space-between" data-cb="1" data-at="r" data-dx="36"><span>CGST 2.5%</span><span>24.50</span></div>
+      <div style="display:flex;justify-content:space-between"><span>SGST 2.5%</span><span>24.50</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Reward (200 pts)</span><span>-180.00</span></div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;font-size:14px;margin-top:4px"><span>TOTAL</span><span>₹849.00</span></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="display:flex;gap:12px;align-items:center"><span class="ico" style="width:70px;height:70px;color:#222">{{i:qr-code}}</span><div style="font-size:10.5px">Scan to pay by UPI<br><b>kaapiandco@upi</b><br>Points earned: +63</div></div>
+      <div style="text-align:center;font-size:10.5px;margin-top:10px">Thank you! See you at Open Mic, Fri 7 PM.</div>
+    </div>
+    <!-- payment screen -->
+    <div class="kcard k" style="left:370px;top:34px;width:330px;padding:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:16px" data-cb="2" data-at="r" data-dx="30">Take payment</b><span style="font-family:Outfit;font-weight:700;font-size:18px">₹849</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;font-size:12px;font-weight:700">
+        <div style="border-radius:12px;padding:12px;background:var(--esp);color:#fff;display:flex;gap:8px;align-items:center"><span class="ico">{{i:qr-code}}</span>UPI</div>
+        <div style="border-radius:12px;padding:12px;box-shadow:inset 0 0 0 1px var(--sand);display:flex;gap:8px;align-items:center"><span class="ico">{{i:credit-card}}</span>Card</div>
+        <div style="border-radius:12px;padding:12px;box-shadow:inset 0 0 0 1px var(--sand);display:flex;gap:8px;align-items:center"><span class="ico">{{i:money}}</span>Cash</div>
+        <div style="border-radius:12px;padding:12px;box-shadow:inset 0 0 0 1px var(--sand);display:flex;gap:8px;align-items:center"><span class="ico">{{i:gift}}</span>Points</div>
+      </div>
+      <div style="margin-top:14px;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.08em" data-cb="3" data-at="l" data-dx="-36">SPLIT THE BILL</div>
+      <div style="display:flex;background:var(--cream);border-radius:10px;padding:3px;margin-top:7px;font-size:11px;font-weight:700"><span style="flex:1;text-align:center;padding:6px;border-radius:8px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1)">Equally</span><span style="flex:1;text-align:center;padding:6px;color:var(--mut)">By item</span><span style="flex:1;text-align:center;padding:6px;color:var(--mut)">By amount</span></div>
+      <div style="display:grid;gap:7px;margin-top:10px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:10px;background:var(--sage-w)"><span>Guest 1 · UPI</span><b style="display:flex;gap:6px;align-items:center">₹425 <span class="ico" style="width:15px;height:15px;color:var(--sage)">{{i:check-circle}}</span></b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--sand)"><span>Guest 2 · Card</span><b>₹424</b></div>
+      </div>
+    </div>
+    <!-- whatsapp receipt -->
+    <div data-cb="4" data-at="tl" data-dx="2" data-dy="2" style="left:720px;top:34px;width:220px;border-radius:18px;background:#E9E1D6;padding:12px;box-shadow:0 20px 40px -20px rgba(43,29,22,.4)" class="k">
+      <div style="display:flex;gap:8px;align-items:center;font-size:11.5px;font-weight:700;margin-bottom:10px"><span style="width:26px;height:26px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:whatsapp-logo}}</span></span>Kaapi &amp; Co.</div>
+      <div style="background:#fff;border-radius:10px;padding:10px;font-size:11px;line-height:1.45">Thanks Priya! Your bill <b>KC-24-08812</b> for <b>₹849</b> is attached.<div style="margin-top:8px;border-radius:8px;background:var(--cream);padding:8px;display:flex;gap:8px;align-items:center"><span class="ico" style="width:20px;height:20px;color:var(--red)">{{i:receipt}}</span><span>Invoice.pdf</span></div><div style="margin-top:8px">You earned <b>63 points</b>. Balance: 1,123.</div></div>
+    </div>
+    <!-- day end -->
+    <div class="kcard k" data-cb="5" data-at="tl" data-dx="4" data-dy="4" style="left:370px;top:420px;width:570px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:16px">Day-end closing · Wed 25 Sep</b><span class="chip c-sage">{{i:check-circle}}Balanced</span></div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px">
+        <div style="border-radius:10px;background:var(--cream);padding:10px"><div style="font-size:10.5px;color:var(--mut);font-weight:600">UPI</div><b style="font-family:Outfit;font-size:17px">₹29,400</b></div>
+        <div style="border-radius:10px;background:var(--cream);padding:10px"><div style="font-size:10.5px;color:var(--mut);font-weight:600">Card</div><b style="font-family:Outfit;font-size:17px">₹9,850</b></div>
+        <div style="border-radius:10px;background:var(--cream);padding:10px"><div style="font-size:10.5px;color:var(--mut);font-weight:600">Cash</div><b style="font-family:Outfit;font-size:17px">₹6,200</b></div>
+        <div style="border-radius:10px;background:var(--cream);padding:10px"><div style="font-size:10.5px;color:var(--mut);font-weight:600">Online</div><b style="font-family:Outfit;font-size:17px">₹2,800</b></div>
+        <div style="border-radius:10px;background:var(--esp);color:#fff;padding:10px"><div style="font-size:10.5px;color:#F3D9B8;font-weight:600">Total</div><b style="font-family:Outfit;font-size:17px">₹48,250</b></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;font-size:12px;align-items:center">
+        <div>Cash expected <b>₹6,200</b></div><div>Cash counted <b>₹6,200</b></div><div style="color:var(--sage);font-weight:700">Difference ₹0</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px"><span class="kbtn dk" style="font-size:11px;padding:7px 12px">{{i:printer}}Print Z-report</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">Send to accountant</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 08 · Billing &amp; payments</span><span class="n">13</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 14. ROLLOUT ================= -->
+<section class="slide ro">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">Getting started</div>
+    <h2 style="margin-top:14px">Start with what hurts most. <span>Add the rest when you're ready.</span></h2>
+    <p class="lead">You don't need all eight on day one. Here is a common path. Every module plugs into the ones already running, so nothing is thrown away as you grow.</p>
+  </div>
+  <div class="phases">
+    <div class="ph"><small>Phase 1 · Open for business</small><h3>Serve faster</h3><p>The daily basics that every guest notices.</p>
+      <ul><li>{{i:storefront}}Counter &amp; kitchen screens</li><li>{{i:receipt}}Billing &amp; payments</li><li>{{i:globe}}Website with menu</li></ul>
+      <div class="out"><b>Result:</b> shorter queues, correct orders, GST-ready bills.</div></div>
+    <div class="ph"><small>Phase 2 · Know your guests</small><h3>Bring them back</h3><p>Turn one-time visitors into regulars.</p>
+      <ul><li>{{i:gift}}Loyalty &amp; rewards app</li><li>{{i:ticket}}Events &amp; reminders</li><li>{{i:desk}}Cowork booking</li></ul>
+      <div class="out"><b>Result:</b> more repeat visits and full seats on slow days.</div></div>
+    <div class="ph dk"><small>Phase 3 · Run it by the numbers</small><h3>Grow profit</h3><p>See where money is made and lost.</p>
+      <ul><li>{{i:package}}Inventory &amp; recipes</li><li>{{i:chart-line-up}}Finance analytics</li><li>{{i:storefront}}More outlets, one dashboard</li></ul>
+      <div class="out"><b>Result:</b> less waste, better margins, decisions backed by data.</div></div>
+  </div>
+  <div class="bottom">
+    <div class="bx">{{box:device-tablet}}<div><h4>Works on what you have</h4><div class="list"><span>{{i:device-tablet}}Android tablet or iPad</span><span>{{i:desktop}}Any laptop browser</span><span>{{i:printer}}Thermal printer</span><span>{{i:device-mobile}}Guest's own phone</span></div></div></div>
+    <div class="bx">{{box:list-checks}}<div><h4>What we need from you to begin</h4><div class="list"><span>{{i:notepad}}Menu &amp; prices</span><span>{{i:paint-brush}}Logo &amp; colours</span><span>{{i:bank}}GST &amp; payment details</span><span>{{i:users-three}}Staff list &amp; roles</span></div></div></div>
+  </div>
+  <div class="foot"><span>Cafe &amp; Restaurant Suite · Rollout</span><span class="n">14</span><img src="img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 15. CLOSE ================= -->
+<section class="slide dark cl">
+  <img class="bgimg" src="img/bg-back.jpg" alt="">
+  <div class="kicker" style="position:absolute;left:72px;top:140px">Next step</div>
+  <h2>Tell us which screens <em>fit your cafe.</em></h2>
+  <p class="sub">Everything in this deck is a starting point. We shape each screen around your menu, your team and the way you already work, then build it with a dedicated team.</p>
+  <div class="qs">
+    <div>{{i:chat-circle-text}}Which modules would help you most this year?</div>
+    <div>{{i:storefront}}How many counters, kitchens and outlets do you run?</div>
+    <div>{{i:plugs-connected}}Any software you already use that should connect?</div>
+    <div>{{i:calendar-dots}}When would you like the first module live?</div>
+  </div>
+  <div class="card">
+    <img src="img/logo-full-white.png" alt="Sparta Labs">
+    {{phone}}
+    <div class="row">{{i:envelope-simple}}<div><small>EMAIL</small>hello@spartalabs.in</div></div>
+    <div class="row">{{i:globe}}<div><small>WEBSITE</small>spartalabs.in</div></div>
+  </div>
+  <div class="foot"><span>All screens are design samples. Final look follows your brand.</span><span class="n">15</span><span>spartalabs.in</span></div>
+</section>
+
+<script>
+// Numbered callouts: any element with data-cb="N" gets a badge on its edge.
+// data-at = tl | tr | bl | br | l | r | t | b (default tl); data-dx / data-dy nudge it.
+document.querySelectorAll('[data-cb]').forEach(el => {
+  const stage = el.closest('.stage'), s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+  const at = el.dataset.at || 'tl';
+  let x = at.includes('r') ? r.right : at.includes('l') ? r.left : (r.left + r.right) / 2;
+  let y = at.includes('b') ? r.bottom : at.includes('t') ? r.top : (r.top + r.bottom) / 2;
+  const i = document.createElement('i');
+  i.className = 'cb'; i.textContent = el.dataset.cb;
+  i.style.left = (x - s.left - 16 + (+el.dataset.dx || 0)) + 'px';
+  i.style.top = (y - s.top - 16 + (+el.dataset.dy || 0)) + 'px';
+  stage.appendChild(i);
+});
+</script>
+</body>
+</html>
