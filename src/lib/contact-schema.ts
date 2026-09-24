@@ -22,14 +22,20 @@ export const enquiryTopics = [
 export const contactSchema = z.object({
   name: z.string().check(z.minLength(2, "Tell us your name."), z.maxLength(100)),
   email: z.string().check(z.email("That does not look like an email address."), z.maxLength(200)),
-  company: z.optional(z.string().check(z.maxLength(120))),
-  topic: z.enum(enquiryTopics, "Pick the closest one."),
-  message: z
+  phone: z
     .string()
     .check(
-      z.minLength(20, "A sentence or two about the problem is enough."),
-      z.maxLength(4000, "That is longer than we can accept — send the detail by email instead."),
+      z.regex(/^\+?[0-9\s\-()]{7,20}$/, "Enter a phone number we can call, e.g. +91 98765 43210."),
     ),
+  company: z.optional(z.string().check(z.maxLength(120))),
+  topic: z.enum(enquiryTopics, "Pick the closest one."),
+  message: z.optional(
+    z
+      .string()
+      .check(
+        z.maxLength(4000, "That is longer than we can accept — send the detail by email instead."),
+      ),
+  ),
   /** Honeypot. Real people never see this field, so anything in it is a bot. */
   website: z.optional(z.string().check(z.maxLength(0))),
 });
@@ -43,6 +49,7 @@ export function normalizeContactInput(input: Record<string, unknown>) {
     ...input,
     name: trim(input.name),
     email: trim(input.email),
+    phone: trim(input.phone),
     company: trim(input.company),
     message: trim(input.message),
   };

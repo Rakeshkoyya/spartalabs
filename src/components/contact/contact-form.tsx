@@ -82,6 +82,18 @@ export function ContactForm() {
         />
       </Field>
 
+      <Field label="Phone number" htmlFor="phone" error={errors.phone?.message}>
+        <input
+          id="phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder="+91 98765 43210"
+          className={controlClass}
+          {...register("phone")}
+        />
+      </Field>
+
       <Field label="Company" htmlFor="company" optional error={errors.company?.message}>
         <input
           id="company"
@@ -101,7 +113,7 @@ export function ContactForm() {
         </select>
       </Field>
 
-      <Field label="The problem" htmlFor="message" error={errors.message?.message}>
+      <Field label="The problem" htmlFor="message" optional error={errors.message?.message}>
         <textarea
           id="message"
           rows={6}

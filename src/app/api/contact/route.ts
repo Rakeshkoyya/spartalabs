@@ -59,9 +59,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const { name, email, company, topic, message } = parsed.data;
+  const { name, email, phone, company, topic, message } = parsed.data;
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? contact.email;
+  // Comma-separated, so the whole team can be notified: "a@x.com, b@x.com".
+  const to = (process.env.CONTACT_TO_EMAIL ?? contact.email)
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
   const from = process.env.CONTACT_FROM_EMAIL;
 
   if (!apiKey || !from) {
@@ -72,7 +76,7 @@ export async function POST(request: Request) {
      */
     console.warn(
       `[contact] Email transport not configured — submission not delivered:\n` +
-        `  from: ${name} <${email}>${company ? ` (${company})` : ""}\n` +
+        `  from: ${name} <${email}> ${phone}${company ? ` (${company})` : ""}\n` +
         `  topic: ${topic}\n  message: ${message}`,
     );
     return NextResponse.json(
@@ -88,16 +92,17 @@ export async function POST(request: Request) {
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from,
-      to: [to],
+      to,
       reply_to: email,
       subject: `${site.name} enquiry — ${topic} — ${name}`,
       text: [
         `Name: ${name}`,
         `Email: ${email}`,
+        `Phone: ${phone}`,
         company ? `Company: ${company}` : null,
         `Topic: ${topic}`,
         "",
-        message,
+        message || "(No message — call or email them back.)",
       ]
         .filter(Boolean)
         .join("\n"),
