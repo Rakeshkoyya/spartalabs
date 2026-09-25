@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = pageMetadata({
   title: "Software, Web, App & AI Development Services",
   description:
-    "Custom business platforms, website and mobile app development, AI solutions and automation, brand and concept, and ongoing support from a dedicated Sparta Labs pod.",
+    "Custom business platforms, website and mobile app development, AI solutions and automation, brand and concept, and ongoing support from Sparta Labs, an IT services company in Hyderabad.",
   path: "/services",
 });
 

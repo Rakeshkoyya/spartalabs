@@ -14,7 +14,13 @@ export const site = {
   /** The line under the logo. */
   motto: ["Ideas", "Products", "Real impact"],
   description:
-    "Sparta Labs studies your operations first, then designs and builds the system your team needs — custom business platforms, websites, mobile apps, AI and automation, under one plan. A dedicated specialist pod on every engagement.",
+    "Sparta Labs is an IT services and software development company in Hyderabad, India. We study your operations first, then design and build the system your team needs — custom business platforms, websites, mobile apps, AI and automation, under one plan.",
+  /**
+   * Sets the company apart from unrelated businesses that share the name
+   * (notably a Brazilian software firm). Fed to structured data and llms.txt.
+   */
+  disambiguation:
+    "Sparta Labs (spartalabs.in) is an IT services company based in Hyderabad, Telangana, India. It is not affiliated with Sparta Labs of Blumenau, Brazil (spartalabs.com.br) or any other company using a similar name.",
   locale: "en-IN",
 } as const;
 
@@ -57,8 +63,8 @@ export const company: {
 } = {
   legalName: null,
   founded: null,
-  city: null,
-  region: null,
+  city: "Hyderabad",
+  region: "Telangana",
   country: "India",
   addressLines: null,
   cin: null,

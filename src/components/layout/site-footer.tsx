@@ -33,6 +33,10 @@ export function SiteFooter() {
                   </span>
                 ))}
               </address>
+            ) : company.city ? (
+              <address className="text-muted text-sm not-italic">
+                {company.city}, {company.region}, {company.country}
+              </address>
             ) : null}
           </div>
 
@@ -50,6 +54,7 @@ export function SiteFooter() {
                 {item.label}
               </FooterLink>
             ))}
+            <FooterLink href="/it-services-hyderabad">IT services in Hyderabad</FooterLink>
             <FooterLink href="/contact">Contact</FooterLink>
             {social.map((item) => (
               <FooterLink key={item.href} href={item.href}>

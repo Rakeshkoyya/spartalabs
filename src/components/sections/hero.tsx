@@ -36,7 +36,7 @@ export function Hero() {
                 aria-hidden
                 className="bg-accent size-1.5 rounded-full shadow-[0_0_10px_var(--accent)]"
               />
-              IT solutions company · India
+              IT services company · Hyderabad, India
             </span>
 
             <h1
