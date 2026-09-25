@@ -12,7 +12,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description:
-    "Sparta Labs (Spartalabs) is an IT solutions and software development company in India. Meet the specialist pods behind our custom platforms, apps and AI systems.",
+    "Sparta Labs (Spartalabs) is an IT solutions and software development company in Hyderabad, India. Meet the specialist pods behind our custom platforms, apps and AI systems.",
   path: "/about",
 });
 

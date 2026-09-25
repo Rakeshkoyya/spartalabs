@@ -19,8 +19,8 @@ export function Problem() {
       <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div data-lock="" className="flex flex-col gap-4">
           <p className="text-ink text-xl leading-relaxed">
-            Sparta Labs is an IT solutions company that designs, builds and runs the systems
-            businesses depend on.
+            Sparta Labs is an IT solutions company in Hyderabad that designs, builds and runs the
+            systems businesses depend on.
           </p>
           <p className="text-muted">
             Most businesses do not need more software. They need software that fits how they

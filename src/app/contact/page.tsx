@@ -13,7 +13,7 @@ import { Section } from "@/components/ui/section";
 export const metadata: Metadata = pageMetadata({
   title: "Contact Us",
   description:
-    "Book a discovery call with Sparta Labs for custom software, website, mobile app or AI automation work. Email hello@spartalabs.in — we reply within one working day.",
+    "Book a discovery call with Sparta Labs, Hyderabad, for custom software, website, mobile app or AI automation work. Email hello@spartalabs.in — we reply within one working day.",
   path: "/contact",
 });
 
