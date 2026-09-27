@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retail Store Suite Demo</title>
+<link rel="stylesheet" href="../fonts.css">
+<!--
+  Source for brochure/demos/Sparta-Labs-Retail-Store-Suite-Demo.pdf, a 16:9 demo deck.
+  Build: python3 build_demo.py retail && node render_demo.mjs retail
+  Icon placeholders (i: and box: in double braces) are Phosphor icons inlined by the build script.
+  Layout, device frames and callouts come from demo.css and demo.js, shared by every demo deck.
+  "Stride & Thread" is a made-up footwear and clothing store used only to fill the screens.
+-->
+<link rel="stylesheet" href="demo.css">
+<style>
+/* Stride & Thread, the sample store brand used inside the screens */
+:root{
+  --k-ink:#1D1B22; --k-ink2:#3A3642; --k-bg:#FAF8F5; --k-soft:#F1EDE7; --k-line:#E6E0D8;
+  --k-acc:#E8553A; --k-acc-w:#FCE4DE;
+  --k-mut:#76707C;
+  --k-on-ink:#FFD9CF; --k-card-line:#ECE7E0; --k-shadow:rgba(29,27,34,.3);
+}
+/* product "photos" */
+.p1{background:linear-gradient(140deg,#F28A6E,#D5492E)}.p2{background:linear-gradient(140deg,#6D83C9,#34488F)}.p3{background:linear-gradient(140deg,#A7B07A,#6B7442)}
+.p4{background:linear-gradient(140deg,#5B5763,#2A2730)}.p5{background:linear-gradient(140deg,#E1C79B,#B08D55)}.p6{background:linear-gradient(140deg,#6FC1B8,#2C8078)}
+.p7{background:linear-gradient(140deg,#F2B8C6,#C9748A)}
+.sale{position:absolute;left:6px;top:6px;font-size:9px;font-weight:800;letter-spacing:.04em;border-radius:6px;padding:2px 6px;background:#fff;color:var(--k-ink)}
+.sale.r{background:var(--k-acc);color:#fff}
+.pimg{position:relative}
+.sz{display:inline-grid;place-items:center;min-width:30px;height:28px;border-radius:8px;font-size:10.5px;font-weight:700;box-shadow:inset 0 0 0 1px var(--k-line);background:#fff;padding:0 6px}
+.sz.on{background:var(--k-ink);color:#fff;box-shadow:none}
+.sz.out{color:#B8B2AA;background:repeating-linear-gradient(135deg,#fff 0 5px,#F3EFEA 5px 7px)}
+.sw{width:18px;height:18px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--k-line)}
+.sw.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--k-ink)}
+/* integration hub */
+.hubr{position:absolute;inset:0}
+.hubr .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 35% 30%,#1c64e6,#0b2f7a 60%,#08204f);box-shadow:0 0 0 12px rgba(10,108,240,.08),0 0 0 26px rgba(10,108,240,.04),0 20px 60px rgba(0,80,220,.35);color:#fff}
+.hubr .core img{width:64px;margin:0 auto 6px}
+.hubr .core b{font-family:Outfit;font-size:19px;display:block;line-height:1.15}
+.hubr .core small{font-size:12px;color:#BFD4F5}
+.hubr .nd{position:absolute;width:250px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 10px 30px -18px rgba(11,40,90,.35)}
+.hubr .nd b{display:block;font-family:Outfit;font-size:15.5px;color:var(--n900);line-height:1.2}
+.hubr .nd b + span{display:block;font-size:12px;color:var(--s600);line-height:1.4;margin-top:3px}
+.hubr > svg{position:absolute;inset:0;width:100%;height:100%}
+/* extras grid */
+.ex8{position:absolute;left:64px;right:64px;top:300px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ex8 .t{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 30px -18px rgba(11,40,90,.25)}
+.ex8 .t h3{font-size:18px;margin:14px 0 6px}
+.ex8 .t p{font-size:13px;color:var(--s600);line-height:1.5}
+.ex8 .t .tag{display:inline-block;align-self:flex-start;margin-top:auto;font-size:11px;font-weight:700;color:var(--b700);background:var(--ice);border-radius:999px;padding:3px 9px}
+</style>
+</head>
+<body>
+
+<!-- ================= 1. COVER ================= -->
+<section class="slide dark cover">
+  <img class="bgimg" src="../img/bg-cover.jpg" alt="">
+  <div class="top"><img src="../img/logo-full-white.png" alt="Sparta Labs"><span>Product demo · Retail Store Suite</span></div>
+  <div class="hero">
+    <div class="kicker" style="margin-bottom:22px">Software for fashion &amp; footwear stores</div>
+    <h1>Sell in store,<br>online and in<br><em>your own app.</em></h1>
+    <p class="sub">What your shoppers, your cashier and you would see. Shopify online, your shop floor and your own app, sharing one stock and one customer list.</p>
+  </div>
+  <div class="mods">
+    <span>{{i:shopping-bag}}Shopify store</span><span>{{i:device-mobile}}Shopping app</span><span>{{i:seal-percent}}Loyalty &amp; coupons</span><span>{{i:bell-ringing}}New arrivals</span><span>{{i:barcode}}Billing</span><span>{{i:package}}Inventory</span><span>{{i:users-three}}CRM</span><span>{{i:chart-line-up}}Analytics</span>
+  </div>
+  <div class="devs">
+    <div class="browser k" style="left:150px;top:40px;width:660px;height:430px;transform:rotate(-4deg)">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}strideandthread.in</span></div>
+      <div style="background:var(--k-bg);height:100%;padding:14px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div class="klogo" style="font-size:15px"><span class="m">{{i:sneaker}}</span>Stride &amp; Thread</div><div style="display:flex;gap:14px;font-size:11px;font-weight:600"><span>Men</span><span>Women</span><span>Sneakers</span><span style="color:var(--k-acc)">Sale</span></div></div>
+        <div style="margin-top:12px;height:140px;border-radius:14px;background:linear-gradient(120deg,#1D1B22,#3A3642);color:#fff;padding:18px;position:relative;overflow:hidden">
+          <div style="font-size:10px;letter-spacing:.14em;color:var(--k-on-ink)">NEW DROP</div><div style="font-family:Outfit;font-size:28px;font-weight:700;line-height:1.05;margin-top:4px">The Monsoon<br>Edit '26</div>
+          <span class="ico" style="position:absolute;right:30px;top:14px;width:120px;height:120px;color:#F28A6E">{{i:sneaker-move}}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px">
+          <div><div class="food p1 pimg" style="height:90px"><span class="sale">NEW</span>{{i:sneaker}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Court Classic</div><div style="font-size:10px;color:var(--k-mut)">₹3,499</div></div>
+          <div><div class="food p2 pimg" style="height:90px">{{i:t-shirt}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Linen Shirt</div><div style="font-size:10px;color:var(--k-mut)">₹1,899</div></div>
+          <div><div class="food p3 pimg" style="height:90px"><span class="sale r">-30%</span>{{i:boot}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Trail Boot</div><div style="font-size:10px;color:var(--k-mut)">₹4,199</div></div>
+          <div><div class="food p7 pimg" style="height:90px">{{i:dress}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Wrap Dress</div><div style="font-size:10px;color:var(--k-mut)">₹2,299</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kcard k" style="left:40px;top:430px;width:300px;padding:16px;transform:rotate(-4deg)">
+      <div style="font-size:11px;color:var(--k-mut);font-weight:600">Coupon redeemed today</div>
+      <div style="font-family:Outfit;font-size:28px;font-weight:700;letter-spacing:-.02em">58 <span style="font-size:14px;color:var(--k-mut);font-weight:500">shoppers came back</span></div>
+      <span class="chip c-sage">{{i:trend-up}}₹1.9 L in repeat sales</span>
+    </div>
+    <div class="phone" style="left:570px;top:170px;transform:rotate(5deg) scale(.84);transform-origin:top left">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:6px 16px">
+          <div style="font-size:12px;color:var(--k-mut)">Hi Meera,</div>
+          <div style="font-family:Outfit;font-size:21px;font-weight:700">Your rewards</div>
+          <div style="margin-top:12px;border-radius:18px;padding:16px;background:linear-gradient(140deg,#2A2730,#141217);color:var(--k-on-ink)">
+            <div style="font-size:10.5px;letter-spacing:.1em">NEXT VISIT COUPON</div>
+            <div style="font-family:Outfit;font-size:34px;font-weight:700;color:#fff;margin-top:6px">₹300 off</div>
+            <div style="font-size:10.5px">on ₹1,999+ · valid till 25 Oct</div>
+          </div>
+          <div class="kcard" style="margin-top:12px;padding:12px;display:flex;gap:10px;align-items:center"><div class="food p1" style="width:44px;height:44px">{{i:sneaker}}</div><div><b style="font-size:12px">Back in your size</b><div style="font-size:10.5px;color:var(--k-mut)">Court Classic · UK 5</div></div></div>
+          <div class="kcard" style="margin-top:10px;padding:12px;display:flex;gap:10px;align-items:center"><div class="food p6" style="width:44px;height:44px">{{i:sparkle}}</div><div><b style="font-size:12px">New drop today</b><div style="font-size:10.5px;color:var(--k-mut)">Monsoon Edit · 42 styles</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="meta"><span>spartalabs.in</span><span>Sample screens · Stride &amp; Thread is a demo brand</span></div>
+</section>
+
+<!-- ================= 2. OVERVIEW ================= -->
+<section class="slide ov">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">What's inside</div>
+    <h2 style="margin-top:14px">Eight modules. <span>Your shop floor and your online store, finally talking.</span></h2>
+    <p class="lead">Most stores run the shop on one system and the website on another, and neither knows the customer. Here every sale, in store or online, updates the same stock, the same customer profile and the same rewards.</p>
+  </div>
+  <div class="grid8">
+    <div class="t"><div class="row">{{box:shopping-bag}}<span class="no">01</span></div><h3>Shopify store &amp; theme</h3><p>An online store on Shopify with a theme designed around your brand, not a template.</p><div class="who"><span>Shoppers</span></div></div>
+    <div class="t"><div class="row">{{box:device-mobile}}<span class="no">02</span></div><h3>Your own shopping app</h3><p>Shoppers browse, save to wishlist, apply coupons and buy, or reserve to try in store.</p><div class="who"><span>Shoppers</span></div></div>
+    <div class="t"><div class="row">{{box:seal-percent}}<span class="no">03</span></div><h3>Loyalty &amp; coupons</h3><p>Points, tiers and "₹300 off your next visit" coupons that bring shoppers back.</p><div class="who"><span>Shoppers</span><span>Owner</span></div></div>
+    <div class="t"><div class="row">{{box:bell-ringing}}<span class="no">04</span></div><h3>New arrival alerts</h3><p>Tell app users about new drops, back-in-stock sizes and price drops, for free.</p><div class="who"><span>Owner</span><span>Shoppers</span></div></div>
+    <div class="t"><div class="row">{{box:barcode}}<span class="no">05</span></div><h3>Billing counter</h3><p>Scan, bill, apply coupons, handle exchanges and print GST invoices in seconds.</p><div class="who"><span>Cashier</span></div></div>
+    <div class="t"><div class="row">{{box:package}}<span class="no">06</span></div><h3>Inventory</h3><p>Stock by size and colour, across every store and online, with reorder and ageing alerts.</p><div class="who"><span>Store manager</span></div></div>
+    <div class="t"><div class="row">{{box:users-three}}<span class="no">07</span></div><h3>Customer CRM</h3><p>Know each shopper's size, style and spend. Send the right offer on WhatsApp.</p><div class="who"><span>Owner</span><span>Staff</span></div></div>
+    <div class="t"><div class="row">{{box:chart-line-up}}<span class="no">08</span></div><h3>Sales analytics</h3><p>Store vs online, best styles, sizes that sell, coupon returns and staff performance.</p><div class="who"><span>Owner</span><span>Accountant</span></div></div>
+  </div>
+  <div class="foot"><span>Retail Store Suite · Overview</span><span class="n">02</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 3. JOURNEY ================= -->
+<section class="slide dark jr">
+  <img class="bgimg" src="../img/bg-dark.jpg" alt="" style="opacity:.8">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">How it fits together</div>
+    <h2 style="margin-top:14px">Follow one shopper, Meera, <span>from first click to fifth visit.</span></h2>
+    <p class="lead">Each step is a screen shown later. See how the app and coupons keep her coming back.</p>
+  </div>
+  <div class="track">
+    <div class="st"><div class="dot">{{i:instagram-logo}}</div><small>Week 1</small><h3>Sees a new drop</h3><p>An Instagram post takes her to your Shopify store. She browses sneakers.</p><span class="m">01 Shopify store</span></div>
+    <div class="st"><div class="dot">{{i:device-mobile}}</div><small>Week 1</small><h3>Gets the app</h3><p>"₹200 off your first app order" convinces her. She saves 3 items to her wishlist.</p><span class="m">02 App</span></div>
+    <div class="st"><div class="dot">{{i:storefront}}</div><small>Week 2</small><h3>Tries in store</h3><p>Reserves a pair online, tries it in store. Her size in white is out, so staff order it to her home.</p><span class="m">05 Billing</span></div>
+    <div class="st"><div class="dot">{{i:receipt}}</div><small>Week 2</small><h3>Pays &amp; earns</h3><p>Gets a GST bill on WhatsApp, 350 points, and a ₹300 coupon for her next visit.</p><span class="m">03 Loyalty</span></div>
+    <div class="st"><div class="dot">{{i:bell-ringing}}</div><small>Week 5</small><h3>Hears it's back</h3><p>A notification says the dress on her wishlist is back in her size.</p><span class="m">04 Alerts</span></div>
+    <div class="st"><div class="dot">{{i:seal-percent}}</div><small>Week 5</small><h3>Returns to use coupon</h3><p>Uses the ₹300 coupon before it expires, and buys a belt she didn't plan to.</p><span class="m">03 Coupons</span></div>
+    <div class="st"><div class="dot">{{i:crown}}</div><small>Month 6</small><h3>Becomes a regular</h3><p>Reaches Gold. Gets early access to the festive sale and a birthday gift.</p><span class="m">07 CRM</span></div>
+  </div>
+  <div class="behind">
+    <h3>Meanwhile, behind the counter<small>One system connects the store, Shopify and the app. Nobody types anything twice.</small></h3>
+    <div class="b">{{box:package}}<div><b>One stock count</b><span>A pair sold in store is gone from the website in seconds. No overselling.</span></div></div>
+    <div class="b">{{box:users-three}}<div><b>One customer profile</b><span>Store bills, online orders and app activity build one history per shopper.</span></div></div>
+    <div class="b">{{box:chart-line-up}}<div><b>One set of numbers</b><span>Store and online sales, coupons and profit in the same dashboard.</span></div></div>
+  </div>
+  <div class="foot"><span>Retail Store Suite · A shopper's journey</span><span class="n">03</span><img src="../img/logo-wordmark-white.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 4. SHOPIFY STORE ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 01</span><span class="kicker">For online shoppers</span></div>
+    <h2>Shopify store &amp; <span>custom theme</span></h2>
+    <p class="lead">We set up your online store on Shopify, the platform thousands of brands trust, and design a theme that looks like <em>your</em> brand, not a template.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>A theme made for your brand</b>Your colours, fonts, photos and layout. You change banners and sections yourself, no coding.</div></li>
+      <li><span class="num">2</span><div><b>Collections &amp; size filters</b>Shop by category, size, colour and price. Only sizes in stock show up.</div></li>
+      <li><span class="num">3</span><div><b>Badges that sell</b>New, Bestseller, Only 2 left and Sale tags added automatically.</div></li>
+      <li><span class="num">4</span><div><b>Size guide &amp; reviews</b>Fewer wrong-size returns, more trust from first-time buyers.</div></li>
+      <li><span class="num">5</span><div><b>Easy checkout</b>UPI, cards, pay later and cash on delivery. Pick up in store as an option.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:globe}}Sell 24 x 7</span><span>{{i:magnifying-glass}}Found on Google</span><span>{{i:paint-brush}}Looks premium</span></div>
+  </div>
+  <div class="stage warm">
+    <div class="browser k" style="left:36px;top:40px;width:620px;height:650px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}strideandthread.in/collections/sneakers</span></div>
+      <div style="background:var(--k-bg);height:100%">
+        <div style="background:var(--k-ink);color:var(--k-on-ink);font-size:10.5px;text-align:center;padding:5px;font-weight:600">Free shipping over ₹1,499 · Try in store, pay later</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid var(--k-line)">
+          <div class="klogo" style="font-size:16px"><span class="m">{{i:sneaker}}</span>Stride &amp; Thread</div>
+          <div style="display:flex;gap:16px;font-size:12px;font-weight:600"><span>Men</span><span>Women</span><span style="border-bottom:2px solid var(--k-ink)">Sneakers</span><span>Ethnic</span><span style="color:var(--k-acc)">Sale</span></div>
+          <div style="display:flex;gap:12px"><span class="ico" style="width:18px;height:18px">{{i:magnifying-glass}}</span><span class="ico" style="width:18px;height:18px">{{i:heart}}</span><span class="ico" style="width:18px;height:18px">{{i:tote}}</span></div>
+        </div>
+        <div style="padding:14px 22px 0;display:flex;justify-content:space-between;align-items:flex-end">
+          <div><div style="font-size:11px;color:var(--k-mut)">Home / Sneakers</div><div style="font-family:Outfit;font-size:24px;font-weight:700">Sneakers <span style="font-size:13px;color:var(--k-mut);font-weight:500">86 styles</span></div></div>
+          <div style="font-size:11px;font-weight:600;border-radius:8px;box-shadow:inset 0 0 0 1px var(--k-line);padding:6px 10px;background:#fff">Sort: New arrivals</div>
+        </div>
+        <div style="display:grid;grid-template-columns:150px 1fr;gap:18px;padding:14px 22px">
+          <div style="font-size:11px" data-cb="2" data-at="l" data-dx="-30">
+            <b style="font-size:11px;letter-spacing:.08em;color:var(--k-mut)">SIZE (UK)</b>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px"><span class="sz">5</span><span class="sz">6</span><span class="sz">7</span><span class="sz on">8</span><span class="sz">9</span><span class="sz out">10</span><span class="sz">11</span></div>
+            <b style="display:block;font-size:11px;letter-spacing:.08em;color:var(--k-mut);margin-top:14px">COLOUR</b>
+            <div style="display:flex;gap:8px;margin-top:8px"><span class="sw on" style="background:#F4F1EC"></span><span class="sw" style="background:#1D1B22"></span><span class="sw" style="background:#D5492E"></span><span class="sw" style="background:#34488F"></span><span class="sw" style="background:#6B7442"></span></div>
+            <b style="display:block;font-size:11px;letter-spacing:.08em;color:var(--k-mut);margin-top:14px">PRICE</b>
+            <div style="height:4px;border-radius:4px;background:var(--k-line);margin-top:12px;position:relative"><i style="position:absolute;left:10%;right:30%;top:0;bottom:0;background:var(--k-ink);border-radius:4px"></i></div>
+            <div style="display:flex;justify-content:space-between;margin-top:6px;color:var(--k-mut)"><span>₹999</span><span>₹5,999</span></div>
+            <label style="display:flex;gap:6px;align-items:center;margin-top:14px;font-weight:600"><span style="width:14px;height:14px;border-radius:4px;background:var(--k-ink);display:inline-grid;place-items:center;color:#fff"><span class="ico" style="width:10px;height:10px">{{i:check}}</span></span>In stock at my store</label>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+            <div><div class="food p1 pimg" style="height:130px" data-cb="3" data-at="tl" data-dx="-4" data-dy="-4"><span class="sale">NEW</span>{{i:sneaker}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Court Classic</div><div style="font-size:11px;color:var(--k-mut)">₹3,499 · <span style="color:var(--gold)">★ 4.6</span></div></div>
+            <div><div class="food p4 pimg" style="height:130px"><span class="sale" style="background:var(--gold-w);color:#7E5F0C">BESTSELLER</span>{{i:sneaker-move}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Runner Knit</div><div style="font-size:11px;color:var(--k-mut)">₹2,999 · <span style="color:var(--gold)">★ 4.8</span></div></div>
+            <div><div class="food p3 pimg" style="height:130px"><span class="sale r">-30%</span>{{i:boot}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Trail Boot</div><div style="font-size:11px;color:var(--k-mut)"><s>₹5,999</s> <b style="color:var(--k-acc)">₹4,199</b></div></div>
+            <div><div class="food p2 pimg" style="height:130px">{{i:sneaker}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Canvas Low</div><div style="font-size:11px;color:var(--k-mut)">₹1,799</div></div>
+            <div><div class="food p5 pimg" style="height:130px"><span class="sale" style="background:var(--red-w);color:#A12A21">ONLY 2 LEFT</span>{{i:sneaker-move}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Suede Racer</div><div style="font-size:11px;color:var(--k-mut)">₹3,999</div></div>
+            <div><div class="food p6 pimg" style="height:130px">{{i:sneaker}}</div><div style="font-size:12px;font-weight:700;margin-top:7px">Court Mint</div><div style="font-size:11px;color:var(--k-mut)">₹3,499</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- theme editor panel -->
+    <div class="kcard k" data-cb="1" data-at="tr" data-dx="-6" data-dy="6" style="left:676px;top:40px;width:264px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Theme editor</b><span class="chip c-sage">{{i:check-circle}}Live</span></div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:12px">BRAND COLOURS</div>
+      <div style="display:flex;gap:8px;margin-top:7px"><span style="width:30px;height:30px;border-radius:8px;background:#1D1B22"></span><span style="width:30px;height:30px;border-radius:8px;background:#E8553A"></span><span style="width:30px;height:30px;border-radius:8px;background:#FAF8F5;box-shadow:inset 0 0 0 1px var(--k-line)"></span><span style="width:30px;height:30px;border-radius:8px;background:#6B7442"></span></div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:12px">HOME PAGE SECTIONS</div>
+      <div style="display:grid;gap:5px;margin-top:7px;font-size:11.5px">
+        <div style="display:flex;gap:8px;align-items:center;padding:7px 9px;border-radius:8px;background:var(--k-soft)"><span class="ico" style="width:14px;height:14px;color:var(--k-mut)">{{i:list-checks}}</span>Announcement bar</div>
+        <div style="display:flex;gap:8px;align-items:center;padding:7px 9px;border-radius:8px;background:var(--k-soft)"><span class="ico" style="width:14px;height:14px;color:var(--k-mut)">{{i:list-checks}}</span>Hero: Monsoon Edit</div>
+        <div style="display:flex;gap:8px;align-items:center;padding:7px 9px;border-radius:8px;background:#fff;box-shadow:0 0 0 1.5px var(--k-acc)"><span class="ico" style="width:14px;height:14px;color:var(--k-acc)">{{i:list-checks}}</span>Shop by size</div>
+        <div style="display:flex;gap:8px;align-items:center;padding:7px 9px;border-radius:8px;background:var(--k-soft)"><span class="ico" style="width:14px;height:14px;color:var(--k-mut)">{{i:list-checks}}</span>Customer reviews</div>
+      </div>
+    </div>
+    <!-- product page phone -->
+    <div class="phone" style="left:730px;top:392px;transform:scale(.68);transform-origin:top left">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div class="food p1" style="height:190px;border-radius:0;margin-top:-4px">{{i:sneaker}}</div>
+        <div style="padding:12px 16px">
+          <div style="font-family:Outfit;font-size:18px;font-weight:700">Court Classic</div>
+          <div style="font-size:12px"><b>₹3,499</b> · <span style="color:var(--gold)">★ 4.6 (212)</span></div>
+          <div style="display:flex;gap:5px;margin-top:10px" data-cb="4" data-at="r" data-dx="46"><span class="sz">6</span><span class="sz">7</span><span class="sz on">8</span><span class="sz">9</span><span class="sz out">10</span></div>
+          <div style="font-size:11px;color:var(--k-acc);font-weight:700;margin-top:6px;display:flex;gap:5px;align-items:center"><span class="ico" style="width:13px;height:13px">{{i:ruler}}</span>Size guide · fits true to size</div>
+          <span class="kbtn dk" style="width:100%;margin-top:12px" data-cb="5" data-at="l" data-dx="-10">Add to bag</span>
+          <div style="font-size:10.5px;color:var(--k-mut);text-align:center;margin-top:6px">UPI · Cards · Pay later · COD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 01 · Shopify store &amp; custom theme</span><span class="n">04</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 5. SHOPIFY INTEGRATION ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 01</span><span class="kicker">How it connects</span></div>
+    <h2>Shopify, <span>connected to your shop floor</span></h2>
+    <p class="lead">Shopify runs the website. Our system sits in the middle and keeps the website, the store counter and the app in sync, every few seconds.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Products added once</b>Add a style with photos, sizes and price. It appears on the website, in the app and at the billing counter.</div></li>
+      <li><span class="num">2</span><div><b>Stock always matches</b>Sell the last UK 8 in store and it disappears online. No "sorry, it's sold out" emails.</div></li>
+      <li><span class="num">3</span><div><b>Orders from everywhere, one list</b>Website, app and WhatsApp orders reach the store for packing or pickup.</div></li>
+      <li><span class="num">4</span><div><b>Shipping &amp; payments plugged in</b>Courier pickup, tracking and payments connect through Shopify apps.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:check-circle}}No overselling</span><span>{{i:timer}}No double data entry</span><span>{{i:users-three}}One customer list</span></div>
+  </div>
+  <div class="stage">
+    <div class="hubr">
+      <svg viewBox="0 0 980 796" preserveAspectRatio="none">
+        <g stroke="#0A6CF0" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 6" fill="none">
+          <path d="M490 398 L200 150"/><path d="M490 398 L780 150"/><path d="M490 398 L160 398"/><path d="M490 398 L820 398"/><path d="M490 398 L200 646"/><path d="M490 398 L780 646"/>
+        </g>
+      </svg>
+      <div class="core"><div><img src="../img/logo-mark-white.png" alt=""><b>Sparta sync hub</b><small>stock · orders · customers</small></div></div>
+      <div class="nd" style="left:60px;top:90px" data-cb="1" data-at="tr" data-dx="-6" data-dy="6">{{box:shopping-bag}}<div><b>Shopify website</b><span>Products, prices, online orders</span></div></div>
+      <div class="nd" style="left:670px;top:90px">{{box:device-mobile}}<div><b>Your shopping app</b><span>Wishlist, coupons, alerts, orders</span></div></div>
+      <div class="nd" style="left:30px;top:350px" data-cb="2" data-at="tr" data-dx="-6" data-dy="6">{{box:barcode}}<div><b>Store billing counter</b><span>Every sale updates stock online</span></div></div>
+      <div class="nd" style="left:700px;top:350px" data-cb="3" data-at="tr" data-dx="-6" data-dy="6">{{box:whatsapp-logo}}<div><b>WhatsApp &amp; Instagram</b><span>Catalogue, chat orders, updates</span></div></div>
+      <div class="nd" style="left:60px;top:600px">{{box:warehouse}}<div><b>Stock room &amp; other stores</b><span>Sizes by location, transfers</span></div></div>
+      <div class="nd" style="left:670px;top:600px" data-cb="4" data-at="tr" data-dx="-6" data-dy="6">{{box:truck}}<div><b>Courier &amp; payments</b><span>Pickup, tracking, UPI, COD</span></div></div>
+    </div>
+    <!-- live sync ticker -->
+    <div class="kcard k" style="left:318px;top:548px;width:344px;padding:12px 14px;font-size:11.5px">
+      <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-bottom:6px">LIVE SYNC · JUST NOW</div>
+      <div style="display:flex;gap:8px;align-items:center;padding:4px 0"><span class="chip c-blue">Store</span>Sold Court Classic UK 8 · stock 3 → 2</div>
+      <div style="display:flex;gap:8px;align-items:center;padding:4px 0"><span class="chip c-sage">Shopify</span>Website stock updated in 2 sec</div>
+      <div style="display:flex;gap:8px;align-items:center;padding:4px 0"><span class="chip c-acc">App</span>"Only 2 left" badge switched on</div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 01 · Shopify integration</span><span class="n">05</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 6. SHOPPING APP ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 02</span><span class="kicker">For your shoppers</span></div>
+    <h2>Your own <span>shopping app</span></h2>
+    <p class="lead">An app in your store's name on Android and iPhone. Shoppers pick what they like, apply their coupons and buy, or reserve it to try in store.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>A reason to download</b>"₹200 off your first app order." App users are your best customers.</div></li>
+      <li><span class="num">2</span><div><b>Shop by their size</b>The app remembers her size and only shows what fits and is in stock.</div></li>
+      <li><span class="num">3</span><div><b>Wishlist that sells</b>Saved items trigger alerts when they are back in stock or on sale.</div></li>
+      <li><span class="num">4</span><div><b>Home delivery or try in store</b>Reserve for 24 hours and try at your nearest store before paying.</div></li>
+      <li><span class="num">5</span><div><b>Coupons &amp; points at checkout</b>Her coupons show up automatically. One tap to apply the best one.</div></li>
+    </ol>
+  </div>
+  <div class="stage warm">
+    <!-- home -->
+    <div class="phone" style="left:40px;top:70px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:2px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><div class="klogo" style="font-size:14px"><span class="m" style="width:24px;height:24px">{{i:sneaker}}</span>Stride &amp; Thread</div><span class="ico" style="width:20px;height:20px">{{i:bell}}</span></div>
+          <div data-cb="1" data-at="l" data-dx="-8" style="margin-top:12px;border-radius:16px;padding:14px;background:linear-gradient(120deg,#E8553A,#B8361F);color:#fff">
+            <div style="font-size:10px;letter-spacing:.12em;opacity:.85">APP-ONLY WELCOME</div>
+            <div style="font-family:Outfit;font-size:24px;font-weight:700;line-height:1.1;margin-top:4px">₹200 off your<br>first app order</div>
+            <div style="font-size:10.5px;margin-top:6px;opacity:.9">Code WELCOME200 · auto-applied</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:12px"><b>Picked for you · UK 5 · M</b><span style="color:var(--k-mut)">See all</span></div>
+          <div data-cb="2" data-at="l" data-dx="-8" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+            <div><div class="food p1 pimg" style="height:110px"><span class="sale">NEW</span>{{i:sneaker}}</div><div style="font-size:11px;font-weight:700;margin-top:5px">Court Classic</div><div style="font-size:10.5px;color:var(--k-mut)">₹3,499</div></div>
+            <div><div class="food p7 pimg" style="height:110px">{{i:dress}}</div><div style="font-size:11px;font-weight:700;margin-top:5px">Wrap Dress</div><div style="font-size:10.5px;color:var(--k-mut)">₹2,299</div></div>
+            <div><div class="food p2 pimg" style="height:110px">{{i:t-shirt}}</div><div style="font-size:11px;font-weight:700;margin-top:5px">Linen Shirt</div><div style="font-size:10.5px;color:var(--k-mut)">₹1,899</div></div>
+            <div><div class="food p5 pimg" style="height:110px"><span class="sale r">-25%</span>{{i:handbag}}</div><div style="font-size:11px;font-weight:700;margin-top:5px">Tote Bag</div><div style="font-size:10.5px;color:var(--k-mut)">₹1,499</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- product -->
+    <div class="phone" style="left:350px;top:40px">
+      <div class="scr">
+        <div class="food p7" style="height:250px;border-radius:0;position:relative">{{i:dress}}
+          <div class="sbar" style="position:absolute;left:0;right:0;top:0;color:#fff"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+          <span data-cb="3" data-at="l" data-dx="-10" style="position:absolute;right:14px;top:52px;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--k-acc);display:grid;place-items:center"><span class="ico" style="width:18px;height:18px">{{i:heart}}</span></span>
+        </div>
+        <div style="padding:12px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-family:Outfit;font-size:19px;font-weight:700">Wrap Dress</div><b style="font-size:14px">₹2,299</b></div>
+          <div style="font-size:11px;color:var(--k-mut)">Cotton · Blush · <span style="color:var(--gold)">★ 4.7</span></div>
+          <div style="display:flex;gap:6px;margin-top:10px"><span class="sz">XS</span><span class="sz">S</span><span class="sz on">M</span><span class="sz">L</span><span class="sz out">XL</span></div>
+          <div style="font-size:10.5px;color:var(--red);font-weight:700;margin-top:6px">Only 2 left in M</div>
+          <div data-cb="4" data-at="l" data-dx="-10" style="display:grid;gap:6px;margin-top:10px;font-size:11px">
+            <div style="display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--k-ink)"><span class="ico" style="width:16px;height:16px">{{i:storefront}}</span><div><b>Try in store</b> · Indiranagar<br><span style="color:var(--k-mut)">Reserved for 24 hrs, pay there</span></div></div>
+            <div style="display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--k-line)"><span class="ico" style="width:16px;height:16px">{{i:truck}}</span><div><b>Home delivery</b> · by Fri</div></div>
+          </div>
+          <span class="kbtn dk" style="width:100%;margin-top:10px">Reserve to try</span>
+        </div>
+      </div>
+    </div>
+    <!-- cart -->
+    <div class="phone" style="left:660px;top:70px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:2px 16px">
+          <div style="font-family:Outfit;font-size:20px;font-weight:700">Your bag</div>
+          <div class="kcard" style="margin-top:10px;padding:10px;display:flex;gap:10px;align-items:center"><div class="food p1" style="width:50px;height:50px">{{i:sneaker}}</div><div style="flex:1;font-size:11px"><b>Court Classic</b><br><span style="color:var(--k-mut)">White · UK 5</span></div><b style="font-size:12px">₹3,499</b></div>
+          <div class="kcard" style="margin-top:8px;padding:10px;display:flex;gap:10px;align-items:center"><div class="food p5" style="width:50px;height:50px">{{i:handbag}}</div><div style="flex:1;font-size:11px"><b>Tote Bag</b><br><span style="color:var(--k-mut)">Tan</span></div><b style="font-size:12px">₹1,124</b></div>
+          <div data-cb="5" data-at="r" data-dx="30" style="margin-top:12px;border-radius:12px;background:var(--sage-w);padding:10px 12px;font-size:11px;border:1px dashed #7BC4A3">
+            <div style="display:flex;justify-content:space-between;align-items:center"><b style="display:flex;gap:6px;align-items:center;color:#1F7550"><span class="ico" style="width:15px;height:15px">{{i:seal-percent}}</span>WELCOME200 applied</b><span style="color:#1F7550;font-weight:700">- ₹200</span></div>
+            <div style="color:#1F7550;margin-top:3px">Best coupon picked for you · 2 more available</div>
+          </div>
+          <div style="margin-top:8px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--k-line);padding:10px 12px;font-size:11px;display:flex;justify-content:space-between;align-items:center"><span><b>Use 350 points</b><br><span style="color:var(--k-mut)">worth ₹175</span></span><span style="width:34px;height:20px;border-radius:12px;background:var(--k-ink);position:relative"><i style="position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff"></i></span></div>
+          <div style="margin-top:12px;display:grid;gap:4px;font-size:11.5px;color:var(--k-mut)">
+            <div style="display:flex;justify-content:space-between"><span>Items</span><span>₹4,623</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Coupon + points</span><span style="color:var(--sage)">- ₹375</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:Outfit;font-weight:700;font-size:17px;color:var(--k-ink);margin-top:4px"><span>Pay</span><span>₹4,248</span></div>
+          </div>
+          <span class="kbtn" style="width:100%;margin-top:10px">Pay with UPI</span>
+          <div style="font-size:10.5px;color:var(--sage);text-align:center;margin-top:6px;font-weight:700">You'll earn 425 points on this order</div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="left:40px;top:690px">{{i:device-mobile}}Android &amp; iPhone app in your store's name and colours</div>
+  </div>
+  <div class="foot"><span>Module 02 · Your own shopping app</span><span class="n">06</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 7. LOYALTY & COUPONS (shopper) ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 03</span><span class="kicker">For your regulars</span></div>
+    <h2>Loyalty &amp; <span>come-back coupons</span></h2>
+    <p class="lead">Every purchase plants the reason for the next one. The shopper leaves with points and a coupon that only works on their <em>next</em> visit, with a deadline.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Next-visit coupon on every bill</b>"₹300 off your next purchase, valid 30 days." Printed on the bill and saved in the app.</div></li>
+      <li><span class="num">2</span><div><b>A coupon wallet</b>All her coupons in one place, with the expiry date counting down.</div></li>
+      <li><span class="num">3</span><div><b>Points on every rupee</b>Store, website or app, it all counts. Spend points like cash.</div></li>
+      <li><span class="num">4</span><div><b>Tiers with real perks</b>Silver and Gold get early sale access, free alterations and a birthday gift.</div></li>
+      <li><span class="num">5</span><div><b>Refer a friend</b>"Give ₹250, get ₹250." Your happiest customers bring new ones.</div></li>
+    </ol>
+  </div>
+  <div class="stage warm">
+    <!-- bill slip -->
+    <div data-cb="1" data-at="r" data-dx="18" style="left:40px;top:60px;width:270px;background:#fff;padding:20px 18px 24px;box-shadow:0 30px 60px -25px rgba(29,27,34,.45);font-family:'Courier New',monospace;font-size:11px;color:#222;line-height:1.45;-webkit-mask:radial-gradient(circle at 8px 100%,transparent 7px,#000 7.5px) 0 0/16px 100% repeat-x">
+      <div style="text-align:center"><div class="klogo" style="justify-content:center;font-size:15px"><span class="m">{{i:sneaker}}</span>Stride &amp; Thread</div></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="display:flex;justify-content:space-between"><span>Court Classic UK 5</span><span>3,499</span></div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;margin-top:4px"><span>TOTAL</span><span>₹3,499</span></div>
+      <div style="border-top:1px dashed #999;margin:10px 0"></div>
+      <div style="text-align:center;font-weight:700">Points earned: +350</div>
+      <div style="margin-top:10px;border:2px dashed #222;padding:10px;text-align:center">
+        <div style="font-size:10px">YOUR NEXT VISIT</div>
+        <div style="font-size:22px;font-weight:700;margin:3px 0">₹300 OFF</div>
+        <div style="font-size:10px">on ₹1,999+ · valid till 25 Oct</div>
+        <div style="display:flex;justify-content:center;margin-top:6px"><span class="ico" style="width:56px;height:56px;color:#222">{{i:qr-code}}</span></div>
+        <div style="font-size:10px">Also saved in your app</div>
+      </div>
+    </div>
+    <!-- wallet phone -->
+    <div class="phone" style="left:350px;top:40px">
+      <div class="scr">
+        <div class="sbar"><span>9:41</span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="padding:2px 16px">
+          <div style="font-family:Outfit;font-size:20px;font-weight:700">My coupons</div>
+          <div data-cb="2" data-at="r" data-dx="30" style="margin-top:10px;display:flex;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 8px 20px -14px var(--k-shadow);border:1px solid var(--k-card-line)">
+            <div style="width:70px;background:var(--k-acc);color:#fff;display:grid;place-items:center;font-family:Outfit;font-weight:700;font-size:17px;text-align:center;line-height:1.05">₹300<br><span style="font-size:10px;font-weight:500">OFF</span></div>
+            <div style="padding:10px 12px;font-size:11px;flex:1"><b>Next-visit reward</b><br><span style="color:var(--k-mut)">On ₹1,999+ · store &amp; online</span><div style="color:var(--red);font-weight:700;margin-top:3px">Expires in 12 days</div></div>
+          </div>
+          <div style="margin-top:9px;display:flex;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--k-card-line)">
+            <div style="width:70px;background:var(--k-ink);color:#fff;display:grid;place-items:center;font-family:Outfit;font-weight:700;font-size:17px">15%</div>
+            <div style="padding:10px 12px;font-size:11px;flex:1"><b>Birthday month</b><br><span style="color:var(--k-mut)">Any full-price item</span><div style="color:var(--k-mut);margin-top:3px">Valid all of October</div></div>
+          </div>
+          <div style="margin-top:9px;display:flex;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--k-card-line)">
+            <div style="width:70px;background:var(--sage);color:#fff;display:grid;place-items:center;font-family:Outfit;font-weight:700;font-size:13px;text-align:center">FREE<br>SOCKS</div>
+            <div style="padding:10px 12px;font-size:11px;flex:1"><b>With any sneaker</b><br><span style="color:var(--k-mut)">Monsoon Edit launch</span><div style="color:var(--k-mut);margin-top:3px">This weekend only</div></div>
+          </div>
+          <div class="kcard" data-cb="3" data-at="l" data-dx="-10" style="margin-top:12px;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:var(--k-mut)">Points balance</span><span class="chip" style="background:#ECEEF1;color:#4A4F57">{{i:crown}}Silver</span></div>
+            <div style="font-family:Outfit;font-size:26px;font-weight:700">2,450 <span style="font-size:12px;color:var(--k-mut);font-weight:500">= ₹1,225</span></div>
+            <div style="height:6px;border-radius:9px;background:var(--k-line);margin-top:6px"><div style="width:62%;height:100%;border-radius:9px;background:var(--gold)"></div></div>
+            <div style="font-size:10.5px;color:var(--k-mut);margin-top:5px">Spend ₹7,600 more to reach Gold</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- tiers + referral -->
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-6" data-dy="6" style="left:660px;top:60px;width:280px;padding:16px">
+      <b style="font-family:Outfit;font-size:15px">Tiers &amp; perks</b>
+      <div style="display:grid;gap:7px;margin-top:10px;font-size:11.5px">
+        <div style="padding:9px 11px;border-radius:10px;background:#F3E6D9"><b>Bronze</b> · 1 pt per ₹10<br><span style="color:var(--k-mut)">Next-visit coupons</span></div>
+        <div style="padding:9px 11px;border-radius:10px;background:#ECEEF1"><b>Silver</b> · from ₹15,000 a year<br><span style="color:var(--k-mut)">1.25x points · birthday 15%</span></div>
+        <div style="padding:9px 11px;border-radius:10px;background:var(--gold-w)"><b>Gold</b> · from ₹40,000 a year<br><span style="color:var(--k-mut)">1.5x points · early sale access · free alterations</span></div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="5" data-at="tr" data-dx="-6" data-dy="6" style="left:660px;top:390px;width:280px;padding:16px">
+      <div style="display:flex;gap:10px;align-items:center">{{box:share-network}}<b style="font-family:Outfit;font-size:15px">Refer a friend</b></div>
+      <div style="font-family:Outfit;font-size:22px;font-weight:700;margin-top:10px;line-height:1.15">Give ₹250,<br>get ₹250</div>
+      <div style="font-size:11.5px;color:var(--k-mut);margin-top:6px">When your friend makes a first purchase of ₹1,999 or more.</div>
+      <div style="display:flex;gap:6px;margin-top:10px"><span class="kbtn sage" style="font-size:11px;padding:7px 10px">{{i:whatsapp-logo}}Share</span><span class="kbtn ghost" style="font-size:11px;padding:7px 10px">MEERA250</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 03 · Loyalty &amp; coupons, what the shopper sees</span><span class="n">07</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 8. COUPON ENGINE (owner) ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 03</span><span class="kicker">For the owner</span></div>
+    <h2>How the <span>coupon engine</span> works</h2>
+    <p class="lead">You decide the rules once. The system hands out the right coupon at the right moment, stops misuse, and shows you if it made money.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Build a coupon in a minute</b>Flat ₹, percentage, buy-2-get-1 or free gift. Set minimum bill and expiry.</div></li>
+      <li><span class="num">2</span><div><b>Guard your margin</b>Exclude sale items, one use per customer, only on new arrivals, only in store.</div></li>
+      <li><span class="num">3</span><div><b>Automatic triggers</b>Coupons issue themselves: after a purchase, on app download, on birthdays, or when a customer goes quiet.</div></li>
+      <li><span class="num">4</span><div><b>See the return</b>Coupons issued, used, extra sales they brought and what the discounts cost.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:arrows-clockwise}}More repeat visits</span><span>{{i:shield-check}}No coupon misuse</span><span>{{i:percent}}Discounts that pay back</span></div>
+  </div>
+  <div class="stage">
+    <div style="left:40px;top:36px;right:40px;border-radius:18px;background:var(--n900);color:#fff;padding:20px 24px">
+      <div style="font-family:Outfit;font-size:12px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase">A worked example</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);margin-top:14px">
+        <div style="padding-right:18px"><div style="font-family:Outfit;font-size:28px;font-weight:600">₹3,499</div><div style="font-size:13px;color:var(--on-dark-2)">Meera buys sneakers today</div></div>
+        <div style="padding:0 18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600;color:#FF9B85">₹300 off</div><div style="font-size:13px;color:var(--on-dark-2)">coupon for her next visit, 30 days</div></div>
+        <div style="padding:0 18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600">₹2,640</div><div style="font-size:13px;color:var(--on-dark-2)">she comes back and spends</div></div>
+        <div style="padding-left:18px;border-left:1px solid rgba(255,255,255,.12)"><div style="font-family:Outfit;font-size:28px;font-weight:600;color:var(--cyan)">₹2,340</div><div style="font-size:13px;color:var(--on-dark-2)">extra sale for a ₹300 discount</div></div>
+      </div>
+    </div>
+    <div class="kcard k" style="left:40px;top:214px;width:440px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:17px" data-cb="1" data-at="r" data-dx="30">New coupon</b><span class="chip c-gold">Draft</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;font-size:11px;font-weight:700;text-align:center">
+        <div style="border-radius:9px;padding:8px 4px;background:var(--k-ink);color:#fff">Flat ₹</div><div style="border-radius:9px;padding:8px 4px;box-shadow:inset 0 0 0 1px var(--k-line)">% off</div><div style="border-radius:9px;padding:8px 4px;box-shadow:inset 0 0 0 1px var(--k-line)">Buy 2 get 1</div><div style="border-radius:9px;padding:8px 4px;box-shadow:inset 0 0 0 1px var(--k-line)">Free gift</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px;font-size:11px">
+        <div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--k-line)"><span style="color:var(--k-mut);font-size:9.5px">AMOUNT</span><br><b>₹300</b></div>
+        <div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--k-line)"><span style="color:var(--k-mut);font-size:9.5px">MIN. BILL</span><br><b>₹1,999</b></div>
+        <div style="border-radius:8px;padding:7px 10px;box-shadow:inset 0 0 0 1px var(--k-line)"><span style="color:var(--k-mut);font-size:9.5px">VALID FOR</span><br><b>30 days</b></div>
+      </div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:14px">RULES</div>
+      <div data-cb="2" data-at="r" data-dx="30" style="display:grid;gap:6px;margin-top:7px;font-size:12px">
+        <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--sage)">{{i:check-circle}}</span>Not valid on items already on sale</div>
+        <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--sage)">{{i:check-circle}}</span>One use per customer, linked to phone number</div>
+        <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--sage)">{{i:check-circle}}</span>Works in store, on website and in app</div>
+        <div style="display:flex;gap:8px;align-items:center"><span class="ico" style="width:16px;height:16px;color:var(--sage)">{{i:check-circle}}</span>Reminder 5 days before it expires</div>
+      </div>
+    </div>
+    <div class="kcard k" style="left:500px;top:214px;width:436px;padding:18px 20px">
+      <b style="font-family:Outfit;font-size:17px" data-cb="3" data-at="r" data-dx="30">Automatic coupons</b>
+      <div style="display:grid;gap:0;margin-top:10px;font-size:12px">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;align-items:center"><span><b>After any purchase over ₹2,000</b><br><span style="color:var(--k-mut)">₹300 off next visit</span></span><span class="chip c-sage">On</span></div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-top:1px solid var(--k-line);align-items:center"><span><b>First app download</b><br><span style="color:var(--k-mut)">₹200 off first app order</span></span><span class="chip c-sage">On</span></div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-top:1px solid var(--k-line);align-items:center"><span><b>Birthday month</b><br><span style="color:var(--k-mut)">15% off one full-price item</span></span><span class="chip c-sage">On</span></div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-top:1px solid var(--k-line);align-items:center"><span><b>Not seen in 60 days</b><br><span style="color:var(--k-mut)">20% off, sent on WhatsApp</span></span><span class="chip c-sage">On</span></div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-6" data-dy="6" style="left:500px;top:568px;width:436px;padding:16px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div><div style="font-size:11px;color:var(--k-mut);font-weight:600">Issued this month</div><div style="font-family:Outfit;font-size:26px;font-weight:700">1,240</div></div>
+      <div><div style="font-size:11px;color:var(--k-mut);font-weight:600">Used</div><div style="font-family:Outfit;font-size:26px;font-weight:700">486 <span style="font-size:13px;color:var(--sage)">39%</span></div></div>
+      <div><div style="font-size:11px;color:var(--k-mut);font-weight:600">Sales they brought</div><div style="font-family:Outfit;font-size:26px;font-weight:700">₹9.8 L</div></div>
+    </div>
+    <div class="kcard k" style="left:40px;top:568px;width:440px;padding:14px 20px;display:flex;gap:14px;align-items:center">
+      {{box:hand-coins}}
+      <div style="font-size:12.5px"><b style="font-size:14px">Discount cost: ₹1.4 L</b><br><span style="color:var(--k-mut)">For every ₹1 given away, ₹7 came back in sales. Sample numbers.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 03 · Coupons, how the owner sets them up</span><span class="n">08</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 9. NOTIFICATIONS ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 04</span><span class="kicker">For the owner</span></div>
+    <h2>New arrival &amp; <span>back-in-stock alerts</span></h2>
+    <p class="lead">Every app download is a free marketing channel. When new stock lands, the right shoppers hear about it the same hour, at no cost per message.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>New drop alerts</b>Shoppers who bought sneakers hear about new sneakers, not everything.</div></li>
+      <li><span class="num">2</span><div><b>Back in your size</b>Out-of-stock item on a wishlist? She's told the moment it's restocked.</div></li>
+      <li><span class="num">3</span><div><b>Price drop &amp; sale early access</b>Wishlist items on sale, and Gold members get the sale a day early.</div></li>
+      <li><span class="num">4</span><div><b>Pick who hears it</b>Filter by what they bought, their size, their store and their tier.</div></li>
+      <li><span class="num">5</span><div><b>See who came</b>Opens, store visits and sales from each message.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:money}}Free vs paid SMS</span><span>{{i:lightning}}New stock sells faster</span><span>{{i:target}}Relevant, not spam</span></div>
+  </div>
+  <div class="stage warm">
+    <div class="phone" style="left:40px;top:40px">
+      <div class="scr" style="background:linear-gradient(180deg,#3A3642,#141217);color:#fff">
+        <div class="sbar" style="color:#fff"><span></span><span class="r">{{i:wifi-high}}</span></div>
+        <div style="text-align:center;font-family:Outfit;font-weight:300;font-size:56px;line-height:1;margin-top:10px">11:05</div>
+        <div style="text-align:center;font-size:12px;opacity:.7;margin-bottom:18px">Saturday, 27 September</div>
+        <div style="padding:0 12px;display:grid;gap:9px">
+          <div data-cb="1" data-at="r" data-dx="12" style="background:rgba(255,255,255,.16);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4;display:flex;gap:9px"><div class="food p1" style="width:38px;height:38px;flex:none;border-radius:9px">{{i:sneaker-move}}</div><div><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>STRIDE &amp; THREAD</span><span>now</span></div><b>New drop: Monsoon Edit is here</b><br>42 new styles. Your size UK 5 is in stock.</div></div>
+          <div data-cb="2" data-at="r" data-dx="12" style="background:rgba(255,255,255,.12);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4;display:flex;gap:9px"><div class="food p7" style="width:38px;height:38px;flex:none;border-radius:9px">{{i:dress}}</div><div><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>STRIDE &amp; THREAD</span><span>9:12</span></div><b>Back in your size!</b><br>Wrap Dress in M is back. Only 4 made it.</div></div>
+          <div data-cb="3" data-at="r" data-dx="12" style="background:rgba(255,255,255,.09);border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4;display:flex;gap:9px"><div class="food p5" style="width:38px;height:38px;flex:none;border-radius:9px">{{i:handbag}}</div><div><div style="display:flex;justify-content:space-between;opacity:.75;font-size:10px"><span>STRIDE &amp; THREAD</span><span>Thu</span></div><b>Price drop on your wishlist</b><br>Tote Bag is now ₹1,124. Gold early access.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kcard k" style="left:370px;top:40px;width:570px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:17px">New campaign: Monsoon Edit launch</b><span class="chip c-blue">{{i:clock}}Sat 11:00 AM</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px">
+        <div>
+          <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em">MESSAGE</div>
+          <div style="margin-top:7px;border-radius:12px;background:var(--k-soft);padding:12px;font-size:12px;line-height:1.45"><b>New drop: Monsoon Edit is here</b><br>42 new styles. Your size {size} is in stock. Tap to shop, or try in store.</div>
+          <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span class="chip c-acc">{{i:check}}App push · free</span><span class="chip c-sage">{{i:check}}WhatsApp</span><span class="chip" style="box-shadow:inset 0 0 0 1px var(--k-line)">SMS</span></div>
+        </div>
+        <div data-cb="4" data-at="tr" data-dx="-4" data-dy="-4">
+          <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em">WHO GETS IT</div>
+          <div style="display:grid;gap:6px;margin-top:7px;font-size:11.5px">
+            <div style="display:flex;justify-content:space-between;padding:7px 10px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--k-line)"><span>Bought</span><b>Sneakers, last 12 months</b></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 10px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--k-line)"><span>Size in stock</span><b>Yes</b></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 10px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--k-line)"><span>Near store</span><b>Any</b></div>
+          </div>
+          <div style="margin-top:10px;border-radius:10px;background:var(--k-ink);color:#fff;padding:10px 12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11.5px">Reaches</span><b style="font-family:Outfit;font-size:20px">3,420 shoppers</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="5" data-at="tr" data-dx="-6" data-dy="6" style="left:370px;top:366px;width:570px;padding:18px 20px">
+      <b style="font-family:Outfit;font-size:15px">Last drop: Summer Linen · results</b>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+        <div style="border-radius:10px;background:var(--k-soft);padding:10px"><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Sent</div><b style="font-family:Outfit;font-size:20px">3,180</b></div>
+        <div style="border-radius:10px;background:var(--k-soft);padding:10px"><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Opened</div><b style="font-family:Outfit;font-size:20px">1,590</b></div>
+        <div style="border-radius:10px;background:var(--k-soft);padding:10px"><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Bought</div><b style="font-family:Outfit;font-size:20px">214</b></div>
+        <div style="border-radius:10px;background:var(--k-ink);color:#fff;padding:10px"><div style="font-size:10.5px;color:var(--k-on-ink);font-weight:600">Sales</div><b style="font-family:Outfit;font-size:20px">₹5.6 L</b></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:14px;font-size:12px;color:var(--k-mut)"><span class="ico" style="width:18px;height:18px;color:var(--sage)">{{i:sparkle}}</span>62% of new-drop sales came in the first 48 hours after the alert.</div>
+    </div>
+    <div class="kcard k" style="left:370px;top:588px;width:570px;padding:14px 20px;display:flex;gap:14px;align-items:center">
+      {{box:device-mobile}}
+      <div style="font-size:12.5px"><b style="font-size:14px">Why the app download matters</b><br><span style="color:var(--k-mut)">An SMS costs money every time. An app notification is free, carries a photo and opens straight to the product.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 04 · New arrival &amp; back-in-stock alerts</span><span class="n">09</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 10. BILLING COUNTER ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 05</span><span class="kicker">For the cashier</span></div>
+    <h2>Billing <span>counter</span></h2>
+    <p class="lead">Scan the barcode, the bill builds itself. Coupons, points, exchanges and GST are handled without the cashier doing maths.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Scan &amp; go</b>Barcode brings up the style, size and colour. No typing product names.</div></li>
+      <li><span class="num">2</span><div><b>Find the customer by phone</b>Her coupons, points and past purchases appear instantly.</div></li>
+      <li><span class="num">3</span><div><b>Coupons checked automatically</b>Only valid coupons apply. Expired or misused ones are blocked.</div></li>
+      <li><span class="num">4</span><div><b>Size not here? Sell it anyway</b>Order from another store or the warehouse, delivered to her home.</div></li>
+      <li><span class="num">5</span><div><b>Exchanges &amp; returns</b>Scan the old bill, swap the size, issue store credit if needed.</div></li>
+      <li><span class="num">6</span><div><b>GST bill, any payment</b>Right GST rate per item. UPI, card, cash, points or a mix. Bill on WhatsApp.</div></li>
+    </ol>
+  </div>
+  <div class="stage">
+    <div class="tablet k" style="left:40px;top:64px;width:900px;height:620px">
+      <div class="scr" style="background:var(--k-bg);display:grid;grid-template-columns:1fr 300px">
+        <div style="padding:16px 18px">
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="klogo" style="font-size:14px"><span class="m">{{i:sneaker}}</span></div>
+            <div data-cb="1" data-at="t" data-dy="-18" style="flex:1;height:38px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--k-ink);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px"><span class="ico" style="width:18px;height:18px">{{i:barcode}}</span><b>8901234567890</b><span style="color:var(--k-mut)">· scanned</span></div>
+            <span class="kbtn ghost" data-cb="5" data-at="t" data-dy="-18" style="padding:9px 12px">{{i:arrow-u-up-left}}Exchange</span>
+          </div>
+          <div class="kcard" style="margin-top:14px;padding:14px;display:grid;grid-template-columns:120px 1fr;gap:14px">
+            <div class="food p1" style="height:120px">{{i:sneaker}}</div>
+            <div>
+              <div style="display:flex;justify-content:space-between"><b style="font-family:Outfit;font-size:18px">Court Classic</b><b style="font-size:16px">₹3,499</b></div>
+              <div style="font-size:11px;color:var(--k-mut)">SKU CC-WHT · White</div>
+              <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:10px">SIZE (UK) · STOCK HERE</div>
+              <div style="display:flex;gap:6px;margin-top:6px"><span class="sz">4</span><span class="sz on">5</span><span class="sz">6</span><span class="sz">7</span><span class="sz out">8</span><span class="sz">9</span></div>
+              <div style="display:flex;gap:6px;margin-top:4px;font-size:9.5px;color:var(--k-mut)"><span style="width:30px;text-align:center">3</span><span style="width:30px;text-align:center">2</span><span style="width:30px;text-align:center">4</span><span style="width:30px;text-align:center">1</span><span style="width:30px;text-align:center;color:var(--red)">0</span><span style="width:30px;text-align:center">2</span></div>
+            </div>
+          </div>
+          <div data-cb="4" data-at="l" data-dx="-8" style="margin-top:12px;border-radius:12px;background:var(--cblue-w);padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:12px">
+            <span class="ico" style="width:24px;height:24px;color:var(--cblue)">{{i:truck}}</span>
+            <div style="flex:1"><b>UK 8 is out here.</b> Koramangala store has 2, warehouse has 6.<br><span style="color:var(--k-mut)">Sell now, deliver to her home by Friday.</span></div>
+            <span class="kbtn" style="background:var(--cblue);padding:8px 12px">Order to home</span>
+          </div>
+          <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:14px">ADD MORE</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:7px">
+            <div class="kcard" style="padding:8px"><div class="food p4" style="height:60px">{{i:sock}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Crew Socks ×3</div><div style="font-size:10px;color:var(--k-mut)">₹499</div></div>
+            <div class="kcard" style="padding:8px"><div class="food p5" style="height:60px">{{i:handbag}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Tote Bag</div><div style="font-size:10px;color:var(--k-mut)">₹1,499</div></div>
+            <div class="kcard" style="padding:8px"><div class="food p2" style="height:60px">{{i:t-shirt}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Linen Shirt</div><div style="font-size:10px;color:var(--k-mut)">₹1,899</div></div>
+            <div class="kcard" style="padding:8px"><div class="food p3" style="height:60px">{{i:baseball-cap}}</div><div style="font-size:10.5px;font-weight:700;margin-top:5px">Cap</div><div style="font-size:10px;color:var(--k-mut)">₹699</div></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-left:1px solid var(--k-line);padding:16px;display:flex;flex-direction:column;font-size:11.5px">
+          <b style="font-family:Outfit;font-size:17px">Bill #ST-24-3310</b>
+          <div data-cb="2" data-at="l" data-dx="-6" style="margin-top:10px;border-radius:10px;background:#ECEEF1;padding:8px 10px;display:flex;gap:8px;align-items:center"><span class="ico" style="width:18px;height:18px">{{i:crown}}</span><div><b>Meera R.</b> · Silver · 98450 XXXXX<br><span style="color:var(--k-mut)">UK 5 · M · 2,450 pts · 1 coupon</span></div></div>
+          <div style="margin-top:12px;display:grid;gap:9px">
+            <div style="display:flex;justify-content:space-between"><span><b>Court Classic</b> UK 5<br><span style="color:var(--k-mut);font-size:10.5px">GST 18%</span></span><b>₹3,499</b></div>
+            <div style="display:flex;justify-content:space-between"><span><b>Crew Socks ×3</b><br><span style="color:var(--k-mut);font-size:10.5px">GST 5%</span></span><b>₹499</b></div>
+          </div>
+          <div data-cb="3" data-at="l" data-dx="-6" style="margin-top:12px;border-radius:10px;background:var(--sage-w);padding:8px 10px;color:#1F7550;display:flex;justify-content:space-between"><span style="display:flex;gap:6px;align-items:center"><span class="ico" style="width:15px;height:15px">{{i:seal-percent}}</span><b>Next-visit ₹300</b></span><b>- ₹300</b></div>
+          <div style="margin-top:auto;border-top:1px dashed var(--k-line);padding-top:10px;display:grid;gap:4px;color:var(--k-mut)">
+            <div style="display:flex;justify-content:space-between"><span>Items (incl. GST)</span><span>₹3,998</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Coupon</span><span>- ₹300</span></div>
+            <div style="display:flex;justify-content:space-between;color:var(--k-ink);font-size:18px;font-family:Outfit;font-weight:700;margin-top:4px"><span>Total</span><span>₹3,698</span></div>
+            <div style="font-size:10.5px;color:var(--sage);font-weight:700">+370 points · new ₹300 coupon issued</div>
+          </div>
+          <div data-cb="6" data-at="l" data-dx="-8" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;font-size:11px;font-weight:700;text-align:center">
+            <span style="border-radius:9px;padding:8px 0;background:var(--k-ink);color:#fff">UPI</span><span style="border-radius:9px;padding:8px 0;box-shadow:inset 0 0 0 1px var(--k-line)">Card</span><span style="border-radius:9px;padding:8px 0;box-shadow:inset 0 0 0 1px var(--k-line)">Cash</span>
+          </div>
+          <span class="kbtn" style="margin-top:8px">{{i:whatsapp-logo}}Pay &amp; send bill</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 05 · Billing counter</span><span class="n">10</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 11. INVENTORY ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 06</span><span class="kicker">For the store manager</span></div>
+    <h2>Inventory <span>by size &amp; colour</span></h2>
+    <p class="lead">In fashion, "we have it" means nothing without the size. See every style as a size-by-colour grid, in every store and online.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Size &amp; colour grid</b>Instantly see which sizes are selling out and which are sitting.</div></li>
+      <li><span class="num">2</span><div><b>Every location at once</b>Each store, the warehouse and online stock side by side.</div></li>
+      <li><span class="num">3</span><div><b>Smart transfers</b>Move slow sizes from one store to where they sell, before you reorder.</div></li>
+      <li><span class="num">4</span><div><b>Ageing stock alerts</b>Styles unsold for 90 days are flagged for a sale or a bundle offer.</div></li>
+      <li><span class="num">5</span><div><b>Reorder &amp; labels</b>Purchase orders to your vendor, and barcode labels printed on arrival.</div></li>
+    </ol>
+    <div class="wins-t">Why it matters</div>
+    <div class="wins"><span>{{i:trend-up}}Fewer lost sales</span><span>{{i:money}}Less money stuck in stock</span><span>{{i:barcode}}Faster receiving</span></div>
+  </div>
+  <div class="stage">
+    <div class="browser k" style="left:40px;top:40px;width:900px;height:414px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.strideandthread.in/inventory/court-classic</span></div>
+      <div style="background:#fff;height:100%;padding:16px 20px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;gap:12px;align-items:center"><div class="food p1" style="width:44px;height:44px">{{i:sneaker}}</div><div><b style="font-family:Outfit;font-size:18px">Court Classic</b><div style="font-size:11px;color:var(--k-mut)">Sneakers · ₹3,499 · sell-through 68% in 6 weeks</div></div></div>
+          <div data-cb="2" data-at="t" data-dy="-12" style="display:flex;background:var(--k-soft);border-radius:9px;padding:3px;font-size:11px;font-weight:700"><span style="background:#fff;border-radius:7px;padding:5px 10px;box-shadow:0 1px 3px rgba(0,0,0,.1)">All locations</span><span style="padding:5px 10px;color:var(--k-mut)">Indiranagar</span><span style="padding:5px 10px;color:var(--k-mut)">Koramangala</span><span style="padding:5px 10px;color:var(--k-mut)">Online</span></div>
+        </div>
+        <div data-cb="1" data-at="l" data-dx="-26" style="margin-top:16px;display:grid;grid-template-columns:120px repeat(7,1fr) 80px;gap:5px;font-size:12px;text-align:center;align-items:center">
+          <span></span><b style="color:var(--k-mut);font-size:11px">UK 4</b><b style="color:var(--k-mut);font-size:11px">UK 5</b><b style="color:var(--k-mut);font-size:11px">UK 6</b><b style="color:var(--k-mut);font-size:11px">UK 7</b><b style="color:var(--k-mut);font-size:11px">UK 8</b><b style="color:var(--k-mut);font-size:11px">UK 9</b><b style="color:var(--k-mut);font-size:11px">UK 10</b><b style="color:var(--k-mut);font-size:11px">Total</b>
+          <span style="text-align:left;display:flex;gap:7px;align-items:center"><span class="sw" style="background:#F4F1EC"></span>White</span>
+          <span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">8</span><span style="padding:9px 0;border-radius:7px;background:var(--gold-w)">3</span><span style="padding:9px 0;border-radius:7px;background:var(--red-w);color:#A12A21;font-weight:700">1</span><span style="padding:9px 0;border-radius:7px;background:var(--red-w);color:#A12A21;font-weight:700">0</span><span style="padding:9px 0;border-radius:7px;background:var(--red-w);color:#A12A21;font-weight:700">2</span><span style="padding:9px 0;border-radius:7px;background:var(--gold-w)">4</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">9</span><b>27</b>
+          <span style="text-align:left;display:flex;gap:7px;align-items:center"><span class="sw" style="background:#1D1B22"></span>Black</span>
+          <span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">6</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">7</span><span style="padding:9px 0;border-radius:7px;background:var(--gold-w)">4</span><span style="padding:9px 0;border-radius:7px;background:var(--gold-w)">3</span><span style="padding:9px 0;border-radius:7px;background:var(--gold-w)">5</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">8</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">11</span><b>44</b>
+          <span style="text-align:left;display:flex;gap:7px;align-items:center"><span class="sw" style="background:#6FC1B8"></span>Mint</span>
+          <span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">12</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">14</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">10</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">9</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">11</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">13</span><span style="padding:9px 0;border-radius:7px;background:var(--sage-w)">15</span><b>84</b>
+        </div>
+        <div style="display:flex;gap:14px;margin-top:12px;font-size:11px;color:var(--k-mut)"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--red-w);box-shadow:inset 0 0 0 1px #E9A59D"></i> 2 or fewer</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--gold-w);box-shadow:inset 0 0 0 1px #E0C57E"></i> 3 to 5</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--sage-w);box-shadow:inset 0 0 0 1px #9BD3B9"></i> 6 or more</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+          <div data-cb="3" data-at="tr" data-dx="-4" data-dy="4" style="border-radius:12px;background:var(--cblue-w);padding:12px 14px;font-size:12px;display:flex;gap:10px"><span class="ico" style="width:22px;height:22px;color:var(--cblue)">{{i:arrows-left-right}}</span><div><b>Suggested transfer</b><br>Move 4 × White UK 7 from Koramangala (slow there) to Indiranagar (sold out).</div></div>
+          <div style="border-radius:12px;background:var(--k-soft);padding:12px 14px;font-size:12px;display:flex;gap:10px"><span class="ico" style="width:22px;height:22px;color:var(--k-ink)">{{i:lightning}}</span><div><b>Mint is slow</b><br>84 pairs, 11% sold in 6 weeks. Consider a bundle with socks.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-6" data-dy="6" style="left:40px;top:478px;width:440px;padding:16px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Ageing stock · over 90 days</b><span class="chip c-red">{{i:hourglass}}₹4.2 L stuck</span></div>
+      <div style="display:grid;gap:7px;margin-top:10px;font-size:12px">
+        <div style="display:flex;justify-content:space-between"><span>Formal Derby, tan · 38 pairs</span><b>124 days</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Printed Kurta, olive · 52 pcs</span><b>110 days</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Denim Jacket · 21 pcs</span><b>96 days</b></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px"><span class="kbtn dk" style="font-size:11px;padding:7px 12px">{{i:seal-percent}}Add to sale</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">Send to outlet</span></div>
+    </div>
+    <div class="kcard k" data-cb="5" data-at="tr" data-dx="-6" data-dy="6" style="left:500px;top:478px;width:440px;padding:16px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:Outfit;font-size:15px">Reorder · Urban Soles Pvt Ltd</b><span class="chip c-gold">Draft</span></div>
+      <div style="display:grid;gap:6px;margin-top:10px;font-size:12px">
+        <div style="display:flex;justify-content:space-between"><span>Court Classic White · UK 5 to 8 · 24 pairs</span><b>₹50,400</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Runner Knit Black · UK 7 to 9 · 18 pairs</span><b>₹32,400</b></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;align-items:center"><span class="kbtn sage" style="font-size:11px;padding:7px 12px">Send PO</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">{{i:printer}}Print labels</span><b style="margin-left:auto;font-family:Outfit;font-size:16px">₹82,800</b></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 06 · Inventory by size &amp; colour</span><span class="n">11</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 12. CRM ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 07</span><span class="kicker">For owner &amp; staff</span></div>
+    <h2>Customer <span>profiles &amp; CRM</span></h2>
+    <p class="lead">Your best salesperson remembers every regular. Now the whole team does. Each shopper's size, style and history in one profile.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Her sizes, remembered</b>Shoe, top and waist size, so staff pull the right size first time.</div></li>
+      <li><span class="num">2</span><div><b>Everything she bought</b>Store and online, with returns, spend and favourite brands.</div></li>
+      <li><span class="num">3</span><div><b>Wishlist &amp; coupons</b>What she wants next and which offers she still has.</div></li>
+      <li><span class="num">4</span><div><b>Ready-made groups</b>VIPs, sneaker lovers, lapsed shoppers, wedding season buyers.</div></li>
+      <li><span class="num">5</span><div><b>Message a group on WhatsApp</b>A personal note to 200 VIPs before the festive sale, in two clicks.</div></li>
+    </ol>
+  </div>
+  <div class="stage warm">
+    <div class="browser k" style="left:36px;top:40px;width:560px;height:620px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.strideandthread.in/customers/meera</span></div>
+      <div style="background:#fff;height:100%;padding:18px 20px">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="width:58px;height:58px;border-radius:50%;background:var(--k-acc-w);color:var(--k-acc);display:grid;place-items:center;font-family:Outfit;font-weight:700;font-size:22px">MR</div>
+          <div style="flex:1"><b style="font-family:Outfit;font-size:20px">Meera Rao</b><div style="font-size:11.5px;color:var(--k-mut)">Customer since Jan 2025 · Indiranagar store · app user</div></div>
+          <span class="chip" style="background:#ECEEF1;color:#4A4F57">{{i:crown}}Silver</span>
+        </div>
+        <div data-cb="1" data-at="l" data-dx="-8" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;text-align:center">
+          <div style="border-radius:10px;background:var(--k-soft);padding:9px"><div style="font-size:10px;color:var(--k-mut);font-weight:700;letter-spacing:.06em">SHOES</div><b style="font-size:15px">UK 5</b></div>
+          <div style="border-radius:10px;background:var(--k-soft);padding:9px"><div style="font-size:10px;color:var(--k-mut);font-weight:700;letter-spacing:.06em">TOPS</div><b style="font-size:15px">M</b></div>
+          <div style="border-radius:10px;background:var(--k-soft);padding:9px"><div style="font-size:10px;color:var(--k-mut);font-weight:700;letter-spacing:.06em">WAIST</div><b style="font-size:15px">28</b></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px">
+          <div><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Spent</div><b style="font-family:Outfit;font-size:18px">₹32,450</b></div>
+          <div><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Visits</div><b style="font-family:Outfit;font-size:18px">11</b></div>
+          <div><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Avg bill</div><b style="font-family:Outfit;font-size:18px">₹2,950</b></div>
+          <div><div style="font-size:10.5px;color:var(--k-mut);font-weight:600">Returns</div><b style="font-family:Outfit;font-size:18px">1</b></div>
+        </div>
+        <div style="font-size:10.5px;font-weight:700;color:var(--k-mut);letter-spacing:.08em;margin-top:16px">PURCHASE HISTORY</div>
+        <div data-cb="2" data-at="r" data-dx="18" style="display:grid;gap:0;margin-top:6px;font-size:12px">
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 0"><div class="food p1" style="width:34px;height:34px;border-radius:8px">{{i:sneaker}}</div><span style="flex:1"><b>Court Classic</b> · UK 5<br><span style="color:var(--k-mut);font-size:11px">18 Sep · Store</span></span><b>₹3,499</b></div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--k-line)"><div class="food p2" style="width:34px;height:34px;border-radius:8px">{{i:t-shirt}}</div><span style="flex:1"><b>Linen Shirt ×2</b> · M<br><span style="color:var(--k-mut);font-size:11px">02 Aug · App</span></span><b>₹3,798</b></div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--k-line)"><div class="food p3" style="width:34px;height:34px;border-radius:8px">{{i:boot}}</div><span style="flex:1"><b>Trail Boot</b> · UK 5<br><span style="color:var(--k-mut);font-size:11px">14 Jun · Website</span></span><b>₹4,199</b></div>
+        </div>
+        <div data-cb="3" data-at="r" data-dx="18" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;font-size:11.5px">
+          <div style="border-radius:10px;background:var(--k-acc-w);padding:10px"><b style="display:flex;gap:6px;align-items:center"><span class="ico" style="width:14px;height:14px;color:var(--k-acc)">{{i:heart}}</span>Wishlist · 3</b><span style="color:var(--k-mut)">Wrap Dress M, Tote Bag, Linen Blazer</span></div>
+          <div style="border-radius:10px;background:var(--sage-w);padding:10px"><b style="display:flex;gap:6px;align-items:center"><span class="ico" style="width:14px;height:14px;color:var(--sage)">{{i:seal-percent}}</span>Coupons · 2</b><span style="color:var(--k-mut)">₹300 next visit, birthday 15%</span></div>
+        </div>
+        <div style="margin-top:10px;border-radius:10px;background:var(--gold-w);padding:10px;font-size:11.5px;display:flex;gap:8px"><span class="ico" style="width:16px;height:16px;color:#7E5F0C">{{i:notepad}}</span><span><b>Staff note:</b> prefers cotton, shops before Diwali, likes a WhatsApp heads-up on new sneakers.</span></div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="4" data-at="tr" data-dx="-6" data-dy="6" style="left:620px;top:40px;width:320px;padding:16px">
+      <b style="font-family:Outfit;font-size:15px">Customer groups</b>
+      <div style="display:grid;gap:7px;margin-top:10px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:10px;background:var(--gold-w)"><span><b>VIPs</b><br><span style="color:var(--k-mut);font-size:11px">Spent ₹25,000+ this year</span></span><b>212</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:10px;background:var(--k-soft)"><span><b>Sneaker lovers</b><br><span style="color:var(--k-mut);font-size:11px">3+ sneaker purchases</span></span><b>1,140</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:10px;background:var(--red-w)"><span><b>Slipping away</b><br><span style="color:var(--k-mut);font-size:11px">No visit in 90 days</span></span><b>860</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:10px;background:var(--k-soft)"><span><b>Wedding season</b><br><span style="color:var(--k-mut);font-size:11px">Bought ethnic wear, Oct to Feb</span></span><b>540</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-radius:10px;background:var(--k-soft)"><span><b>Store only, no app</b><br><span style="color:var(--k-mut);font-size:11px">Invite with ₹200 app offer</span></span><b>3,900</b></div>
+      </div>
+    </div>
+    <div class="kcard k" data-cb="5" data-at="tr" data-dx="-6" data-dy="6" style="left:620px;top:440px;width:320px;padding:16px">
+      <div style="display:flex;gap:8px;align-items:center;font-size:12px;font-weight:700"><span style="width:26px;height:26px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center"><span class="ico" style="width:15px;height:15px">{{i:whatsapp-logo}}</span></span>Message to VIPs · 212</div>
+      <div style="margin-top:10px;border-radius:12px;background:#E9F7EE;padding:10px 12px;font-size:12px;line-height:1.45">Hi {name}! Our festive sale opens to the public on Friday. As one of our VIPs you can shop it from Wednesday, with an extra 10% off. See you soon.</div>
+      <div style="display:flex;gap:8px;margin-top:10px"><span class="kbtn sage" style="font-size:11px;padding:7px 12px">Send now</span><span class="kbtn ghost" style="font-size:11px;padding:7px 12px">Schedule</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 07 · Customer profiles &amp; CRM</span><span class="n">12</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 13. ANALYTICS ================= -->
+<section class="slide feat">
+  <div class="left">
+    <div class="mod"><span class="tag">MODULE 08</span><span class="kicker">For the owner</span></div>
+    <h2>Sales <span>analytics</span></h2>
+    <p class="lead">Store and online in one view, on your phone. Know what sells, in which size, and whether your offers are paying for themselves.</p>
+    <ol class="how">
+      <li><span class="num">1</span><div><b>Today in four numbers</b>Sales, bills, average bill and repeat customers, against last week.</div></li>
+      <li><span class="num">2</span><div><b>Store vs online vs app</b>Where your money comes from, and how the app share is growing.</div></li>
+      <li><span class="num">3</span><div><b>The size curve</b>Which sizes sell, so you buy the right mix next season.</div></li>
+      <li><span class="num">4</span><div><b>Best &amp; worst styles</b>Sell-through by style. Reorder winners, clear losers early.</div></li>
+      <li><span class="num">5</span><div><b>Staff performance</b>Sales, bills and app sign-ups per staff member, for fair incentives.</div></li>
+    </ol>
+  </div>
+  <div class="stage">
+    <div class="browser k" style="left:36px;top:44px;width:908px;height:690px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">{{i:shield-check}}admin.strideandthread.in/dashboard</span></div>
+      <div style="background:#F6F4F1;height:100%;padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <b style="font-family:Outfit;font-size:18px">Saturday, 27 Sep · all stores + online</b>
+          <div style="display:flex;background:#fff;border-radius:9px;padding:3px;box-shadow:inset 0 0 0 1px var(--k-line);font-size:11px;font-weight:700"><span style="background:var(--k-ink);color:#fff;border-radius:7px;padding:5px 10px">Today</span><span style="padding:5px 10px;color:var(--k-mut)">Week</span><span style="padding:5px 10px;color:var(--k-mut)">Month</span><span style="padding:5px 10px;color:var(--k-mut)">Season</span></div>
+        </div>
+        <div data-cb="1" data-at="l" data-dx="-2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--k-mut);font-weight:600">Sales</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">₹3,86,400</div><span class="chip c-sage">{{i:trend-up}}18% vs last Sat</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--k-mut);font-weight:600">Bills &amp; orders</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">142</div><span class="chip c-sage">{{i:trend-up}}11%</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--k-mut);font-weight:600">Average bill</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">₹2,721</div><span class="chip c-sage">{{i:trend-up}}₹160</span></div>
+          <div class="kcard" style="padding:12px 14px"><div style="font-size:11px;color:var(--k-mut);font-weight:600">Repeat customers</div><div style="font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.02em">46%</div><span class="chip c-sage">{{i:trend-up}}6 pts · coupons</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:10px">
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="2" data-at="r" data-dx="40">Where sales come from</b>
+            <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+              <svg viewBox="0 0 120 120" style="width:130px;height:130px;flex:none">
+                <g transform="rotate(-90 60 60)" fill="none" stroke-width="20">
+                  <circle cx="60" cy="60" r="44" stroke="#C8643B" stroke-dasharray="149.3 127.2" stroke-dashoffset="0"/>
+                  <circle cx="60" cy="60" r="44" stroke="#2F6FD6" stroke-dasharray="58.8 217.7" stroke-dashoffset="-151.3"/>
+                  <circle cx="60" cy="60" r="44" stroke="#2F9E6E" stroke-dasharray="47.8 228.7" stroke-dashoffset="-212.1"/>
+                  <circle cx="60" cy="60" r="44" stroke="#B58A1B" stroke-dasharray="12.6 263.9" stroke-dashoffset="-261.9"/>
+                </g>
+                <text x="60" y="58" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="14" fill="#1D1B22">₹3.9 L</text>
+                <text x="60" y="72" text-anchor="middle" font-size="8.5" fill="#76707C">today</text>
+              </svg>
+              <div style="display:grid;gap:7px;font-size:11px;flex:1">
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#C8643B"></i><span style="flex:1">Stores</span><b>55%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#2F6FD6"></i><span style="flex:1">App</span><b>22%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#2F9E6E"></i><span style="flex:1">Website</span><b>18%</b></div>
+                <div style="display:flex;gap:7px;align-items:center"><i style="width:10px;height:10px;border-radius:3px;background:#B58A1B"></i><span style="flex:1">WhatsApp</span><b>5%</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="kcard" style="padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;font-size:12px"><b data-cb="3" data-at="l" data-dx="-30">Size curve · sneakers, this season</b><span style="color:var(--k-mut)">pairs sold</span></div>
+            <svg viewBox="0 0 400 150" style="width:100%;height:150px;margin-top:6px;font-family:'Plus Jakarta Sans';font-size:10px">
+              <line x1="0" y1="126" x2="400" y2="126" stroke="#D9D2C8"/>
+              <g fill="#3A3642">
+                <path d="M14 126 V104 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M68 126 V76 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M122 126 V46 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M176 126 V24 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M230 126 V30 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M284 126 V62 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+                <path d="M338 126 V98 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 V126Z"/>
+              </g>
+              <g fill="#76707C" text-anchor="middle"><text x="32" y="141">UK 4</text><text x="86" y="141">UK 5</text><text x="140" y="141">UK 6</text><text x="194" y="141">UK 7</text><text x="248" y="141">UK 8</text><text x="302" y="141">UK 9</text><text x="356" y="141">UK 10</text></g>
+              <g fill="#1D1B22" font-weight="700" text-anchor="middle"><text x="194" y="14">412</text><text x="248" y="20">388</text><text x="32" y="94">96</text></g>
+            </svg>
+            <div style="font-size:10.5px;color:var(--k-mut)">UK 7 and 8 sell 4x more than UK 4. Buy next season's stock in the same shape.</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="4" data-at="r" data-dx="40">Sell-through by style · 6 weeks</b>
+            <div style="display:grid;gap:8px;margin-top:10px;font-size:11px">
+              <div><div style="display:flex;justify-content:space-between"><span>Runner Knit</span><b>82%</b></div><div style="height:6px;border-radius:9px;background:#EEEAE4;margin-top:3px"><div style="width:82%;height:100%;border-radius:9px;background:#3A3642"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Court Classic</span><b>68%</b></div><div style="height:6px;border-radius:9px;background:#EEEAE4;margin-top:3px"><div style="width:68%;height:100%;border-radius:9px;background:#3A3642"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Linen Shirt</span><b>61%</b></div><div style="height:6px;border-radius:9px;background:#EEEAE4;margin-top:3px"><div style="width:61%;height:100%;border-radius:9px;background:#3A3642"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Printed Kurta</span><b style="color:var(--red)">14%</b></div><div style="height:6px;border-radius:9px;background:#EEEAE4;margin-top:3px"><div style="width:14%;height:100%;border-radius:9px;background:#C9372C"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between"><span>Formal Derby</span><b style="color:var(--red)">9%</b></div><div style="height:6px;border-radius:9px;background:#EEEAE4;margin-top:3px"><div style="width:9%;height:100%;border-radius:9px;background:#C9372C"></div></div></div>
+            </div>
+          </div>
+          <div class="kcard" style="padding:12px 14px">
+            <b style="font-size:12px" data-cb="5" data-at="r" data-dx="40">Staff this month</b>
+            <div style="display:grid;grid-template-columns:1.4fr 1fr .8fr .8fr;gap:6px 8px;margin-top:10px;font-size:11px;align-items:center">
+              <span style="color:var(--k-mut);font-weight:600">Name</span><span style="color:var(--k-mut);font-weight:600;text-align:right">Sales</span><span style="color:var(--k-mut);font-weight:600;text-align:right">Bills</span><span style="color:var(--k-mut);font-weight:600;text-align:right">App sign-ups</span>
+              <b>Ravi K.</b><span style="text-align:right">₹6.2 L</span><span style="text-align:right">204</span><span style="text-align:right">58</span>
+              <b>Sana M.</b><span style="text-align:right">₹5.8 L</span><span style="text-align:right">188</span><span style="text-align:right;color:var(--sage);font-weight:700">91</span>
+              <b>Deepak V.</b><span style="text-align:right">₹4.1 L</span><span style="text-align:right">150</span><span style="text-align:right">22</span>
+              <b>Anu P.</b><span style="text-align:right">₹3.6 L</span><span style="text-align:right">131</span><span style="text-align:right">40</span>
+            </div>
+            <div style="font-size:10.5px;color:var(--k-mut);margin-top:10px">Coupons this month: ₹1.4 L given, ₹9.8 L sales brought back.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Module 08 · Sales analytics · sample numbers</span><span class="n">13</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 14. MORE WE CAN ADD ================= -->
+<section class="slide ov">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">Add-ons</div>
+    <h2 style="margin-top:14px">More we can build <span>when you're ready.</span></h2>
+    <p class="lead">These plug into the same stock and customer data, so each one is quicker to add once the core is running.</p>
+  </div>
+  <div class="ex8">
+    <div class="t">{{box:whatsapp-logo}}<h3>WhatsApp shopping</h3><p>Your catalogue inside WhatsApp. Shoppers browse, ask for a size and pay by UPI link in the chat.</p><span class="tag">Sell where they chat</span></div>
+    <div class="t">{{box:storefront}}<h3>Reserve &amp; try in store</h3><p>Hold items online for 24 hours. Staff get the order ready in the trial room.</p><span class="tag">Online to store visits</span></div>
+    <div class="t">{{box:gift}}<h3>Gift cards &amp; store credit</h3><p>Digital gift cards for festivals and weddings, and credit notes instead of cash refunds.</p><span class="tag">Keeps money in store</span></div>
+    <div class="t">{{box:scissors}}<h3>Alterations tracker</h3><p>Log hemming or fitting jobs, set a ready date, send the shopper a "ready to collect" message.</p><span class="tag">Fewer missed pickups</span></div>
+    <div class="t">{{box:arrows-clockwise}}<h3>Marketplace sync</h3><p>List on Amazon, Myntra or Ajio from the same stock, so a sale anywhere updates everything.</p><span class="tag">More reach, one stock</span></div>
+    <div class="t">{{box:identification-card}}<h3>Staff app &amp; incentives</h3><p>Staff check stock from the floor, see targets and earn incentives on sales and app sign-ups.</p><span class="tag">Motivated team</span></div>
+    <div class="t">{{box:arrow-u-up-left}}<h3>Returns &amp; exchange portal</h3><p>Online shoppers request a return or size swap themselves. Courier pickup is booked for them.</p><span class="tag">Less support work</span></div>
+    <div class="t">{{box:calendar-dots}}<h3>Sale &amp; season planner</h3><p>Plan the festive and end-of-season sale: which styles, what discount, what it will cost.</p><span class="tag">Planned, not panicked</span></div>
+  </div>
+  <div class="foot"><span>Retail Store Suite · Add-ons</span><span class="n">14</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 15. ROLLOUT ================= -->
+<section class="slide ro">
+  <div style="position:absolute;left:64px;top:60px">
+    <div class="kicker">Getting started</div>
+    <h2 style="margin-top:14px">Start with what hurts most. <span>Add the rest when you're ready.</span></h2>
+    <p class="lead">You don't need all eight on day one. Here is a common path. Every module plugs into the ones already running, so nothing is thrown away as you grow.</p>
+  </div>
+  <div class="phases">
+    <div class="ph"><small>Phase 1 · Sell everywhere</small><h3>Get online, bill right</h3><p>The basics every shopper notices.</p>
+      <ul><li>{{i:shopping-bag}}Shopify store &amp; custom theme</li><li>{{i:barcode}}Billing counter</li><li>{{i:package}}Inventory synced with Shopify</li></ul>
+      <div class="out"><b>Result:</b> an online store that never oversells, and a fast counter.</div></div>
+    <div class="ph"><small>Phase 2 · Bring them back</small><h3>Own your customers</h3><p>Turn one-time buyers into regulars.</p>
+      <ul><li>{{i:device-mobile}}Your shopping app</li><li>{{i:seal-percent}}Loyalty &amp; coupons</li><li>{{i:bell-ringing}}New arrival alerts</li></ul>
+      <div class="out"><b>Result:</b> app downloads, repeat visits and free marketing.</div></div>
+    <div class="ph dk"><small>Phase 3 · Run it by the numbers</small><h3>Grow profit</h3><p>Buy smarter and sell to the right people.</p>
+      <ul><li>{{i:users-three}}Customer CRM &amp; WhatsApp</li><li>{{i:chart-line-up}}Sales analytics</li><li>{{i:storefront}}More stores &amp; add-ons</li></ul>
+      <div class="out"><b>Result:</b> less dead stock, better buying, higher repeat rate.</div></div>
+  </div>
+  <div class="bottom">
+    <div class="bx">{{box:device-tablet}}<div><h4>Works on what you have</h4><div class="list"><span>{{i:desktop}}Billing PC or tablet</span><span>{{i:barcode}}Barcode scanner</span><span>{{i:printer}}Bill &amp; label printer</span><span>{{i:device-mobile}}Shopper's own phone</span></div></div></div>
+    <div class="bx">{{box:list-checks}}<div><h4>What we need from you to begin</h4><div class="list"><span>{{i:notepad}}Product list &amp; prices</span><span>{{i:paint-brush}}Logo, colours &amp; photos</span><span>{{i:bank}}GST &amp; payment details</span><span>{{i:shopping-bag}}Shopify account (or we set it up)</span></div></div></div>
+  </div>
+  <div class="foot"><span>Retail Store Suite · Rollout</span><span class="n">15</span><img src="../img/logo-wordmark.png" alt="Sparta Labs"></div>
+</section>
+
+<!-- ================= 16. CLOSE ================= -->
+<section class="slide dark cl">
+  <img class="bgimg" src="../img/bg-back.jpg" alt="">
+  <div class="kicker" style="position:absolute;left:72px;top:140px">Next step</div>
+  <h2>Tell us which screens <em>fit your store.</em></h2>
+  <p class="sub">Everything in this deck is a starting point. We shape each screen around your products, your team and the way you already sell, then build it with a dedicated team.</p>
+  <div class="qs">
+    <div>{{i:chat-circle-text}}Which modules would help you most this season?</div>
+    <div>{{i:storefront}}How many stores, and do you sell online today?</div>
+    <div>{{i:plugs-connected}}Which billing software or Shopify apps do you use now?</div>
+    <div>{{i:calendar-dots}}Should we be live before the festive sale?</div>
+  </div>
+  <div class="card">
+    <img src="../img/logo-full-white.png" alt="Sparta Labs">
+    {{phone}}
+    <div class="row">{{i:envelope-simple}}<div><small>EMAIL</small>hello@spartalabs.in</div></div>
+    <div class="row">{{i:globe}}<div><small>WEBSITE</small>spartalabs.in</div></div>
+  </div>
+  <div class="foot"><span>All screens are design samples. Final look follows your brand.</span><span class="n">16</span><span>spartalabs.in</span></div>
+</section>
+
+<script src="demo.js"></script>
+</body>
+</html>

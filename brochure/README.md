@@ -3,7 +3,8 @@
 - `Sparta-Labs-Brochure.pdf`: the 12-page A4 client brochure.
 - `logo/`: logo with the background removed. `logo-full`, `logo-mark` (helmet only) and
   `logo-wordmark`, each with a `-white` variant for dark backgrounds.
-- `source/`: everything needed to rebuild the PDF.
+- `demos/`: product demo decks to walk a client through sample screens, one PDF per business type.
+- `source/`: everything needed to rebuild the PDFs.
 
 ## Rebuilding
 
@@ -38,3 +39,30 @@ python3 gen_card_graphics.py     # optional: card backgrounds + vector QR (needs
 python3 build_card.py            # card.src.html -> card.html (name, title, phones, address set at the top)
 node render_card.mjs             # card.html -> ../business-card/ (both PDFs + PNGs)
 ```
+
+## Product demo decks
+
+`demos/` holds 16:9 slide decks that show sample screens of what we can build for a type of business.
+Each slide pairs a screen mockup with numbered callouts and a plain-language explanation, so a client
+with no tech background can follow along. They work on a screen in a meeting or sent as a PDF.
+
+- `Sparta-Labs-Cafe-Restaurant-Suite-Demo.pdf`: cafes and restaurants (15 slides). Website, counter and
+  kitchen screens, loyalty app, cowork booking, events, inventory, finance analytics, billing.
+- `Sparta-Labs-Retail-Store-Suite-Demo.pdf`: fashion and footwear stores (16 slides). Shopify store and
+  custom theme, Shopify sync with the shop floor, shopping app, loyalty and next-visit coupons, new arrival
+  alerts, billing counter, size and colour inventory, customer CRM, sales analytics, add-ons.
+
+The sample brands inside the screens (Kaapi & Co., Stride & Thread) are made up, and all numbers are samples.
+
+Sources live in `source/demos/`: one `<deck>.src.html` per deck, plus `demo.css` and `demo.js` shared by
+all of them (slide layout, device frames, and the numbered callouts, placed from `data-cb` attributes).
+Each deck sets its sample brand's colours with the `--k-*` variables at the top of its file.
+
+```bash
+cd brochure/source/demos         # needs ../phosphor, same icon setup as the brochure
+python3 build_demo.py            # every <deck>.src.html -> <deck>.html (or name one: build_demo.py retail)
+node render_demo.mjs             # every deck -> ../../demos/*.pdf (add --png <dir> for slide previews)
+```
+
+To add a deck for a new business type, copy a `.src.html`, change the brand variables and screens, and add
+its PDF name to `PDFS` in `render_demo.mjs`.
