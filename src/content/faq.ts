@@ -6,6 +6,11 @@ export type FaqItem = {
 /** Also feeds FAQPage JSON-LD. Underrated trust engine, free structured data. */
 export const faq: FaqItem[] = [
   {
+    question: "Where is Sparta Labs based?",
+    answer:
+      "Hyderabad, Telangana. We meet clients in person across Hyderabad and Secunderabad, from HITEC City and Gachibowli to Banjara Hills and Kukatpally, and work remotely with businesses across India and abroad. We are not connected to other companies that share the name.",
+  },
+  {
     question: "Who owns the code we pay for?",
     answer:
       "You do. Full source handover, documented, deployed to your own infrastructure if you want it there. No licence to renew, no dependency on us to keep running what you paid for.",
