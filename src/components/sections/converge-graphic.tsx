@@ -44,7 +44,10 @@ export function ConvergeGraphic() {
         aria-hidden
         className="hero-grid absolute inset-0 rounded-[var(--radius-card)] [mask-image:radial-gradient(circle,#000_30%,transparent_72%)]"
       />
-      <div aria-hidden className="absolute inset-[18%] rounded-full border border-dashed border-hairline-strong" />
+      <div
+        aria-hidden
+        className="border-hairline-strong absolute inset-[18%] rounded-full border border-dashed"
+      />
 
       {FRAGMENTS.map((fragment, index) => {
         const angle = START_ANGLE + (360 / FRAGMENTS.length) * index;
@@ -108,8 +111,8 @@ export function ConvergeGraphic() {
       </div>
 
       <figcaption className="sr-only">
-        Spreadsheets, email threads, WhatsApp groups, paper forms, an old website and three
-        separate tools, replaced by one connected system.
+        Spreadsheets, email threads, WhatsApp groups, paper forms, an old website and three separate
+        tools, replaced by one connected system.
       </figcaption>
     </figure>
   );

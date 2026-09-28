@@ -215,7 +215,7 @@ export function HeroParticles() {
           onClick={toggle}
           aria-pressed={paused}
           aria-label={paused ? "Play background animation" : "Pause background animation"}
-          className="border-hairline-strong text-muted hover:text-ink hover:border-accent absolute right-4 bottom-[calc(var(--sheet-radius)+1rem)] z-10 grid size-9 place-items-center rounded-full border bg-surface/70 backdrop-blur transition-colors duration-200 sm:right-6"
+          className="border-hairline-strong text-muted hover:text-ink hover:border-accent bg-surface/70 absolute right-4 bottom-[calc(var(--sheet-radius)+1rem)] z-10 grid size-9 place-items-center rounded-full border backdrop-blur transition-colors duration-200 sm:right-6"
         >
           {paused ? (
             <Play aria-hidden className="size-3.5" />
