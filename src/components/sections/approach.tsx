@@ -22,12 +22,12 @@ export function Approach() {
           />
 
           <figure data-lock="" className="border-hairline mt-12 border-l-2 pl-6">
-            <blockquote className="font-display text-[clamp(1.25rem,1.05rem+0.8vw,1.75rem)] leading-snug tracking-[-0.015em] text-white">
+            <blockquote className="font-display text-[clamp(1.25rem,1.05rem+0.8vw,1.75rem)] leading-snug tracking-[-0.015em] text-ink">
               &ldquo;{approachQuote}&rdquo;
             </blockquote>
             <figcaption className="text-muted mt-4 flex items-center gap-3 text-sm">
               <Image
-                src="/brand/logo-mark-white.png"
+                src="/brand/logo-mark.png"
                 alt=""
                 aria-hidden
                 width={600}
@@ -54,23 +54,23 @@ export function Approach() {
             >
               <span
                 aria-hidden
-                className="bg-page absolute top-1.5 -left-10 grid size-6 place-items-center rounded-full border border-cyan-400/60 md:-left-14"
+                className="bg-page absolute top-1.5 -left-10 grid size-6 place-items-center rounded-full border border-accent-core/50 md:-left-14"
               >
-                <span className="size-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgb(25_190_255/0.9)]" />
+                <span className="size-2 rounded-full bg-accent-core shadow-[0_0_12px_var(--glow)]" />
               </span>
               <span
                 aria-hidden
-                className="font-display block text-[clamp(3.5rem,2.6rem+3vw,5.5rem)] leading-[0.85] font-light text-transparent [-webkit-text-stroke:1px_rgb(25_190_255/0.55)]"
+                className="font-display block text-[clamp(3.5rem,2.6rem+3vw,5.5rem)] leading-[0.85] font-light text-transparent [-webkit-text-stroke:1.5px_var(--accent-core)]"
               >
                 {step.id}
               </span>
-              <h3 className="text-h3 mt-4 font-semibold text-white">{step.title}</h3>
+              <h3 className="text-h3 mt-4 font-semibold text-ink">{step.title}</h3>
               <p className="text-muted mt-3 max-w-[52ch]">{step.body}</p>
               <ul className="mt-5 flex flex-wrap gap-2">
                 {step.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="text-ink inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-sm"
+                    className="text-ink inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/70 px-3 py-1.5 text-sm"
                   >
                     <Check aria-hidden className="text-accent size-3.5" />
                     {tag}

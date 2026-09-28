@@ -45,14 +45,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <>
-      <div className="band-dark relative overflow-hidden">
+      <div className="band-tint relative overflow-hidden">
         <FlowLines className="bottom-0 h-[55%] min-h-48" />
         <Container className="relative pt-[8.5rem] pb-14 md:pt-[10rem] md:pb-18">
           <div className="max-w-[52rem]">
             <Kicker>
               {study.sector} — {study.client}
             </Kicker>
-            <h1 className="text-h1 font-display mt-5 font-semibold text-white">{study.title}</h1>
+            <h1 className="text-h1 font-display mt-5 font-semibold text-ink">{study.title}</h1>
             <p className="text-lede text-muted mt-5 max-w-[60ch]">{study.outcome}</p>
             <div className="mt-8">
               <Breadcrumbs

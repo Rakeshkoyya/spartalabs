@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FormationReveals } from "@/components/motion/formation-reveals";
 import { RouteCurtain } from "@/components/motion/route-curtain";
-import { Spine } from "@/components/motion/spine";
 import { Spotlight } from "@/components/motion/spotlight";
 import { isIndexable, site, siteUrl } from "@/content/site";
 import { keywords, ogImage, seoTitle } from "@/lib/seo";
@@ -110,7 +109,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
-        <Spine />
         <main id="main">{children}</main>
         <SiteFooter />
         <FormationReveals />

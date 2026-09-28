@@ -57,43 +57,8 @@
   }
 }
 
-@keyframes sl-spoke {
-  from {
-    transform: rotate(var(--a)) scaleX(0);
-  }
-  to {
-    transform: rotate(var(--a)) scaleX(1);
-  }
-}
 
-/* A pulse travels a spoke from the node back into the hub, then is gone. */
-@keyframes sl-pulse {
-  0% {
-    opacity: 0;
-    transform: translateX(var(--r));
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(0);
-  }
-}
 
-@keyframes sl-node {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.86);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
 
 @keyframes sl-fade {
   from {
@@ -140,61 +105,12 @@
   animation-delay: 180ms;
 }
 
-.orbit-spoke {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--r);
-  height: 1px;
-  transform-origin: 0 50%;
-  transform: rotate(var(--a));
-  background: linear-gradient(90deg, rgb(77 187 255 / 0.55), rgb(77 187 255 / 0.08));
-}
 
-.js .orbit-spoke {
-  animation: sl-spoke 620ms var(--ease-out) both;
-  animation-delay: var(--enter-delay, 0ms);
-}
 
-.orbit-pulse {
-  position: absolute;
-  top: -2px;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: #4dbbff;
-  box-shadow: 0 0 12px 2px rgb(77 187 255 / 0.7);
-  opacity: 0;
-}
 
-.js .orbit-pulse {
-  /* Three passes, then still: nothing here outlives five seconds. */
-  animation: sl-pulse 1100ms var(--ease-in-out) 3 both;
-  animation-delay: calc(var(--enter-delay, 0ms) + 500ms);
-}
 
-.orbit-node {
-  position: absolute;
-  top: var(--y);
-  left: var(--x);
-  transform: translate(-50%, -50%);
-}
 
-.js .orbit-node {
-  animation: sl-node 560ms var(--ease-out) both;
-  animation-delay: var(--enter-delay, 0ms);
-}
 
-/* The crest and rings drift a few pixels toward the pointer. */
-.orbit-parallax {
-  transform: translate3d(
-    calc(var(--px, 0px) * var(--k, 1)),
-    calc(var(--py, 0px) * var(--k, 1)),
-    0
-  );
-  transition: transform 600ms var(--ease-out);
-}
 
 /* While the curtain covers a route change, the incoming page's entrances wait
    for it: they should play in view, not behind the panel. */
@@ -205,6 +121,50 @@
 .js [data-enter="fade"] {
   animation: sl-fade var(--dur-slow) var(--ease-out) both;
   animation-delay: var(--enter-delay, 0ms);
+}
+
+/* A faint blueprint grid, strongest behind the crest and fading to nothing. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 70% at 70% 45%, #000 20%, transparent 75%);
+}
+
+/* Two soft pools of light drifting slowly behind everything. */
+@keyframes sl-aurora {
+  to {
+    transform: translate3d(10%, 8%, 0) scale(1.18);
+  }
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 999px;
+  aspect-ratio: 1;
+  animation: sl-aurora 24s var(--ease-in-out) infinite alternate;
+}
+
+.aurora-a {
+  top: -25%;
+  right: -10%;
+  width: min(900px, 110vw);
+  background: radial-gradient(circle, var(--aurora-1), transparent 65%);
+}
+
+.aurora-b {
+  bottom: -35%;
+  left: -15%;
+  width: min(760px, 100vw);
+  background: radial-gradient(circle, var(--aurora-2), transparent 65%);
+  animation-duration: 30s;
+  animation-direction: alternate-reverse;
+}
+
+/* The hero's pause control stops the aurora along with the particles. */
+[data-paused] .aurora {
+  animation-play-state: paused;
 }
 
 /* ============================================================================
@@ -222,7 +182,8 @@
 @media (min-width: 1024px) and (min-height: 680px) {
   .hero-pin {
     position: sticky;
-    top: 0;
+    /* Set by HeroPin: negative when the hero is taller than the screen. */
+    top: var(--pin-top, 0px);
     z-index: 0;
   }
 }
@@ -316,6 +277,98 @@
       animation-range:
         cover calc(12% + var(--p) * 36%)
         cover calc(18% + var(--p) * 36%);
+    }
+  }
+}
+
+/* ============================================================================
+   CONVERGE
+   "Who we are" as a motion graphic: scattered tools gather into a ring round
+   one system and are wired to it, scrubbed to scroll. The resting state is
+   the assembled one, so no support or reduced motion shows the finished
+   picture.
+   ========================================================================= */
+
+.converge-tile {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.converge-core {
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.converge-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--r);
+  height: 1px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--a));
+  background: linear-gradient(90deg, var(--accent-core), transparent);
+  opacity: 0.45;
+}
+
+@keyframes sl-gather {
+  from {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes sl-link {
+  from {
+    transform: rotate(var(--a)) scaleX(0);
+  }
+  to {
+    transform: rotate(var(--a)) scaleX(1);
+  }
+}
+
+@keyframes sl-core {
+  from {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .converge {
+      view-timeline: --converge block;
+    }
+
+    .converge-tile {
+      animation: sl-gather linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range:
+        entry calc(10% + var(--i) * 4%)
+        cover calc(42% + var(--i) * 2%);
+    }
+
+    .converge-link {
+      animation: sl-link linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range:
+        cover calc(34% + var(--i) * 2%)
+        cover calc(50% + var(--i) * 2%);
+    }
+
+    .converge-core {
+      animation: sl-core linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range: entry 20% cover 40%;
     }
   }
 }
@@ -470,8 +523,8 @@
   transform: translateY(100%);
   visibility: hidden;
   background:
-    radial-gradient(90% 70% at 100% 0%, rgb(0 139 254 / 0.55), transparent 60%),
-    linear-gradient(160deg, #0052d1 0%, #0b2f7a 55%, #060d1a 100%);
+    radial-gradient(90% 70% at 100% 0%, rgb(124 200 255 / 0.7), transparent 60%),
+    linear-gradient(160deg, #2a7bf0 0%, #1a5fd8 55%, #1446a8 100%);
 }
 
 .curtain[data-state="cover"] {
@@ -530,14 +583,12 @@
   .js .rise-word > span,
   .js .orbit-ring,
   .js .orbit-crest,
-  .js .orbit-spoke,
-  .js .orbit-node,
   .js [data-enter="fade"],
-  .js .menu-sheet {
+  .js .menu-sheet,
+  .aurora {
     animation: none;
   }
 
-  .js .orbit-pulse,
   .js .halo {
     animation: none;
     opacity: 0;
@@ -547,10 +598,6 @@
     clip-path: none;
   }
 
-  .orbit-parallax {
-    transform: none;
-    transition: none;
-  }
 
   .curtain {
     display: none;

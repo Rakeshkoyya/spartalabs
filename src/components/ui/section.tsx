@@ -24,7 +24,7 @@ export function Section({
   children,
 }: {
   id?: string;
-  /** Names this section on the spine. Omit to keep it off the rail. */
+  /** Names the section landmark for assistive tech. */
   label?: string;
   tone?: Tone;
   /** The sweeping line texture along the bottom edge. */
@@ -37,12 +37,12 @@ export function Section({
   return (
     <section
       id={id}
-      data-spine-label={label}
+      aria-label={label}
       className={cn(
         // `clip`, not `hidden`: a hidden overflow is a scroll container, and
         // that would pin the sticky columns and the process stack to nothing.
         "section-y relative scroll-mt-20 overflow-clip",
-        tone === "navy" && "band-dark band-open",
+        tone === "navy" && "band-tint band-open",
         tone === "surface" && "bg-surface",
         tone === "paper" && "bg-page",
         sheet && "sheet",

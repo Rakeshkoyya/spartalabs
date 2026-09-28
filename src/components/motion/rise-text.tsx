@@ -13,7 +13,7 @@ export type RisePart = { text: string; accent?: boolean };
 export function RiseText({
   parts,
   delay = 0,
-  accentClassName = "text-sky-400",
+  accentClassName = "text-accent-core on-dark:text-accent-bright",
 }: {
   parts: RisePart[];
   /** Milliseconds before the first word moves. */

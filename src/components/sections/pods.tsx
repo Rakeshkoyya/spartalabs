@@ -25,10 +25,10 @@ export function Pods() {
             key={pod.name}
             data-lock=""
             style={{ "--m-delay": `${(index % 4) * 70}ms` } as React.CSSProperties}
-            className="glass spotlight flex flex-col p-5 transition-colors duration-200 hover:border-[rgb(25_190_255/0.35)]"
+            className="glass spotlight flex flex-col p-5 transition-colors duration-200 hover:border-accent-core/40"
           >
             <IconBox icon={podIcons[pod.name]} className="size-10" />
-            <h3 className="font-display mt-4 font-semibold text-white">{pod.name}</h3>
+            <h3 className="font-display mt-4 font-semibold text-ink">{pod.name}</h3>
             <p className="text-muted mt-1 text-sm">{pod.owns}</p>
             {pod.headcount ? (
               <span className="text-label tabular text-muted font-label mt-3">{pod.headcount}</span>
@@ -37,10 +37,10 @@ export function Pods() {
         ))}
       </ul>
 
-      <div className="mt-4 flex items-center gap-4 rounded-[var(--radius-card)] border border-[rgb(25_190_255/0.3)] bg-linear-to-r from-[rgb(0_82_209/0.45)] to-[rgb(0_82_209/0.1)] p-5">
+      <div className="mt-4 flex items-center gap-4 rounded-[var(--radius-card)] border border-accent-core/30 bg-linear-to-r from-accent-wash to-transparent p-5">
         <IconBox icon={ScanFace} className="size-10" />
         <div>
-          <p className="font-display text-lg font-semibold text-white">One named engagement lead</p>
+          <p className="font-display text-lg font-semibold text-ink">One named engagement lead</p>
           <p className="text-muted text-sm">
             From the first call to the day after launch. You never have to explain your project to a
             new person.
@@ -48,7 +48,7 @@ export function Pods() {
         </div>
       </div>
 
-      <h3 className="font-display mt-16 text-lg font-semibold text-white">
+      <h3 className="font-display mt-16 text-lg font-semibold text-ink">
         Three promises on every project
       </h3>
       <ul className="mt-4 grid gap-3 md:grid-cols-3">
@@ -56,7 +56,7 @@ export function Pods() {
           const Icon = promiseIcons[promise.key];
           return (
             <li key={promise.key} className="glass p-5">
-              <span className="font-display flex items-center gap-2 font-semibold text-white">
+              <span className="font-display flex items-center gap-2 font-semibold text-ink">
                 <Icon aria-hidden className="text-accent size-4.5" />
                 {promise.title}
               </span>

@@ -84,7 +84,7 @@ export function Capabilities() {
                   <p
                     className={cn(
                       "mt-2.5 text-[0.9375rem] leading-relaxed",
-                      dark ? "text-[#c3d0e4]" : "text-muted",
+                      dark ? "text-muted" : "text-muted",
                       big && "max-w-[52ch] text-base",
                     )}
                   >

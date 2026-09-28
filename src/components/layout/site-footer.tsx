@@ -14,30 +14,19 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="tone-dark text-ink border-t border-white/10 bg-[#050b16]">
+    <footer className="band-tint text-ink border-hairline border-t">
       <Container>
         <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-16">
           <div className="flex flex-col gap-5">
             <Link href="/" aria-label="Sparta Labs home" className="w-fit">
-              <Logo variant="wordmark" tone="dark" className="w-[156px]" />
+              <Logo variant="wordmark" className="w-[156px]" />
             </Link>
             <p className="text-muted max-w-[34ch] text-sm">{site.tagline}</p>
-            <p className="text-label font-label flex flex-wrap items-center gap-2 tracking-[0.18em] text-[#7f93b3] uppercase">
+            <p className="text-label font-label flex flex-wrap items-center gap-2 tracking-[0.18em] text-muted uppercase">
               {site.motto.join(" → ")}
             </p>
-            {company.addressLines ? (
-              <address className="text-muted text-sm not-italic">
-                {company.addressLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </address>
-            ) : company.city ? (
-              <address className="text-muted text-sm not-italic">
-                {company.city}, {company.region}, {company.country}
-              </address>
-            ) : null}
+            {/* The office city stays in structured data for search; visitors see who we serve. */}
+            <p className="text-muted text-sm">Working with clients in the USA, the UAE and worldwide.</p>
           </div>
 
           <FooterColumn title="What we build">
@@ -54,7 +43,6 @@ export function SiteFooter() {
                 {item.label}
               </FooterLink>
             ))}
-            <FooterLink href="/it-services-hyderabad">IT services in Hyderabad</FooterLink>
             <FooterLink href="/contact">Contact</FooterLink>
             {social.map((item) => (
               <FooterLink key={item.href} href={item.href}>
@@ -75,7 +63,7 @@ export function SiteFooter() {
               <a
                 href={brochure.href}
                 download={brochure.fileName}
-                className="text-muted inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200 hover:text-white"
+                className="text-muted inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200 hover:text-ink"
               >
                 <Download aria-hidden className="size-4" />
                 {brochure.label}
@@ -85,7 +73,7 @@ export function SiteFooter() {
           </FooterColumn>
         </div>
 
-        <div className="text-muted flex flex-col gap-3 border-t border-white/10 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-muted flex flex-col gap-3 border-t border-hairline py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {company.legalName ?? site.name}
             {company.cin ? ` · CIN ${company.cin}` : ""}
@@ -105,7 +93,7 @@ export function SiteFooter() {
       </Container>
       {/* The sign-off: the name set as a hairline outline, cropped by the page edge. */}
       <div aria-hidden className="overflow-clip">
-        <p className="font-display -mb-[0.18em] text-center text-[clamp(4rem,17vw,16rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_rgb(77_187_255/0.22)]">
+        <p className="font-display -mb-[0.18em] text-center text-[clamp(4rem,17vw,16rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_color-mix(in_srgb,var(--accent-core)_28%,transparent)]">
           Sparta Labs
         </p>
       </div>
@@ -126,7 +114,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   const external = href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http");
-  const className = "text-sm text-muted transition-colors duration-200 hover:text-white";
+  const className = "text-sm text-muted transition-colors duration-200 hover:text-ink";
 
   return (
     <li>

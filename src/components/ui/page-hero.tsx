@@ -25,7 +25,7 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="band-dark relative overflow-clip">
+    <div className="band-tint relative overflow-clip">
       <FlowLines className="bottom-0 h-[55%] min-h-48" />
       <div
         aria-hidden
@@ -38,9 +38,9 @@ export function PageHero({
         />
         <span className="orbit-ring" style={ring("28%", 360, "rgb(77 187 255 / 0.22)")} />
         {/* Opacity lives on the wrapper: the crest's entrance keyframe ends at 1. */}
-        <div className="absolute inset-[34%] grid place-items-center opacity-[0.16]">
+        <div className="absolute inset-[34%] grid place-items-center opacity-[0.22] dark:opacity-[0.3]">
           <Image
-            src="/brand/logo-mark-white.png"
+            src="/brand/logo-mark.png"
             alt=""
             width={600}
             height={693}
@@ -56,7 +56,7 @@ export function PageHero({
           <span data-enter="lock">
             <Kicker>{kicker}</Kicker>
           </span>
-          <h1 className="text-h1 font-display mt-6 max-w-[20ch] font-semibold text-white">
+          <h1 className="text-h1 font-display mt-6 max-w-[20ch] font-semibold text-ink">
             {typeof title === "string" ? <RiseText delay={60} parts={[{ text: title }]} /> : title}
           </h1>
           {lede ? (

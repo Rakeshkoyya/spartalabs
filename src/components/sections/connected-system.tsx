@@ -48,7 +48,7 @@ export function ConnectedSystem() {
 
         <div
           data-lock=""
-          className="relative order-first mx-auto grid size-56 place-items-center rounded-full text-center shadow-[0_0_0_12px_rgb(25_190_255/0.06),0_0_0_26px_rgb(25_190_255/0.035),0_24px_70px_rgb(0_80_220/0.55)] [background:radial-gradient(circle_at_35%_30%,#1c64e6,#0b2f7a_60%,#08204f)] sm:size-64 lg:order-none lg:mx-16"
+          className="tone-dark relative order-first mx-auto grid size-56 place-items-center rounded-full text-center shadow-[0_0_0_12px_rgb(77_170_255/0.12),0_0_0_26px_rgb(77_170_255/0.06),0_24px_60px_rgb(30_100_230/0.35)] [background:radial-gradient(circle_at_35%_30%,#5aa9ff,#2a7bf0_55%,#1a5fd8)] sm:size-64 lg:order-none lg:mx-16"
         >
           <span aria-hidden className="halo" />
           <div className="flex flex-col items-center">
@@ -60,19 +60,19 @@ export function ConnectedSystem() {
               height={693}
               className="mb-3 h-auto w-16"
             />
-            <span className="font-display text-lg leading-tight font-semibold text-white">
+            <span className="font-display text-lg leading-tight font-semibold text-ink">
               Your core
               <br />
               platform
             </span>
-            <span className="mt-1 text-xs text-[#bfd4f5]">One source of truth</span>
+            <span className="mt-1 text-xs text-muted">One source of truth</span>
           </div>
         </div>
 
         <NodeColumn nodes={right} />
       </div>
 
-      <h3 className="font-display mt-20 text-lg font-semibold text-white">
+      <h3 className="font-display mt-20 text-lg font-semibold text-ink">
         What that can look like for a business like yours
       </h3>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -84,7 +84,7 @@ export function ConnectedSystem() {
               className="glass spotlight p-5"
               style={{ "--spot": "rgb(77 187 255 / 0.16)" } as React.CSSProperties}
             >
-              <span className="font-display flex items-center gap-2 font-semibold text-white">
+              <span className="font-display flex items-center gap-2 font-semibold text-ink">
                 {Icon ? <Icon aria-hidden className="text-accent size-4.5" /> : null}
                 {example.title}
               </span>
@@ -109,7 +109,7 @@ function NodeColumn({ nodes }: { nodes: HubNode[] }) {
         >
           <IconBox icon={hubIcons[node.key]} className="size-10" />
           <div>
-            <span className="font-display block font-semibold text-white">{node.title}</span>
+            <span className="font-display block font-semibold text-ink">{node.title}</span>
             <span className="text-muted mt-0.5 block text-sm leading-snug">{node.body}</span>
           </div>
         </li>

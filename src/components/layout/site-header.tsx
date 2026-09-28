@@ -13,32 +13,15 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [overDark, setOverDark] = useState(true);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // The pill takes the tone of whatever band is under it: dark glass over the
-  // navy hero and bands, the page's own surface over paper.
   useEffect(() => {
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      setScrolled(window.scrollY > 24);
-      const probe = document
-        .elementsFromPoint(window.innerWidth / 2, 40)
-        .find((el) => !el.closest("header"));
-      setOverDark(Boolean(probe?.closest(".band-dark")));
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(measure);
-    };
-    measure();
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, [pathname]);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // A route change while the overlay is open would otherwise leave it stuck.
   useEffect(() => {
@@ -62,21 +45,13 @@ export function SiteHeader() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
-        {/*
-          Every page opens on a navy band, so the bar reads as navy until it
-          leaves it; then it lifts into a floating pill on the page's surface.
-        */}
+        {/* Transparent over the hero; lifts into a floating pill once the page moves. */}
         <div
           className={cn(
             "mx-auto max-w-[1240px] rounded-full border transition-[background-color,border-color,box-shadow] duration-300 ease-[var(--ease-out)]",
-            overDark && "tone-dark",
-            !scrolled && "border-transparent",
-            scrolled &&
-              overDark &&
-              "border-white/10 bg-[#0b1627]/70 shadow-[0_18px_40px_-24px_rgb(0_0_0/0.7)] backdrop-blur-xl",
-            scrolled &&
-              !overDark &&
-              "border-hairline bg-page/80 shadow-[0_18px_40px_-24px_rgb(11_40_90/0.45)] backdrop-blur-xl",
+            scrolled
+              ? "border-hairline bg-page/75 shadow-[0_18px_40px_-24px_rgb(20_70_150/0.4)] backdrop-blur-xl"
+              : "border-transparent",
           )}
         >
           <div className="flex h-14 items-center justify-between gap-6 pr-2 pl-5 lg:pl-6">
@@ -124,7 +99,7 @@ export function SiteHeader() {
       </header>
 
       {open ? (
-        <div className="band-dark menu-sheet fixed inset-0 z-[60] flex flex-col md:hidden">
+        <div className="band-tint menu-sheet fixed inset-0 z-[60] flex flex-col md:hidden">
           <Container>
             <div className="flex h-[80px] items-center justify-between px-2">
               <Logo variant="wordmark" className="w-[132px]" />

@@ -53,14 +53,14 @@ export function Process() {
         data-lock=""
         className="tone-dark crest-deep mt-14 flex flex-col gap-4 rounded-[var(--radius-card)] p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8"
       >
-        <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-[rgb(25_190_255/0.12)] text-[#19beff] shadow-[inset_0_0_0_1px_rgb(25_190_255/0.3)]">
+        <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.3)]">
           <CalendarCheck aria-hidden className="size-7" strokeWidth={1.5} />
         </span>
         <div>
           <h3 className="font-display text-xl font-semibold text-white">
             You see it working, every single week.
           </h3>
-          <p className="mt-1 text-[#b7c6dc]">
+          <p className="mt-1 text-muted">
             No black-box months and no surprises at the end. Feedback at a Friday demo is cheap;
             feedback after launch is not.
           </p>

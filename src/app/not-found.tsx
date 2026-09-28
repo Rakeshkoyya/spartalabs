@@ -5,11 +5,11 @@ import { Kicker } from "@/components/ui/kicker";
 
 export default function NotFound() {
   return (
-    <div className="band-dark relative overflow-hidden">
+    <div className="band-tint relative overflow-hidden">
       <FlowLines className="bottom-0 h-1/2" />
       <Container className="relative flex min-h-[80vh] flex-col justify-center py-32">
         <Kicker>Error 404</Kicker>
-        <h1 className="text-h1 font-display mt-4 max-w-[18ch] font-semibold text-white">
+        <h1 className="text-h1 font-display mt-4 max-w-[18ch] font-semibold text-ink">
           This page is not part of the system.
         </h1>
         <p className="text-lede text-muted mt-5 max-w-[48ch]">
