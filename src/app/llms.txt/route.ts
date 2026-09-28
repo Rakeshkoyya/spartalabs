@@ -1,4 +1,4 @@
-import { capabilities } from "@/content/capabilities";
+import { coreServices } from "@/content/services";
 import { faq } from "@/content/faq";
 import { industries } from "@/content/industries";
 import { company, contact, site, siteUrl } from "@/content/site";
@@ -30,24 +30,28 @@ export function GET() {
     `- Serves: businesses in Hyderabad and Secunderabad in person, and across India and abroad remotely`,
     "",
     "## Services",
-    ...capabilities.map((c) => `- ${c.title}: ${c.outcome} (${c.items.join(", ")})`),
+    ...coreServices.map((s) => `- ${s.title}: ${s.oneLiner} (${s.weBuild.join(", ")})`),
+    "- Also: mobile apps, brand and concept, operate and support.",
+    "- For agencies: white-label builds under the agency's brand, under NDA, with a non-solicit clause.",
     "",
     "## Industries",
     ...industries.map((i) => `- ${i.name}: ${i.proof}`),
     "",
     "## How we work",
-    "- Understand the business first, then draft a solution blueprint with a dated plan and a clear price, then build.",
-    "- One named engagement lead, a dedicated specialist pod, and a working demo every Friday.",
+    "- Five stages: Discover, Blueprint, Build (two-week sprints), Launch, Operate.",
+    "- One named lead on every project, and a live demo every week.",
     "- Clients own the source code and IP. Support continues after launch with agreed response times.",
     "",
     "## Pages",
     `- [Home](${origin}/)`,
     `- [IT services in Hyderabad](${origin}/it-services-hyderabad)`,
     `- [Services](${origin}/services)`,
+    `- [For agencies](${origin}/agencies)`,
     `- [Work and case studies](${origin}/work)`,
-    ...work.map((study) => `- [${study.title}](${origin}/work/${study.slug})`),
+    ...work.map((study) => `- [${study.title}](${origin}/work#${study.slug})`),
     `- [Approach](${origin}/approach)`,
     `- [About](${origin}/about)`,
+    `- [FAQ](${origin}/faq)`,
     `- [Contact](${origin}/contact)`,
     "",
     "## FAQ",

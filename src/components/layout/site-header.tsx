@@ -59,7 +59,7 @@ export function SiteHeader() {
               <Logo variant="wordmark" priority className="w-[132px] md:w-[148px]" />
             </Link>
 
-            <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+            <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
               {nav.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
@@ -89,7 +89,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={open}
-                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-full border md:hidden"
+                className="border-hairline-strong text-muted grid size-9 place-items-center rounded-full border lg:hidden"
               >
                 <Menu aria-hidden className="size-4" />
               </button>
@@ -99,7 +99,7 @@ export function SiteHeader() {
       </header>
 
       {open ? (
-        <div className="band-tint menu-sheet fixed inset-0 z-[60] flex flex-col md:hidden">
+        <div className="band-tint menu-sheet fixed inset-0 z-[60] flex flex-col lg:hidden">
           <Container>
             <div className="flex h-[80px] items-center justify-between px-2">
               <Logo variant="wordmark" className="w-[132px]" />

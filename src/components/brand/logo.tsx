@@ -9,7 +9,7 @@ const sources = {
     h: 199,
   },
   mark: { light: "/brand/logo-mark.png", dark: "/brand/logo-mark-white.png", w: 600, h: 693 },
-  full: { light: "/brand/logo-full.png", dark: "/brand/logo-full-white.png", w: 900, h: 854 },
+  full: { light: "/brand/logo-full.png", dark: "/brand/logo-full-white.png", w: 900, h: 788 },
 } as const;
 
 /**

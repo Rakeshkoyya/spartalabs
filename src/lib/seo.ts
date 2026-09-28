@@ -7,7 +7,7 @@ import { site } from "@/content/site";
  */
 export const brandAliases = [
   "Spartalabs",
-  "SpartaLabs",
+  "Sparta Labs",
   "Sparta Labs Hyderabad",
   "Sparta Labs India",
   site.domain,
@@ -76,11 +76,11 @@ export const keywords = [
   "dedicated development team",
 ];
 
-/**
- * Short and international: the main clients are in the USA, the UAE and
- * beyond. The city lives in the keywords, descriptions and JSON-LD instead.
- */
-export const seoTitle = `${site.name} — Custom Software, Apps & AI`;
+/** Titles and descriptions per docs/SITE-BLUEPRINT.md §15. The city stays in keywords and schema. */
+export const seoTitle = `${site.name} — Custom Software, AI Automation & Websites`;
+
+export const homeDescription =
+  "We study how your business runs, then build the software that fits it. AI automations, custom websites and internal tools for businesses and agencies.";
 
 export const ogImage = {
   url: "/og.png",

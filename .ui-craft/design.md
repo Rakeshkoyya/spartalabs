@@ -49,15 +49,17 @@ Dials: variance 7 · motion 7 · density 4.
 | Word rise | `motion/rise-text.tsx` | Display headings only (home h1, `PageHero` h1). |
 | Sheet over pinned hero | `.hero-pin`, `.sheet`, `.hero-recede` | Pins only at ≥1024px wide and ≥680px tall. |
 | Band opens to full bleed | `.band-open` (automatic for `Section tone="navy"`) | Scroll-scrubbed clip-path, `@supports` gated. |
-| Converge graphic | `sections/converge-graphic.tsx`, motion.css "CONVERGE" | Who we are: scattered tools gather into one system, scrubbed. Rest state is assembled. |
-| Chapter kicker | `SectionHeader index="0N"` | Home sections are numbered 01–08. |
-| Manifesto illumination | `.illuminate .lit` | One per page. |
-| Process stack | `.stack` | Sticky cards; plain list below 768px wide or 720px tall. |
+| Quote-led hero | `sections/hero.tsx` | A one-line quote (bordered, italic) above the h1, then the "Working with clients in…" line under the buttons. |
+| Chapter kicker | `SectionHeader index="0N"` | Home sections are numbered 01–05. |
 | Spotlight | `.spotlight` + `motion/spotlight.tsx` | Hover light on cards. |
 | Route curtain | `motion/route-curtain.tsx` | Intercepts plain same-origin page links only; off under reduced motion. |
 | Header pill | `layout/site-header.tsx` | Transparent at top, floating pill on the page surface once scrolled. |
 
 Removed on request: the left-edge page timeline ("spine").
+
+Removed 2026-09-28 with the content rebuild (docs/SITE-BLUEPRINT.md): the converge graphic,
+manifesto illumination, connected-system hub, pods grid and process stack. Their CSS in
+motion.css is now unused and can be pruned.
 
 ## Rules learned
 

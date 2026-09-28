@@ -1,49 +1,28 @@
-"use client";
-
-import * as Accordion from "@radix-ui/react-accordion";
-import { Plus } from "lucide-react";
-import { faq } from "@/content/faq";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { featuredFaq } from "@/content/faq";
+import { FaqAccordion } from "@/components/faq/faq-accordion";
 import { Section, SectionHeader } from "@/components/ui/section";
 
+/** The home page preview: the four questions that most often block a call. */
 export function FaqSection() {
   return (
     <Section id="faq" label="Questions" className="topo">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-16">
-        <SectionHeader
-          index="08"
-          className="lg:sticky lg:top-28 lg:self-start"
-          kicker="Questions"
-          title="The things people ask before they email us."
-          lede="Including the ones most agencies leave you to find out later."
-        />
-
-        <Accordion.Root
-          type="single"
-          collapsible
-          defaultValue="item-0"
-          className="card w-full self-start px-6 py-2 sm:px-8"
-        >
-          {faq.map((item, index) => (
-            <Accordion.Item
-              key={item.question}
-              value={`item-${index}`}
-              className="border-hairline border-b last:border-b-0"
-            >
-              <Accordion.Header>
-                <Accordion.Trigger className="group font-display flex w-full items-center justify-between gap-6 py-5 text-left text-[1.0625rem] font-medium">
-                  {item.question}
-                  <Plus
-                    aria-hidden
-                    className="text-accent bg-accent-wash size-7 shrink-0 rounded-full p-1.5 transition-transform duration-200 ease-[var(--ease-out-expo)] group-data-[state=open]:rotate-45"
-                  />
-                </Accordion.Trigger>
-              </Accordion.Header>
-              <Accordion.Content className="accordion-content overflow-hidden">
-                <p className="text-muted max-w-[58ch] pb-5 text-sm">{item.answer}</p>
-              </Accordion.Content>
-            </Accordion.Item>
-          ))}
-        </Accordion.Root>
+        <div className="flex flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
+          <SectionHeader index="05" kicker="Questions" title="Asked before every first call." />
+          <Link
+            href="/faq"
+            className="text-accent font-display group flex min-h-11 w-fit items-center gap-2 font-semibold"
+          >
+            All questions
+            <ArrowRight
+              aria-hidden
+              className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
+        <FaqAccordion items={featuredFaq} />
       </div>
     </Section>
   );

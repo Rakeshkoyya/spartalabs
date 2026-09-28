@@ -1,90 +1,67 @@
 export type ProcessStep = {
   id: string;
   title: string;
-  body: string;
-  /** The deliverable the client holds at the end of the stage. */
+  happens: string;
   youGet: string;
+  weNeed: string;
 };
 
-/**
- * The numbering here is real: these run in order on every engagement. Numbered
- * markers are only used where order carries information a reader needs.
- */
+/** Runs in this order on every engagement — docs/SITE-BLUEPRINT.md §8. */
 export const processSteps: ProcessStep[] = [
   {
     id: "01",
     title: "Discover",
-    body: "We sit with the people who will use the thing and map how the work actually happens — not how the org chart says it does.",
-    youGet: "A written map of your operations and where they leak time and money.",
+    happens: "We map how the work really happens, workarounds included.",
+    youGet: "A workflow map and a list of what to fix first.",
+    weNeed: "2–3 short sessions with the people who do the work.",
   },
   {
     id: "02",
-    title: "Blueprint & scope",
-    body: "Architecture, screens and a scope you can hold us to, with the trade-offs written down rather than discovered in month three.",
-    youGet: "A solution blueprint, a dated plan and a clear price.",
+    title: "Blueprint",
+    happens: "We design the system and plan the build.",
+    youGet: "Screens, a dated plan and a fixed price or monthly plan.",
+    weNeed: "Sign-off on scope.",
   },
   {
     id: "03",
-    title: "Build in sprints",
-    body: "Two-week sprints against a working build. Every Friday you see the real product, not a status deck.",
-    youGet: "A working demo every Friday on the real product.",
+    title: "Build",
+    happens: "We build in two-week sprints.",
+    youGet: "A live demo every week and a version you can click.",
+    weNeed: "30 minutes a week for feedback.",
   },
   {
     id: "04",
-    title: "Harden & launch",
-    body: "Load, security and edge cases before launch day, then migration and go-live with a rollback plan that exists on paper.",
-    youGet: "A calm launch, trained users and full documentation.",
+    title: "Launch",
+    happens: "Security checks, testing, data migration and team training.",
+    youGet: "A live system your team knows how to use.",
+    weNeed: "A go-live date and final approval.",
   },
   {
     id: "05",
-    title: "Operate & evolve",
-    body: "Monitoring, patching and the next round of changes. The system keeps working after the invoice clears.",
-    youGet: "Support with response times written into the agreement.",
+    title: "Operate",
+    happens: "Monitoring, patching and monthly improvements. Optional.",
+    youGet: "A system that keeps up as you grow.",
+    weNeed: "Priorities for the next month.",
   },
 ];
 
-export type Guarantee = {
-  title: string;
-  body: string;
-};
+export type Principle = { title: string; body: string };
 
-/** The pod model made concrete. This is what answers "will my project get lost?". */
-export const guarantees: Guarantee[] = [
+export const principles: Principle[] = [
   {
-    title: "One pod, one owner",
-    body: "A named engagement lead from the first call to the day after launch. You never explain your project to a new person.",
+    title: "Early warnings, not late surprises.",
+    body: "If something will slip, you hear it the week we know.",
   },
   {
-    title: "You see it every week",
-    body: "A working demo every Friday, on the real build. No black-box months, no surprise at the end.",
+    title: "We say no to the wrong work.",
+    body: "If off-the-shelf software fits you better, we'll tell you.",
   },
   {
-    title: "Your code, your IP",
-    body: "Full source handover, documented, on your infrastructure if you want it there. No licence, no lock-in.",
-  },
-];
-
-export type Expectation = { title: string; body: string };
-
-/**
- * Stated plainly because it is disarming, and because the projects that go
- * wrong are almost always the ones where these were assumed rather than agreed.
- */
-export const whatWeNeed: Expectation[] = [
-  {
-    title: "One decision-maker",
-    body: "Someone who can settle a question in a day. Not a committee that meets fortnightly — that is where two-week sprints go to die.",
+    title: "Decisions are written down.",
+    body: "So your next developer understands why.",
   },
   {
-    title: "Access to the people who do the work",
-    body: "An hour with the person who actually runs admissions, or the schedule, is worth more than a month of requirements documents written above them.",
-  },
-  {
-    title: "Honesty about the current mess",
-    body: "Every organisation has workarounds it is slightly embarrassed by. Show us those first. They are the requirements.",
-  },
-  {
-    title: "Attention at the demo",
-    body: "Thirty minutes every second Friday. Feedback at the demo is cheap; feedback after launch is not.",
+    title: "You leave independent.",
+    body: "Code, documents and accounts are handed over. No lock-in.",
   },
 ];

@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { pageMetadata } from "@/lib/seo";
-import { story, timeline, values } from "@/content/about";
-import { industries } from "@/content/industries";
+import {
+  beliefs,
+  founded,
+  founders,
+  nameStory,
+  specialists,
+  story,
+  teamSize,
+} from "@/content/about";
+import { proofMetrics } from "@/content/metrics";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { CtaBand } from "@/components/sections/cta-band";
-import { PageHero } from "@/components/ui/page-hero";
-import { Pods } from "@/components/sections/pods";
 import { Kicker } from "@/components/ui/kicker";
+import { PageHero } from "@/components/ui/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
+import type { Founder } from "@/content/about";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Us",
+  title: "About Sparta Labs — Custom Software Studio",
   description:
-    "Sparta Labs (Spartalabs) is an IT solutions and software development company in Hyderabad, India. Meet the specialist pods behind our custom platforms, apps and AI systems.",
+    "Founded in 2025 by Salman and Rakesh. A team of 10+ expert engineers building software that fits how businesses already work.",
   path: "/about",
+  absoluteTitle: true,
 });
 
 export default function AboutPage() {
@@ -21,90 +31,150 @@ export default function AboutPage() {
     <>
       <PageHero
         kicker="About"
-        title="Built to fit how you already work."
-        lede="Not to make you rearrange yourself around someone else's product."
+        title={`${teamSize} expert engineers. One focused team.`}
+        lede={`Founded in ${founded} by ${founders.map((f) => `${f.name} (${f.role})`).join(" and ")}. Senior engineers across product, web, mobile, AI and cloud, building software that fits how businesses already work.`}
       >
         <div className="mt-8">
           <Breadcrumbs trail={[{ label: "About", href: "/about" }]} />
         </div>
       </PageHero>
 
+      <Section className="!pb-0">
+        <ul className="border-hairline grid grid-cols-3 border-y">
+          {proofMetrics.map((metric, index) => (
+            <li
+              key={metric.label}
+              className={`border-hairline px-2 py-7 text-center sm:px-6 ${index < proofMetrics.length - 1 ? "border-r" : ""}`}
+            >
+              <span className="tabular font-display block text-[clamp(2.25rem,1.8rem+2vw,3.5rem)] leading-none font-semibold tracking-[-0.03em]">
+                {metric.value}
+              </span>
+              <span className="text-muted mx-auto mt-3 block max-w-[24ch] text-sm leading-snug">
+                {metric.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
       <Section>
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16">
-          <Kicker>Why we exist</Kicker>
-          <div className="flex flex-col gap-5">
-            {story.map((paragraph) => (
-              <p key={paragraph} className="text-lede max-w-[68ch]">
-                {paragraph}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Kicker>Why &ldquo;Sparta&rdquo;</Kicker>
+            <p className="text-lede mt-5 max-w-[48ch]">{nameStory.sparta}</p>
+            <p className="text-muted mt-4 max-w-[48ch] text-base">{nameStory.labs}</p>
+          </div>
+          <div>
+            <Kicker>Our story</Kicker>
+            {story.map((line, index) => (
+              <p
+                key={line}
+                className={
+                  index === 0
+                    ? "text-lede mt-5 max-w-[52ch]"
+                    : "text-muted mt-4 max-w-[52ch] text-base"
+                }
+              >
+                {line}
               </p>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section className="border-hairline bg-surface border-y">
+      <Section tone="navy" flow>
         <SectionHeader
-          kicker="How we behave"
-          title="Values you can hold us to."
-          lede="Adjectives are not commitments. These are things we either do or fail to do, and you will be able to tell which."
+          kicker="The team"
+          title={`${teamSize} engineers. Every layer covered.`}
+          lede="Every project gets one named lead, backed by specialists who have shipped real systems in each layer."
         />
-        <ul className="mt-12 grid gap-x-12 sm:grid-cols-2">
-          {values.map((value) => (
+        <ul className="mt-10 flex flex-wrap gap-2">
+          {specialists.map((item) => (
             <li
-              key={value.title}
-              className="border-hairline border-b py-6 first:border-t sm:[&:nth-child(2)]:border-t"
+              key={item}
+              className="border-hairline-strong rounded-full border bg-white/8 px-4 py-2 text-sm font-semibold"
             >
-              <h3 className="text-h3 font-semibold">{value.title}</h3>
-              <p className="text-muted mt-2.5 max-w-[52ch] text-base">{value.body}</p>
+              {item}
             </li>
           ))}
         </ul>
       </Section>
 
-      {timeline.length > 0 ? (
-        <Section>
-          <SectionHeader kicker="Timeline" title="How we got here." />
-          <ol className="border-hairline mt-12 grid border-t">
-            {timeline.map((entry) => (
-              <li
-                key={entry.year}
-                className="border-hairline grid gap-2 border-b py-6 sm:grid-cols-[6rem_1fr] sm:gap-8"
-              >
-                <span className="text-label tabular text-accent font-label tracking-[0.12em]">
-                  {entry.year}
-                </span>
-                <div>
-                  <h3 className="text-h3 font-semibold">{entry.title}</h3>
-                  <p className="text-muted mt-2 max-w-[62ch] text-base">{entry.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Section>
-      ) : null}
-
-      <Pods />
+      <Section className="border-hairline bg-surface border-b">
+        <SectionHeader kicker="Leadership" title="The people you’ll talk to." />
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:max-w-[52rem]">
+          {founders.map((founder) => (
+            <li key={founder.name}>
+              <FounderCard founder={founder} />
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       <Section>
-        <SectionHeader
-          kicker="Where we work"
-          title="Four sectors, so far."
-          lede="Each one taught us something the next client did not have to pay to learn."
-        />
-        <ul className="border-hairline mt-12 grid border-t md:grid-cols-4">
-          {industries.map((industry) => (
-            <li
-              key={industry.name}
-              className="border-hairline border-b py-6 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
-            >
-              <h3 className="text-h3 font-semibold">{industry.name}</h3>
-              <p className="text-muted mt-2.5 text-sm">{industry.proof}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="max-w-[46rem]">
+          <div>
+            <SectionHeader kicker="What we believe" title="Four promises." />
+            <ol className="mt-10 grid">
+              {beliefs.map((belief, index) => (
+                <li
+                  key={belief}
+                  className="border-hairline flex items-baseline gap-4 border-t py-5 last:border-b"
+                >
+                  <span className="text-accent font-mono text-[0.8125rem]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display text-[1.1875rem] font-semibold">{belief}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
       </Section>
 
-      <CtaBand />
+      <CtaBand
+        kicker="Next step"
+        title="Want to see if we’re a fit?"
+        body="Book a discovery call."
+      />
     </>
+  );
+}
+
+function FounderCard({ founder }: { founder: Founder }) {
+  return (
+    <article className="card flex h-full items-start gap-5 p-6">
+      {founder.photo ? (
+        <Image
+          src={founder.photo}
+          alt={founder.name}
+          width={72}
+          height={72}
+          className="size-18 shrink-0 rounded-full object-cover"
+        />
+      ) : (
+        <span
+          aria-hidden
+          className="crest-deep font-display grid size-18 shrink-0 place-items-center rounded-full text-2xl font-semibold text-white"
+        >
+          {founder.name.charAt(0)}
+        </span>
+      )}
+      <div className="min-w-0">
+        <h3 className="text-h3 font-semibold">{founder.name}</h3>
+        <p className="text-accent text-sm font-medium">{founder.role}</p>
+        {founder.bio ? <p className="text-muted mt-2 text-sm">{founder.bio}</p> : null}
+        {founder.linkedin ? (
+          <a
+            href={founder.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted hover:text-accent mt-3 inline-flex min-h-9 items-center text-sm font-medium transition-colors"
+          >
+            LinkedIn ↗
+          </a>
+        ) : null}
+      </div>
+    </article>
   );
 }

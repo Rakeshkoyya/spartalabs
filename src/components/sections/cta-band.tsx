@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
-import { brochure, contact, site, telHref } from "@/content/site";
+import { brochure, contact, primaryCta, serviceLines, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -14,13 +14,15 @@ import { Kicker } from "@/components/ui/kicker";
  */
 export function CtaBand({
   kicker = "Start here",
-  title = "Let’s map your business.",
-  body = "Tell us how your business runs today. We will show you what it could look like with the right system behind it.",
+  title = "Tell us how your business runs.",
+  body = "We’ll show you what to build. 30 minutes. No slides. No obligation.",
+  cta = primaryCta,
   showLogo = false,
 }: {
   kicker?: string;
   title?: string;
   body?: string;
+  cta?: { label: string; href: string };
   /** The full lockup above the heading — the home page's sign-off. */
   showLogo?: boolean;
 }) {
@@ -44,8 +46,19 @@ export function CtaBand({
         <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
           {showLogo ? (
             <div data-lock="" className="mb-12 flex flex-col items-center">
-              {/* The full lockup already carries the service-line tagline. */}
               <Logo variant="full" className="w-[min(340px,72vw)]" />
+              <p className="text-label font-label text-muted mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] uppercase">
+                {serviceLines.slice(0, 4).map((line, index) => (
+                  <span key={line} className="flex items-center gap-3">
+                    {index > 0 ? (
+                      <span aria-hidden className="text-accent-bright">
+                        |
+                      </span>
+                    ) : null}
+                    {line}
+                  </span>
+                ))}
+              </p>
             </div>
           ) : (
             <Kicker className="justify-center">{kicker}</Kicker>
@@ -62,9 +75,9 @@ export function CtaBand({
             {body} We reply {contact.responseTime}.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="primary">
+            <Button href={cta.href} variant="primary">
               <CalendarCheck aria-hidden className="size-4.5" />
-              Book a discovery call
+              {cta.label}
             </Button>
             <Button href={brochure.href} download={brochure.fileName} variant="secondary">
               <Download aria-hidden className="size-4.5" />

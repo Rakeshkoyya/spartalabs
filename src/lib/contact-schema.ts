@@ -1,14 +1,16 @@
 import * as z from "zod/mini";
 
 export const enquiryTopics = [
-  "Custom platform",
-  "Web & digital presence",
-  "Mobile application",
-  "AI & intelligent systems",
-  "Brand & concept development",
-  "Support for an existing system",
-  "Something else",
+  "AI automation",
+  "Website or store",
+  "Internal software",
+  "Not sure yet",
 ] as const;
+
+/** Splits businesses from agencies, so we know how to reply before the call. */
+export const audiences = ["Business looking to build", "Agency with a client project"] as const;
+
+export type Audience = (typeof audiences)[number];
 
 /**
  * Shared by the form and the API route, so client and server can never disagree
@@ -22,13 +24,24 @@ export const enquiryTopics = [
 export const contactSchema = z.object({
   name: z.string().check(z.minLength(2, "Tell us your name."), z.maxLength(100)),
   email: z.string().check(z.email("That does not look like an email address."), z.maxLength(200)),
-  phone: z
-    .string()
-    .check(
-      z.regex(/^\+?[0-9\s\-()]{7,20}$/, "Enter a phone number we can call, e.g. +91 98765 43210."),
-    ),
-  company: z.optional(z.string().check(z.maxLength(120))),
+  company: z.string().check(z.minLength(1, "Tell us your company name."), z.maxLength(120)),
+  country: z.string().check(z.minLength(2, "Tell us where you are based."), z.maxLength(80)),
+  audience: z.enum(audiences, "Pick one."),
   topic: z.enum(enquiryTopics, "Pick the closest one."),
+  /** Optional; an empty field is allowed, a malformed number is not. */
+  phone: z.optional(
+    z.union([
+      z.literal(""),
+      z
+        .string()
+        .check(
+          z.regex(
+            /^\+?[0-9\s\-()]{7,20}$/,
+            "Enter a phone number we can call, e.g. +1 415 555 0100.",
+          ),
+        ),
+    ]),
+  ),
   message: z.optional(
     z
       .string()
@@ -51,6 +64,7 @@ export function normalizeContactInput(input: Record<string, unknown>) {
     email: trim(input.email),
     phone: trim(input.phone),
     company: trim(input.company),
+    country: trim(input.country),
     message: trim(input.message),
   };
 }

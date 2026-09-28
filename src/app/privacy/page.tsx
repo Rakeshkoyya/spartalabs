@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { contact, site } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -36,9 +37,10 @@ export default function PrivacyPage() {
 
           <h2>What we collect</h2>
           <p>
-            Only what you type into the contact form: your name, email address, optionally your
-            company, the category of enquiry you pick, and your message. We do not ask for anything
-            else, and there is no account to create.
+            Only what you type into the contact form: your name, email address, company and country,
+            whether you are a business or an agency, the kind of work you need, and optionally your
+            phone number and a message. We do not ask for anything else, and there is no account to
+            create.
           </p>
 
           <h2>What we do with it</h2>
@@ -52,7 +54,8 @@ export default function PrivacyPage() {
           <p>
             This site sets no tracking cookies and runs no advertising pixels. If you switch between
             the light and dark theme, that single preference is stored in your own browser using
-            local storage. It never leaves your device and we cannot read it.
+            local storage. It never leaves your device and we cannot read it. See the{" "}
+            <Link href="/cookies">cookie policy</Link>.
           </p>
 
           <h2>Who else is involved</h2>

@@ -1,52 +1,97 @@
-export type FaqItem = {
+export type FaqGroup = "business" | "agency";
+
+export type QuestionAnswer = {
   question: string;
   answer: string;
 };
 
-/** Also feeds FAQPage JSON-LD. Underrated trust engine, free structured data. */
+export type FaqItem = QuestionAnswer & {
+  group: FaqGroup;
+  /** Shown in the home page preview. Keep it to four. */
+  featured?: boolean;
+};
+
+export const faqGroups: { key: FaqGroup; label: string }[] = [
+  { key: "business", label: "For businesses" },
+  { key: "agency", label: "For agencies" },
+];
+
+/**
+ * Also feeds the FAQPage JSON-LD on /faq and llms.txt.
+ * TODO(content): confirm typical timelines (Q2), time-zone overlap (Q6),
+ * payment options (Q7) and quote turnaround in days (Q10).
+ */
 export const faq: FaqItem[] = [
   {
-    question: "Do you work with clients outside your own country?",
+    group: "business",
+    featured: true,
+    question: "How much does a project cost?",
     answer:
-      "That is most of our work. We build for businesses in the USA, the UAE and across the world, remotely, with working hours that overlap yours agreed before the project starts and a named lead you can always reach. We are not connected to other companies that share the name.",
+      "We quote after a free discovery call: a fixed price or a monthly plan, in writing, before any work starts.",
   },
   {
-    question: "Who owns the code we pay for?",
+    group: "business",
+    featured: true,
+    question: "How long does it take?",
     answer:
-      "You do. Full source handover, documented, deployed to your own infrastructure if you want it there. No licence to renew, no dependency on us to keep running what you paid for.",
+      "A website usually takes four to six weeks; internal software, three to six months to first release. You get a dated plan after Blueprint.",
   },
   {
-    question: "How do you price a project?",
+    group: "business",
+    featured: true,
+    question: "Who owns the code?",
+    answer: "You do. Code, designs, documents and accounts are handed over on payment.",
+  },
+  {
+    group: "business",
+    question: "Can you work with our existing tools?",
     answer:
-      "Three models. Fixed scope where the requirement is genuinely settled, a dedicated pod on a monthly rate where it will evolve, and a retainer for systems we already run. We tell you which one fits after discovery, not before.",
+      "Yes. We connect to Google Workspace, WhatsApp, payment gateways, accounting software and CRMs rather than replacing them.",
   },
   {
-    question: "How long does a project take?",
-    answer:
-      "A marketing site is four to six weeks. A custom platform is three to six months to first release, then continuous. We give you a dated plan at the end of discovery and tell you the week a date is at risk, not the week it slips.",
-  },
-  {
-    question: "Will you sign an NDA?",
-    answer: "Before the first call, not after. Send yours or use ours.",
-  },
-  {
+    group: "business",
     question: "What happens after launch?",
-    answer:
-      "Monitoring, security patching and iteration under a support agreement with response times written into it. Launch is the middle of the engagement, not the end.",
+    answer: "You take it in-house, or keep us on a monthly support plan.",
   },
   {
-    question: "Can you work with our existing team?",
+    group: "business",
+    question: "Do you work with international clients?",
     answer:
-      "Yes, and often that is the better shape. We have run as the whole build team, as a pod alongside an in-house team, and as the people who take over a system someone else left behind.",
+      "Yes. We work with clients in India, the US and the UAE, with overlapping hours agreed before the project starts.",
   },
   {
-    question: "Do you take on existing systems?",
+    group: "business",
+    question: "How do payments work?",
     answer:
-      "Yes. We start with an audit that tells you plainly what is worth keeping, what needs replacing and what it will cost — including the case for doing nothing, where that is the honest answer.",
+      "Fixed-scope projects are paid by milestone; monthly plans are invoiced monthly. International clients pay by bank transfer.",
   },
   {
-    question: "How do we start?",
+    group: "agency",
+    featured: true,
+    question: "Will my client know you built it?",
+    answer: "No. We work under your brand and under NDA.",
+  },
+  {
+    group: "agency",
+    question: "Will you ever approach my client?",
+    answer: "Never. A non-solicit clause is written into our partner agreement.",
+  },
+  {
+    group: "agency",
+    question: "How fast can you quote?",
+    answer: "Fast enough for your proposal: a fixed quote and timeline once the brief is clear.",
+  },
+  {
+    group: "agency",
+    question: "Can we start small?",
+    answer: "Yes. Most partners start with one small paid project.",
+  },
+  {
+    group: "agency",
+    question: "Can we get a dedicated developer?",
     answer:
-      "One call, no deck. You describe the problem, we tell you whether we are the right people for it. If we are not, we will say so.",
+      "Yes. Monthly capacity you assign across your clients, with a named lead reporting to you.",
   },
 ];
+
+export const featuredFaq = faq.filter((item) => item.featured);
