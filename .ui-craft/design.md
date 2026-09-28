@@ -18,6 +18,7 @@ Dials: variance 7 · motion 7 · density 4.
   visible copy.** It stays only in SEO: meta titles/descriptions, keywords, JSON-LD address,
   `llms.txt`, and the `/it-services-hyderabad` geo landing page — which is kept live and in the
   sitemap but not linked from site navigation or the footer.
+- Home page title is short and international: "Sparta Labs — Custom Software, Apps & AI".
 
 ## Kept (brand equity)
 
@@ -43,7 +44,7 @@ Dials: variance 7 · motion 7 · density 4.
 
 | Pattern | Where | Notes |
 |---|---|---|
-| Particle crest hero | `sections/hero-particles.tsx`, `lib/particles.ts` | The lead animation. Visible pause control (WCAG 2.2.2); stops off-screen/hidden; single static frame under reduced motion. |
+| Particle crest hero | `sections/hero-particles.tsx`, `lib/particles.ts` | The lead animation. Always plays — no pause control, by client decision (2026-09-28; note WCAG 2.2.2 asks for one). Sleeps off-screen/hidden; single static frame under reduced motion. |
 | Hero fits the screen | `sections/hero-pin.tsx`, h1 `clamp(…, min(5.4vw, 9svh), …)` | Pins at a negative offset when taller than the viewport, so buttons are never covered. |
 | Word rise | `motion/rise-text.tsx` | Display headings only (home h1, `PageHero` h1). |
 | Sheet over pinned hero | `.hero-pin`, `.sheet`, `.hero-recede` | Pins only at ≥1024px wide and ≥680px tall. |
