@@ -4,6 +4,8 @@
 **Document status:** Phases 0-3 built. Remaining: content (§11), then hardening and launch. Run `npm run content:status` in the repo for the live list.
 **Last updated:** 2026-09-22
 
+> **Superseded (2026-09-28):** The sitemap, page structure and copy (§2–5) are replaced by [`SITE-BLUEPRINT.md`](./SITE-BLUEPRINT.md). The visual language in §6 is replaced by `.ui-craft/design.md`.
+
 ---
 
 ## 1. The strategic call

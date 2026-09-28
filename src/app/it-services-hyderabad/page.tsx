@@ -114,7 +114,7 @@ export default function HyderabadPage() {
         <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {reliabilityPoints.map((point) => (
             <li key={point.title} className="glass p-5">
-              <span className="font-display flex items-start gap-2 font-semibold text-ink">
+              <span className="font-display text-ink flex items-start gap-2 font-semibold">
                 <CircleCheck aria-hidden className="text-accent mt-0.5 size-4.5 shrink-0" />
                 {point.title}
               </span>

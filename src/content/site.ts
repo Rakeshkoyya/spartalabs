@@ -2,7 +2,7 @@
  * Single source of truth for company facts.
  *
  * Anything the client has not yet supplied is `null` rather than a plausible
- * guess, and the UI renders only what exists. See docs/ACTION-PLAN.md §11 for
+ * guess, and the UI renders only what exists. See docs/SITE-BLUEPRINT.md §16 for
  * the outstanding list — `null` here is a content blocker, not a bug.
  */
 
@@ -11,6 +11,14 @@ export const site = {
   domain: "spartalabs.in",
   url: "https://spartalabs.in",
   tagline: "Software built around how your business actually runs.",
+  /** The short version of the name story, for the footer and social bios. */
+  spartanLine: "Expert engineers, disciplined builds, nothing you don't need.",
+  /**
+   * Who we serve, as visitors read it. The office city stays out of visible
+   * copy (see .ui-craft/design.md) and lives only in metadata and schema.
+   * TODO(content): confirm the country list.
+   */
+  markets: "India, the US and the UAE",
   /** The line under the logo. */
   motto: ["Ideas", "Products", "Real impact"],
   description:
@@ -71,16 +79,30 @@ export const company: {
   gstin: null,
 };
 
-/** TODO(content): WhatsApp before launch — some buyers never use a form. */
+/**
+ * TODO(content): WhatsApp, booking link, working hours and LinkedIn before
+ * launch — some buyers never use a form.
+ */
 export const contact: {
   email: string;
   phones: string[];
   whatsapp: string | null;
+  /** A scheduling page (e.g. Calendly). Shown beside the form and after submit. */
+  bookingUrl: string | null;
+  /** e.g. "10:00–19:00 IST, calls until 23:00 IST for US and UK clients". */
+  workingHours: string | null;
+  linkedin: string | null;
+  /** Separate inbox for applications; falls back to `email` while null. */
+  careersEmail: string | null;
   responseTime: string;
 } = {
   email: "hello@spartalabs.in",
   phones: ["+91 79939 91162", "+91 90305 95999"],
   whatsapp: null,
+  bookingUrl: null,
+  workingHours: null,
+  linkedin: null,
+  careersEmail: null,
   responseTime: "within one working day",
 };
 
@@ -88,11 +110,15 @@ export const contact: {
 export const nav = [
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
+  { label: "For agencies", href: "/agencies" },
   { label: "Approach", href: "/approach" },
   { label: "About", href: "/about" },
 ] as const;
 
 export const primaryCta = { label: "Book a discovery call", href: "/contact" } as const;
+
+/** The agency path's CTA: same form, with "Agency" preselected. */
+export const partnerCta = { label: "Book a partner call", href: "/contact?as=agency" } as const;
 
 /**
  * The client brochure, served from /public. A copy of
@@ -121,6 +147,7 @@ export function telHref(phone: string) {
 export const legalNav = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
+  { label: "Cookies", href: "/cookies" },
 ] as const;
 
 export const social: { label: string; href: string }[] = [

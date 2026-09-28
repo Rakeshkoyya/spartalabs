@@ -1,4 +1,4 @@
-import type { FaqItem } from "./faq";
+import type { QuestionAnswer } from "./faq";
 
 /**
  * Copy for /it-services-hyderabad. Written to answer what a Hyderabad business
@@ -33,7 +33,7 @@ export const reliabilityPoints = [
   },
 ];
 
-export const hyderabadFaq: FaqItem[] = [
+export const hyderabadFaq: QuestionAnswer[] = [
   {
     question: "What IT services does Sparta Labs offer in Hyderabad?",
     answer:

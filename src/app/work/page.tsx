@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { sectors, work } from "@/content/work";
+import { pageMetadata } from "@/lib/seo";
+import { activeSectors, work } from "@/content/work";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHero } from "@/components/ui/page-hero";
 import { Section } from "@/components/ui/section";
-import { StandardCard } from "@/components/work/case-card";
+import { CasePanel } from "@/components/work/case-card";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Work & Case Studies",
+  title: "Our Work — Case Studies — Sparta Labs",
   description:
-    "Sparta Labs case studies: AI-tutor learning portals, school management platforms, film production and advertising systems — described by sector and outcome.",
+    "School platforms, AI learning tools, production management and agency websites, each built around how the client really works.",
   path: "/work",
+  absoluteTitle: true,
 });
 
 /**
- * Filtering runs on the server through the query string rather than in React
- * state: the URLs are shareable, they work without JavaScript, and the industry
- * tiles on the home page can link straight into a filtered view.
+ * Every case study, whole, on one page. Filtering runs through the query
+ * string so filtered views are shareable and work without JavaScript.
  */
 export default async function WorkPage({
   searchParams,
@@ -27,15 +27,15 @@ export default async function WorkPage({
   searchParams: Promise<{ sector?: string }>;
 }) {
   const { sector } = await searchParams;
-  const active = sector && sectors.includes(sector) ? sector : null;
-  const shown = active ? work.filter((study) => study.sector === active) : work;
+  const active = sector && activeSectors.includes(sector) ? sector : null;
+  const shown = active ? work.filter((study) => study.sectors.includes(active)) : work;
 
   return (
     <>
       <PageHero
-        kicker="Selected work"
-        title="Systems that are still running."
-        lede="Clients are described rather than named — their call, not ours. What matters is what the system does and what it changed."
+        kicker="Work"
+        title="Systems built around real workflows."
+        lede="Client names are shared with permission. Where they aren’t, the work speaks."
       >
         <div className="mt-8">
           <Breadcrumbs trail={[{ label: "Work", href: "/work" }]} />
@@ -43,39 +43,33 @@ export default async function WorkPage({
       </PageHero>
 
       <Section className="topo">
-        <div className="flex flex-wrap items-center gap-2.5">
-          <FilterChip href="/work" active={active === null}>
-            All work
-          </FilterChip>
-          {sectors.map((name) => (
-            <FilterChip
-              key={name}
-              href={`/work?sector=${encodeURIComponent(name)}`}
-              active={active === name}
-            >
-              {name}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <nav aria-label="Filter by sector" className="flex flex-wrap items-center gap-2.5">
+            <FilterChip href="/work" active={active === null}>
+              All
             </FilterChip>
-          ))}
+            {activeSectors.map((name) => (
+              <FilterChip
+                key={name}
+                href={`/work?sector=${encodeURIComponent(name)}`}
+                active={active === name}
+              >
+                {name}
+              </FilterChip>
+            ))}
+          </nav>
+          <p className="text-muted text-sm">
+            {shown.length} {shown.length === 1 ? "project" : "projects"}
+          </p>
         </div>
 
-        {shown.length > 0 ? (
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {shown.map((study) => (
-              <li key={study.slug}>
-                <StandardCard study={study} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-lede text-muted mt-10">
-            Nothing in that sector yet — but it is almost certainly a system we have built the shape
-            of before.{" "}
-            <Link href="/contact" className="text-accent hover:underline">
-              Ask us
-            </Link>
-            .
-          </p>
-        )}
+        <ul className="mt-10 flex flex-col gap-6">
+          {shown.map((study, index) => (
+            <li key={study.slug}>
+              <CasePanel study={study} index={index} />
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <CtaBand />
@@ -95,6 +89,7 @@ function FilterChip({
   return (
     <Link
       href={href}
+      scroll={false}
       aria-current={active ? "true" : undefined}
       className={cn(
         "font-display rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",

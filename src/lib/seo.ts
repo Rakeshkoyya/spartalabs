@@ -76,7 +76,11 @@ export const keywords = [
   "dedicated development team",
 ];
 
-export const seoTitle = `${site.name} (Spartalabs) — IT Services & Software Development Company in Hyderabad`;
+/** Titles and descriptions per docs/SITE-BLUEPRINT.md §15. The city stays in keywords and schema. */
+export const seoTitle = `${site.name} — Custom Software, AI Automation & Websites`;
+
+export const homeDescription =
+  "We study how your business runs, then build the software that fits it. AI automations, custom websites and internal tools for businesses and agencies.";
 
 export const ogImage = {
   url: "/og.png",

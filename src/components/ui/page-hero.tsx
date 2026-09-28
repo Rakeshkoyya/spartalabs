@@ -56,7 +56,7 @@ export function PageHero({
           <span data-enter="lock">
             <Kicker>{kicker}</Kicker>
           </span>
-          <h1 className="text-h1 font-display mt-6 max-w-[20ch] font-semibold text-ink">
+          <h1 className="text-h1 font-display text-ink mt-6 max-w-[20ch] font-semibold">
             {typeof title === "string" ? <RiseText delay={60} parts={[{ text: title }]} /> : title}
           </h1>
           {lede ? (

@@ -59,4 +59,4 @@ for (const check of CHECKS) {
 }
 
 console.log(`\n${total} item${total === 1 ? "" : "s"} outstanding before launch.`);
-console.log("See docs/ACTION-PLAN.md §11 and §12 for what unblocks each one.\n");
+console.log("See docs/SITE-BLUEPRINT.md §16 for what unblocks each one.\n");

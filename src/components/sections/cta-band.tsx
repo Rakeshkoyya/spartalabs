@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
-import { brochure, contact, serviceLines, site, telHref } from "@/content/site";
+import { brochure, contact, primaryCta, serviceLines, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -14,13 +14,15 @@ import { Kicker } from "@/components/ui/kicker";
  */
 export function CtaBand({
   kicker = "Start here",
-  title = "Let’s map your business.",
-  body = "Tell us how your business runs today. We will show you what it could look like with the right system behind it.",
+  title = "Tell us how your business runs.",
+  body = "We’ll show you what to build. 30 minutes. No slides. No obligation.",
+  cta = primaryCta,
   showLogo = false,
 }: {
   kicker?: string;
   title?: string;
   body?: string;
+  cta?: { label: string; href: string };
   /** The full lockup above the heading — the home page's sign-off. */
   showLogo?: boolean;
 }) {
@@ -45,7 +47,7 @@ export function CtaBand({
           {showLogo ? (
             <div data-lock="" className="mb-12 flex flex-col items-center">
               <Logo variant="full" className="w-[min(340px,72vw)]" />
-              <p className="text-label font-label mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] text-muted uppercase">
+              <p className="text-label font-label text-muted mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] uppercase">
                 {serviceLines.slice(0, 4).map((line, index) => (
                   <span key={line} className="flex items-center gap-3">
                     {index > 0 ? (
@@ -65,24 +67,24 @@ export function CtaBand({
           <h2
             data-wipe=""
             style={{ "--m-delay": "120ms" } as React.CSSProperties}
-            className="text-h1 mt-4 font-semibold text-ink"
+            className="text-h1 text-ink mt-4 font-semibold"
           >
             {title}
           </h2>
-          <p className="text-lede mt-4 max-w-[52ch] text-muted">
+          <p className="text-lede text-muted mt-4 max-w-[52ch]">
             {body} We reply {contact.responseTime}.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="primary">
+            <Button href={cta.href} variant="primary">
               <CalendarCheck aria-hidden className="size-4.5" />
-              Book a discovery call
+              {cta.label}
             </Button>
             <Button href={brochure.href} download={brochure.fileName} variant="secondary">
               <Download aria-hidden className="size-4.5" />
               {brochure.label}
             </Button>
           </div>
-          <p className="text-label font-label mt-3 tracking-[0.14em] text-muted uppercase">
+          <p className="text-label font-label text-muted mt-3 tracking-[0.14em] uppercase">
             {brochure.meta}
           </p>
         </div>
@@ -134,8 +136,8 @@ function ContactItem({
     <div className="flex gap-3">
       <Icon aria-hidden className="text-accent mt-1 size-4.5 shrink-0" />
       <div className="min-w-0">
-        <p className="text-label font-label tracking-[0.16em] text-muted uppercase">{label}</p>
-        <div className="mt-1 font-medium break-words text-ink">{children}</div>
+        <p className="text-label font-label text-muted tracking-[0.16em] uppercase">{label}</p>
+        <div className="text-ink mt-1 font-medium break-words">{children}</div>
       </div>
     </div>
   );

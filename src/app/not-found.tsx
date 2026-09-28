@@ -9,7 +9,7 @@ export default function NotFound() {
       <FlowLines className="bottom-0 h-1/2" />
       <Container className="relative flex min-h-[80vh] flex-col justify-center py-32">
         <Kicker>Error 404</Kicker>
-        <h1 className="text-h1 font-display mt-4 max-w-[18ch] font-semibold text-ink">
+        <h1 className="text-h1 font-display text-ink mt-4 max-w-[18ch] font-semibold">
           This page is not part of the system.
         </h1>
         <p className="text-lede text-muted mt-5 max-w-[48ch]">

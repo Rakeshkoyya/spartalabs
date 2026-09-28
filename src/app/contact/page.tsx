@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { CalendarCheck, Download } from "lucide-react";
 import { pageMetadata } from "@/lib/seo";
-import { Download } from "lucide-react";
-import { brochure, company, contact, telHref } from "@/content/site";
+import { audiences } from "@/lib/contact-schema";
+import { brochure, contact, telHref } from "@/content/site";
 import { Button } from "@/components/ui/button";
-import { faq } from "@/content/faq";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Kicker } from "@/components/ui/kicker";
@@ -11,19 +11,30 @@ import { PageHero } from "@/components/ui/page-hero";
 import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Us",
+  title: "Contact Sparta Labs — Book a Discovery Call",
   description:
-    "Book a discovery call with Sparta Labs, Hyderabad, for custom software, website, mobile app or AI automation work. Email hello@spartalabs.in — we reply within one working day.",
+    "Tell us how your business runs. We reply within one working day and book a 30-minute call if we're a fit.",
   path: "/contact",
+  absoluteTitle: true,
 });
 
-export default function ContactPage() {
+const linkClass = "hover:text-accent text-base transition-colors";
+
+/** `?as=agency` (from the agencies page) preselects the agency option. */
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ as?: string }>;
+}) {
+  const { as } = await searchParams;
+  const defaultAudience = as === "agency" ? audiences[1] : audiences[0];
+
   return (
     <>
       <PageHero
-        kicker="Start here"
-        title="One call. No deck."
-        lede="Describe the problem and we will tell you whether we are the right people for it. If we are not, we will say so and point you at who is."
+        kicker="Contact"
+        title="Tell us how your business runs."
+        lede="We reply within one working day. If we’re not the right fit, we’ll say so."
       >
         <div className="mt-8">
           <Breadcrumbs trail={[{ label: "Contact", href: "/contact" }]} />
@@ -31,49 +42,50 @@ export default function ContactPage() {
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-16">
-          <ContactForm />
+        <div className="grid gap-12 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-16">
+          <ContactForm defaultAudience={defaultAudience} />
 
           <aside className="flex flex-col gap-8">
+            {contact.bookingUrl ? (
+              <div>
+                <Kicker>Skip the form</Kicker>
+                <Button href={contact.bookingUrl} size="sm" className="mt-4">
+                  <CalendarCheck aria-hidden className="size-4" />
+                  Book a call
+                </Button>
+              </div>
+            ) : null}
+
             <div>
               <Kicker>Direct</Kicker>
               <ul className="mt-4 flex flex-col gap-2.5">
                 <li>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="hover:text-accent text-base transition-colors"
-                  >
+                  <a href={`mailto:${contact.email}`} className={linkClass}>
                     {contact.email}
                   </a>
                 </li>
                 {contact.phones.map((phone) => (
                   <li key={phone}>
-                    <a
-                      href={telHref(phone)}
-                      className="hover:text-accent text-base transition-colors"
-                    >
+                    <a href={telHref(phone)} className={linkClass}>
                       {phone}
                     </a>
                   </li>
                 ))}
                 {contact.whatsapp ? (
                   <li>
-                    <a
-                      href={contact.whatsapp}
-                      className="hover:text-accent text-base transition-colors"
-                    >
+                    <a href={contact.whatsapp} className={linkClass}>
                       WhatsApp
                     </a>
                   </li>
                 ) : null}
               </ul>
+              {contact.workingHours ? (
+                <p className="text-muted mt-4 text-sm">{contact.workingHours}</p>
+              ) : null}
             </div>
 
-            <div>
+            <div className="border-hairline border-t pt-8">
               <Kicker>Brochure</Kicker>
-              <p className="text-muted mt-4 text-sm">
-                What we build and how we work, in one document to share with your team.
-              </p>
               <Button
                 href={brochure.href}
                 download={brochure.fileName}
@@ -87,31 +99,6 @@ export default function ContactPage() {
               <p className="text-label font-label text-muted mt-2 tracking-[0.14em] uppercase">
                 {brochure.meta}
               </p>
-            </div>
-
-            {company.addressLines ? (
-              <div>
-                <Kicker>Office</Kicker>
-                <address className="text-muted mt-4 text-base not-italic">
-                  {company.addressLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
-              </div>
-            ) : null}
-
-            <div className="border-hairline border-t pt-8">
-              <Kicker>Before you write</Kicker>
-              <dl className="mt-4 flex flex-col gap-5">
-                {faq.slice(0, 3).map((item) => (
-                  <div key={item.question}>
-                    <dt className="text-base font-medium">{item.question}</dt>
-                    <dd className="text-muted mt-1.5 text-sm">{item.answer}</dd>
-                  </div>
-                ))}
-              </dl>
             </div>
           </aside>
         </div>

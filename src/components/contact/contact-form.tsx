@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import {
+  audiences,
   contactSchema,
   enquiryTopics,
   normalizeContactInput,
+  type Audience,
   type ContactInput,
 } from "@/lib/contact-schema";
 import { contact } from "@/content/site";
@@ -16,7 +18,7 @@ import { cn } from "@/lib/utils";
 const controlClass =
   "w-full rounded-[var(--radius-field)] border border-hairline-strong bg-page px-3.5 py-3 text-base text-ink transition-colors duration-200 placeholder:text-muted hover:border-accent-core/60 focus:border-accent-core focus:outline-none";
 
-export function ContactForm() {
+export function ContactForm({ defaultAudience = audiences[0] }: { defaultAudience?: Audience }) {
   const [sent, setSent] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -26,7 +28,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactInput>({
     resolver: standardSchemaResolver(contactSchema),
-    defaultValues: { topic: "Custom platform" },
+    defaultValues: { audience: defaultAudience, topic: "Not sure yet" },
   });
 
   async function onSubmit(values: ContactInput) {
@@ -54,70 +56,115 @@ export function ContactForm() {
         role="status"
         className="border-hairline bg-surface rounded-[var(--radius-card)] border p-8"
       >
-        <h2 className="text-h3 font-semibold">Message received.</h2>
+        <h2 className="text-h3 font-semibold">Thanks.</h2>
         <p className="text-muted mt-3 max-w-[48ch] text-base">
-          We reply {contact.responseTime}. If it is urgent before then, email{" "}
-          <a href={`mailto:${contact.email}`} className="text-accent hover:underline">
-            {contact.email}
-          </a>
-          .
+          We&rsquo;ll be in touch {contact.responseTime}.
         </p>
+        {contact.bookingUrl ? (
+          <Button href={contact.bookingUrl} variant="secondary" size="sm" className="mt-5">
+            Want to skip the wait? Book a call now
+          </Button>
+        ) : null}
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-      <Field label="Your name" htmlFor="name" error={errors.name?.message}>
-        <input id="name" autoComplete="name" className={controlClass} {...register("name")} />
-      </Field>
-
-      <Field label="Work email" htmlFor="email" error={errors.email?.message}>
-        <input
-          id="email"
-          type="email"
-          autoComplete="email"
-          className={controlClass}
-          {...register("email")}
-        />
-      </Field>
-
-      <Field label="Phone number" htmlFor="phone" error={errors.phone?.message}>
-        <input
-          id="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          placeholder="+91 98765 43210"
-          className={controlClass}
-          {...register("phone")}
-        />
-      </Field>
-
-      <Field label="Company" htmlFor="company" optional error={errors.company?.message}>
-        <input
-          id="company"
-          autoComplete="organization"
-          className={controlClass}
-          {...register("company")}
-        />
-      </Field>
-
-      <Field label="What do you need?" htmlFor="topic" error={errors.topic?.message}>
-        <select id="topic" className={controlClass} {...register("topic")}>
-          {enquiryTopics.map((topic) => (
-            <option key={topic} value={topic}>
-              {topic}
-            </option>
+      <fieldset className="flex flex-col gap-2">
+        <legend className="text-label text-muted font-label mb-2 tracking-[0.14em] uppercase">
+          I am
+        </legend>
+        <div className="grid gap-2.5 sm:grid-cols-2">
+          {audiences.map((audience) => (
+            <label
+              key={audience}
+              className="border-hairline-strong has-[:checked]:border-accent-core has-[:checked]:bg-accent-wash flex cursor-pointer items-center gap-3 rounded-[var(--radius-field)] border px-3.5 py-3 text-base transition-colors duration-200"
+            >
+              <input
+                type="radio"
+                value={audience}
+                className="accent-[var(--accent-core)]"
+                {...register("audience")}
+              />
+              {audience}
+            </label>
           ))}
-        </select>
-      </Field>
+        </div>
+        {errors.audience?.message ? (
+          <p role="alert" className="text-accent text-sm">
+            {errors.audience.message}
+          </p>
+        ) : null}
+      </fieldset>
 
-      <Field label="The problem" htmlFor="message" optional error={errors.message?.message}>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Name" htmlFor="name" error={errors.name?.message}>
+          <input id="name" autoComplete="name" className={controlClass} {...register("name")} />
+        </Field>
+
+        <Field label="Work email" htmlFor="email" error={errors.email?.message}>
+          <input
+            id="email"
+            type="email"
+            autoComplete="email"
+            className={controlClass}
+            {...register("email")}
+          />
+        </Field>
+
+        <Field label="Company" htmlFor="company" error={errors.company?.message}>
+          <input
+            id="company"
+            autoComplete="organization"
+            className={controlClass}
+            {...register("company")}
+          />
+        </Field>
+
+        <Field label="Country" htmlFor="country" error={errors.country?.message}>
+          <input
+            id="country"
+            autoComplete="country-name"
+            className={controlClass}
+            {...register("country")}
+          />
+        </Field>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="What do you need?" htmlFor="topic" error={errors.topic?.message}>
+          <select id="topic" className={controlClass} {...register("topic")}>
+            {enquiryTopics.map((topic) => (
+              <option key={topic} value={topic}>
+                {topic}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <Field label="Phone" htmlFor="phone" optional error={errors.phone?.message}>
+          <input
+            id="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            className={controlClass}
+            {...register("phone")}
+          />
+        </Field>
+      </div>
+
+      <Field
+        label="Tell us a bit about it"
+        htmlFor="message"
+        optional
+        error={errors.message?.message}
+      >
         <textarea
           id="message"
-          rows={6}
-          placeholder="What is not working today, and what would good look like?"
+          rows={5}
+          placeholder="How does the work run today, and what's getting in the way?"
           className={cn(controlClass, "resize-y")}
           {...register("message")}
         />
@@ -140,7 +187,7 @@ export function ContactForm() {
 
       <div className="flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Sending…" : "Send it"}
+          {isSubmitting ? "Sending…" : "Send"}
         </Button>
         <p className="text-muted text-sm">We reply {contact.responseTime}.</p>
       </div>

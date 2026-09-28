@@ -6,7 +6,7 @@ import { FormationReveals } from "@/components/motion/formation-reveals";
 import { RouteCurtain } from "@/components/motion/route-curtain";
 import { Spotlight } from "@/components/motion/spotlight";
 import { isIndexable, site, siteUrl } from "@/content/site";
-import { keywords, ogImage, seoTitle } from "@/lib/seo";
+import { homeDescription, keywords, ogImage, seoTitle } from "@/lib/seo";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     default: seoTitle,
     template: `%s — ${site.name}`,
   },
-  description: site.description,
+  description: homeDescription,
   keywords,
   applicationName: site.name,
   authors: [{ name: site.name, url: siteUrl() }],
@@ -61,13 +61,13 @@ export const metadata: Metadata = {
     locale: "en_IN",
     siteName: site.name,
     title: seoTitle,
-    description: site.description,
+    description: homeDescription,
     images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: seoTitle,
-    description: site.description,
+    description: homeDescription,
     images: [ogImage.url],
   },
   robots: isIndexable

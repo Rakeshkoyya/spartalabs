@@ -28,6 +28,17 @@ const nextConfig: NextConfig = {
   /** One host only: www serving its own copy splits ranking signals in two. */
   async redirects() {
     return [
+      /** Case studies now live whole on /work; old detail URLs land on their panel. */
+      {
+        source: "/work/ai-tutor-learning-portal",
+        destination: "/work#ai-learning-platform",
+        permanent: true,
+      },
+      {
+        source: "/work/:slug",
+        destination: "/work#:slug",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.spartalabs.in" }],

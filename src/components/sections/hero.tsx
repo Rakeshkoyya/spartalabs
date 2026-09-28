@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
+import { heroQuote } from "@/content/home";
 import { RiseText } from "@/components/motion/rise-text";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -6,8 +7,8 @@ import { HeroParticles } from "./hero-particles";
 import { HeroPin } from "./hero-pin";
 
 /**
- * A clean, minimal opener: the headline, one line of support, two actions —
- * and the crest drawn in particles that scatter from the pointer and gather
+ * A clean, minimal opener: a quote that sets the tone, the headline, one line
+ * of support, two actions — and the crest drawn in particles that scatter from the pointer and gather
  * again. Behind it a slow aurora and a faint blueprint grid.
  *
  * On wide screens the hero pins and the next section slides over it as a
@@ -31,10 +32,15 @@ export function Hero() {
 
         <Container className="hero-recede relative flex flex-1 flex-col justify-center pt-24 pb-10 lg:pt-20">
           <div className="max-w-[40rem] lg:max-w-[54%]">
+            <figure data-enter="lock" className="mb-7 max-w-[34ch]">
+              <blockquote className="font-display text-muted border-accent-bright border-l-2 pl-4 text-[clamp(1rem,0.95rem+0.3vw,1.1875rem)] leading-snug italic">
+                &ldquo;{heroQuote}&rdquo;
+              </blockquote>
+            </figure>
             {/* Sized by width and height alike, so the whole hero fits a short laptop screen. */}
             <h1
               id="hero-title"
-              className="font-display text-[clamp(2.5rem,min(5.4vw,9svh),6.25rem)] leading-[0.98] font-semibold tracking-[-0.035em]"
+              className="font-display text-[clamp(2.5rem,min(5vw,8svh),5.75rem)] leading-[0.98] font-semibold tracking-[-0.035em]"
             >
               <RiseText
                 delay={80}
@@ -51,8 +57,7 @@ export function Hero() {
               style={{ "--enter-delay": "520ms" } as React.CSSProperties}
               className="text-muted mt-6 max-w-[44ch] text-[clamp(1.0625rem,1rem+0.4vw,1.25rem)] leading-relaxed"
             >
-              We study your operations first, then design and build the system your team needs.
-              Websites, apps, AI and automation, under one plan.
+              We learn how your team works, then build the system that fits.
             </p>
 
             <div
@@ -64,7 +69,7 @@ export function Hero() {
                 Book a discovery call
                 <ArrowRight aria-hidden className="size-4" />
               </Button>
-              <Button href="#work" variant="secondary">
+              <Button href="/work" variant="secondary">
                 See our work
               </Button>
             </div>
@@ -73,7 +78,7 @@ export function Hero() {
 
         <Container className="relative pb-[calc(var(--sheet-radius)+1.25rem)]">
           <a
-            href="#about"
+            href="#proof"
             data-enter="fade"
             style={{ "--enter-delay": "1100ms" } as React.CSSProperties}
             className="text-label font-label text-muted hover:text-ink inline-flex min-h-9 items-center gap-2.5 tracking-[0.18em] uppercase transition-colors duration-200"

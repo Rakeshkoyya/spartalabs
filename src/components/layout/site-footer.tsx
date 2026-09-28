@@ -1,57 +1,57 @@
 import Link from "next/link";
 import { Download } from "lucide-react";
-import { capabilities } from "@/content/capabilities";
-import { brochure, company, contact, legalNav, nav, site, social, telHref } from "@/content/site";
-import { Logo } from "@/components/brand/logo";
+import { footerServices } from "@/content/services";
+import { insightsLive } from "@/content/insights";
+import { brochure, company, contact, legalNav, site, social, telHref } from "@/content/site";
 import { Container } from "@/components/ui/container";
 
+const FIRST_YEAR = 2025;
+
+const companyLinks = [
+  { label: "Work", href: "/work" },
+  { label: "Approach", href: "/approach" },
+  { label: "About", href: "/about" },
+  { label: "For agencies", href: "/agencies" },
+  { label: "FAQ", href: "/faq" },
+  ...(insightsLive ? [{ label: "Insights", href: "/insights" }] : []),
+  { label: "Careers", href: "/careers" },
+];
+
 /**
- * Carries the trust payload most agency sites forget: who the company legally
- * is, where it is, and how to reach a person. Fields the client has not yet
+ * Brand line, then Services · Company · Contact, with the legal links in the
+ * bottom bar — docs/SITE-BLUEPRINT.md §3. Fields the client has not yet
  * supplied are omitted rather than filled with plausible text.
  */
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const years = year > FIRST_YEAR ? `${FIRST_YEAR}–${year}` : String(FIRST_YEAR);
 
   return (
     <footer className="band-tint text-ink border-hairline border-t">
       <Container>
         <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-16">
-          <div className="flex flex-col gap-5">
-            <Link href="/" aria-label="Sparta Labs home" className="w-fit">
-              <Logo variant="wordmark" className="w-[156px]" />
-            </Link>
-            <p className="text-muted max-w-[34ch] text-sm">{site.tagline}</p>
-            <p className="text-label font-label flex flex-wrap items-center gap-2 tracking-[0.18em] text-muted uppercase">
-              {site.motto.join(" → ")}
-            </p>
-            {/* The office city stays in structured data for search; visitors see who we serve. */}
-            <p className="text-muted text-sm">Working with clients in the USA, the UAE and worldwide.</p>
+          <div className="flex flex-col gap-4">
+            <p className="font-display max-w-[24ch] text-lg font-semibold">{site.tagline}</p>
+            <p className="text-muted max-w-[30ch] text-sm">{site.spartanLine}</p>
           </div>
 
-          <FooterColumn title="What we build">
-            {capabilities.map((capability) => (
-              <FooterLink key={capability.key} href="/services">
-                {capability.title}
+          <FooterColumn title="Services">
+            {footerServices.map((service) => (
+              <FooterLink key={service} href="/services">
+                {service}
               </FooterLink>
             ))}
           </FooterColumn>
 
           <FooterColumn title="Company">
-            {nav.map((item) => (
-              <FooterLink key={item.href} href={item.href}>
-                {item.label}
-              </FooterLink>
-            ))}
-            <FooterLink href="/contact">Contact</FooterLink>
-            {social.map((item) => (
+            {companyLinks.map((item) => (
               <FooterLink key={item.href} href={item.href}>
                 {item.label}
               </FooterLink>
             ))}
           </FooterColumn>
 
-          <FooterColumn title="Talk to us">
+          <FooterColumn title="Contact">
             <FooterLink href={`mailto:${contact.email}`}>{contact.email}</FooterLink>
             {contact.phones.map((phone) => (
               <FooterLink key={phone} href={telHref(phone)}>
@@ -59,23 +59,28 @@ export function SiteFooter() {
               </FooterLink>
             ))}
             {contact.whatsapp ? <FooterLink href={contact.whatsapp}>WhatsApp</FooterLink> : null}
+            {contact.linkedin ? <FooterLink href={contact.linkedin}>LinkedIn</FooterLink> : null}
+            {social.map((item) => (
+              <FooterLink key={item.href} href={item.href}>
+                {item.label}
+              </FooterLink>
+            ))}
             <li>
               <a
                 href={brochure.href}
                 download={brochure.fileName}
-                className="text-muted inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200 hover:text-ink"
+                className="text-muted hover:text-ink inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200"
               >
                 <Download aria-hidden className="size-4" />
-                {brochure.label}
+                Brochure (PDF)
               </a>
             </li>
-            <li className="text-muted pt-1 text-sm">We reply {contact.responseTime}.</li>
           </FooterColumn>
         </div>
 
-        <div className="text-muted flex flex-col gap-3 border-t border-hairline py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-muted border-hairline flex flex-col gap-3 border-t py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {year} {company.legalName ?? site.name}
+            &copy; {years} {company.legalName ?? site.name}
             {company.cin ? ` · CIN ${company.cin}` : ""}
             {company.gstin ? ` · GSTIN ${company.gstin}` : ""}
           </p>
@@ -91,9 +96,10 @@ export function SiteFooter() {
           </ul>
         </div>
       </Container>
-      {/* The sign-off: the name set as a hairline outline, cropped by the page edge. */}
+      {/* The sign-off: the name set large, bold and solid, spanning the page width. */}
       <div aria-hidden className="overflow-clip">
-        <p className="font-display -mb-[0.18em] text-center text-[clamp(4rem,17vw,16rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_color-mix(in_srgb,var(--accent-core)_28%,transparent)]">
+        {/* Bottom padding in em keeps the "p" descender clear at every size. */}
+        <p className="font-display text-ink pb-[0.22em] text-center text-[clamp(3.5rem,16vw,15rem)] leading-[0.95] font-bold tracking-[-0.05em] whitespace-nowrap select-none">
           Sparta Labs
         </p>
       </div>
