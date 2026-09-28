@@ -75,7 +75,7 @@ export function SiteFooter() {
               <a
                 href={brochure.href}
                 download={brochure.fileName}
-                className="text-muted inline-flex items-center gap-2 text-sm transition-colors duration-200 hover:text-white"
+                className="text-muted inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200 hover:text-white"
               >
                 <Download aria-hidden className="size-4" />
                 {brochure.label}
@@ -103,6 +103,12 @@ export function SiteFooter() {
           </ul>
         </div>
       </Container>
+      {/* The sign-off: the name set as a hairline outline, cropped by the page edge. */}
+      <div aria-hidden className="overflow-clip">
+        <p className="font-display -mb-[0.18em] text-center text-[clamp(4rem,17vw,16rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_rgb(77_187_255/0.22)]">
+          Sparta Labs
+        </p>
+      </div>
     </footer>
   );
 }

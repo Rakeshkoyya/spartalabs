@@ -73,12 +73,13 @@ export function Spine() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed top-0 left-7 z-40 hidden h-screen w-px min-[1400px]:block"
+      className="pointer-events-none fixed top-0 left-7 z-40 hidden h-svh w-px min-[1400px]:block"
     >
       <div className="bg-hairline absolute inset-0" />
+      {/* Filled with a transform, not a height, so scrolling never triggers layout. */}
       <div
-        className="bg-accent-bright absolute top-0 left-0 w-px origin-top transition-[height] duration-150 ease-linear"
-        style={{ height: `${progress * 100}%` }}
+        className="bg-accent-bright absolute inset-y-0 left-0 w-px origin-top transition-transform duration-150 ease-[var(--ease-out)]"
+        style={{ transform: `scaleY(${progress})` }}
       />
 
       {notches.map((notch) => {
@@ -87,8 +88,8 @@ export function Spine() {
           <span
             key={notch.id}
             style={{ top: `${notch.ratio * 100}%` }}
-            className={`absolute h-px transition-[width,background-color] duration-300 ease-[var(--ease-out-expo)] ${
-              isActive ? "bg-accent -left-1.5 w-4" : "bg-hairline-strong -left-0.5 w-2"
+            className={`absolute -left-1.5 h-px w-4 transition-[transform,background-color] duration-300 ease-[var(--ease-out-expo)] ${
+              isActive ? "bg-accent" : "bg-hairline-strong scale-x-50"
             }`}
           />
         );

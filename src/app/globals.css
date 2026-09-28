@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/motion.css";
 
 /* ============================================================================
    STATIC SCALES
@@ -22,13 +23,14 @@
 
   --font-display: var(--font-outfit), "Outfit", system-ui, sans-serif;
   --font-label: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
   --font-sans:
     var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Fluid scale — no per-breakpoint overrides anywhere in the codebase. */
-  --text-display: clamp(2.75rem, 1.5rem + 5vw, 5.25rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.03em;
+  --text-display: clamp(2.75rem, 1.2rem + 5.6vw, 6.5rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
 
   --text-h1: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
   --text-h1--line-height: 1.05;
@@ -178,6 +180,13 @@
     text-wrap: balance;
   }
 
+  /* No single-word last lines in running copy. */
+  p,
+  li,
+  blockquote {
+    text-wrap: pretty;
+  }
+
   :focus-visible {
     outline: 2px solid var(--accent-bright);
     outline-offset: 3px;
@@ -319,24 +328,6 @@
   }
 }
 
-@keyframes sl-sweep {
-  0% {
-    transform: scaleX(0);
-    transform-origin: left center;
-  }
-  55% {
-    transform: scaleX(1);
-    transform-origin: left center;
-  }
-  55.01% {
-    transform-origin: right center;
-  }
-  100% {
-    transform: scaleX(0);
-    transform-origin: right center;
-  }
-}
-
 /* The first beat of every sequence: a rule drawn from its left edge. */
 .js [data-draw] {
   transform: scaleX(0);
@@ -401,17 +392,11 @@
   animation-delay: var(--enter-delay, 0ms);
 }
 
-/* Route change: one crest-blue line crossing the page and leaving. */
-.js [data-route-sweep] {
-  animation: sl-sweep 720ms var(--ease-out-expo) both;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .js [data-draw],
   .js [data-wipe],
   .js [data-lock],
-  .js [data-enter],
-  .js [data-route-sweep] {
+  .js [data-enter] {
     animation: none;
     opacity: 1;
     clip-path: none;

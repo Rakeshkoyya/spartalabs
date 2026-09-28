@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const REVEALABLE = "[data-draw],[data-wipe],[data-lock]";
-const ANIMATED = "[data-draw],[data-wipe],[data-lock],[data-enter]";
+const REVEALABLE = "[data-draw],[data-wipe],[data-lock],[data-spread]";
+const ANIMATED = "[data-draw],[data-wipe],[data-lock],[data-spread],[data-enter]";
 
 /**
  * Drives the Formation reveals for the whole page.

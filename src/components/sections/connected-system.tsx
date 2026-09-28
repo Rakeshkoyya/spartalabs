@@ -12,6 +12,7 @@ export function ConnectedSystem() {
   return (
     <Section id="system" label="One system" tone="navy" flow>
       <SectionHeader
+        index="04"
         kicker="One business, one system"
         title="Not a pile of apps. A connected system built for you."
         lede="Every piece we build shares one source of truth. Your website feeds your platform, your app reads the same records, and automation moves the data so your team does not have to."
@@ -21,6 +22,8 @@ export function ConnectedSystem() {
         {/* Dashed links from each node to the core; drawn only where the three columns sit side by side. */}
         <svg
           aria-hidden
+          data-spread=""
+          style={{ "--m-delay": "250ms" } as React.CSSProperties}
           viewBox="0 0 1000 420"
           preserveAspectRatio="none"
           className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
@@ -43,7 +46,11 @@ export function ConnectedSystem() {
 
         <NodeColumn nodes={left} />
 
-        <div className="relative order-first mx-auto grid size-56 place-items-center rounded-full text-center shadow-[0_0_0_12px_rgb(25_190_255/0.06),0_0_0_26px_rgb(25_190_255/0.035),0_24px_70px_rgb(0_80_220/0.55)] [background:radial-gradient(circle_at_35%_30%,#1c64e6,#0b2f7a_60%,#08204f)] sm:size-64 lg:order-none lg:mx-16">
+        <div
+          data-lock=""
+          className="relative order-first mx-auto grid size-56 place-items-center rounded-full text-center shadow-[0_0_0_12px_rgb(25_190_255/0.06),0_0_0_26px_rgb(25_190_255/0.035),0_24px_70px_rgb(0_80_220/0.55)] [background:radial-gradient(circle_at_35%_30%,#1c64e6,#0b2f7a_60%,#08204f)] sm:size-64 lg:order-none lg:mx-16"
+        >
+          <span aria-hidden className="halo" />
           <div className="flex flex-col items-center">
             <Image
               src="/brand/logo-mark-white.png"
@@ -72,7 +79,11 @@ export function ConnectedSystem() {
         {examples.map((example) => {
           const Icon = exampleIcons[example.key];
           return (
-            <li key={example.key} className="glass p-5">
+            <li
+              key={example.key}
+              className="glass spotlight p-5"
+              style={{ "--spot": "rgb(77 187 255 / 0.16)" } as React.CSSProperties}
+            >
               <span className="font-display flex items-center gap-2 font-semibold text-white">
                 {Icon ? <Icon aria-hidden className="text-accent size-4.5" /> : null}
                 {example.title}
@@ -89,8 +100,13 @@ export function ConnectedSystem() {
 function NodeColumn({ nodes }: { nodes: HubNode[] }) {
   return (
     <ul className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 lg:gap-16">
-      {nodes.map((node) => (
-        <li key={node.key} className={cn("glass flex items-start gap-3 p-4")}>
+      {nodes.map((node, index) => (
+        <li
+          key={node.key}
+          data-lock=""
+          style={{ "--m-delay": `${400 + index * 110}ms` } as React.CSSProperties}
+          className={cn("glass flex items-start gap-3 p-4")}
+        >
           <IconBox icon={hubIcons[node.key]} className="size-10" />
           <div>
             <span className="font-display block font-semibold text-white">{node.title}</span>

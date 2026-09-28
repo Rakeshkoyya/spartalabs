@@ -22,6 +22,7 @@ export function Capabilities() {
   return (
     <Section id="capabilities" label="What we build">
       <SectionHeader
+        index="03"
         kicker="What we build"
         title="Everything your business runs on, from one team."
         lede="Framed as what it does for your organisation, not as a list of the technologies underneath. The stack is our problem."
@@ -43,8 +44,11 @@ export function Capabilities() {
               )}
             >
               <article
+                style={
+                  dark ? ({ "--spot": "rgb(77 187 255 / 0.22)" } as React.CSSProperties) : undefined
+                }
                 className={cn(
-                  "relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] p-6 transition-transform duration-300 ease-[var(--ease-out-expo)] motion-safe:hover:-translate-y-1 sm:p-7",
+                  "spotlight relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] p-6 transition-transform duration-300 ease-[var(--ease-out-expo)] motion-safe:hover:-translate-y-1 sm:p-8",
                   dark
                     ? cn(
                         "tone-dark shadow-[0_24px_50px_-24px_rgb(0_40_120/0.6)]",

@@ -13,6 +13,7 @@ export function Pods() {
   return (
     <Section id="pods" label="Your team" tone="navy" flow>
       <SectionHeader
+        index="07"
         kicker="Your team"
         title="A specialist for every layer. One lead who owns the whole."
         lede="Projects rarely fail on skill. They fail when some part of the system has no owner. So every Sparta engagement is staffed by a dedicated pod, with a specialist for each layer."
@@ -24,7 +25,7 @@ export function Pods() {
             key={pod.name}
             data-lock=""
             style={{ "--m-delay": `${(index % 4) * 70}ms` } as React.CSSProperties}
-            className="glass flex flex-col p-5 transition-colors duration-200 hover:border-[rgb(25_190_255/0.35)]"
+            className="glass spotlight flex flex-col p-5 transition-colors duration-200 hover:border-[rgb(25_190_255/0.35)]"
           >
             <IconBox icon={podIcons[pod.name]} className="size-10" />
             <h3 className="font-display mt-4 font-semibold text-white">{pod.name}</h3>

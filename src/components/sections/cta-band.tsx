@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
 import { brochure, contact, serviceLines, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
@@ -24,14 +25,22 @@ export function CtaBand({
   showLogo?: boolean;
 }) {
   return (
-    <div id="contact" className="band-dark relative overflow-hidden">
+    <div id="contact" className="band-dark band-open relative overflow-clip">
       <FlowLines className="top-[30%] h-[70%]" />
+      <Image
+        src="/brand/logo-mark-white.png"
+        alt=""
+        aria-hidden
+        width={600}
+        height={693}
+        className="pointer-events-none absolute top-1/2 left-1/2 w-[min(640px,120vw)] -translate-x-1/2 -translate-y-1/2 opacity-[0.045]"
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 [background:radial-gradient(70%_80%_at_50%_100%,rgb(10_108_240/0.45),transparent_70%)]"
       />
 
-      <Container className="relative py-20 md:py-28">
+      <Container className="relative py-24 md:py-36">
         <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
           {showLogo ? (
             <div data-lock="" className="mb-12 flex flex-col items-center">
@@ -53,7 +62,13 @@ export function CtaBand({
             <Kicker className="justify-center">{kicker}</Kicker>
           )}
 
-          <h2 className="text-h2 mt-4 font-semibold text-white">{title}</h2>
+          <h2
+            data-wipe=""
+            style={{ "--m-delay": "120ms" } as React.CSSProperties}
+            className="text-h1 mt-4 font-semibold text-white"
+          >
+            {title}
+          </h2>
           <p className="text-lede mt-4 max-w-[52ch] text-[#c3d0e4]">
             {body} We reply {contact.responseTime}.
           </p>

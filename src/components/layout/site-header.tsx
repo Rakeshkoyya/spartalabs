@@ -13,15 +13,32 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(true);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
+  // The pill takes the tone of whatever band is under it: dark glass over the
+  // navy hero and bands, the page's own surface over paper.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 24);
+      const probe = document
+        .elementsFromPoint(window.innerWidth / 2, 40)
+        .find((el) => !el.closest("header"));
+      setOverDark(Boolean(probe?.closest(".band-dark")));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
 
   // A route change while the overlay is open would otherwise leave it stuck.
   useEffect(() => {
@@ -44,23 +61,25 @@ export function SiteHeader() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ease-[var(--ease-out-expo)]",
-          // Every page opens on a navy band, so the bar reads as navy until it
-          // leaves it; after that it takes the page's own surface.
-          scrolled
-            ? "border-hairline bg-page/85 border-b shadow-[0_8px_30px_-20px_rgb(11_40_90/0.35)] backdrop-blur-xl"
-            : "tone-dark border-b border-transparent",
-        )}
-      >
-        <Container>
-          <div
-            className={cn(
-              "flex items-center justify-between gap-6 transition-[height] duration-300 ease-[var(--ease-out-expo)]",
-              scrolled ? "h-[60px]" : "h-[72px]",
-            )}
-          >
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
+        {/*
+          Every page opens on a navy band, so the bar reads as navy until it
+          leaves it; then it lifts into a floating pill on the page's surface.
+        */}
+        <div
+          className={cn(
+            "mx-auto max-w-[1240px] rounded-full border transition-[background-color,border-color,box-shadow] duration-300 ease-[var(--ease-out)]",
+            overDark && "tone-dark",
+            !scrolled && "border-transparent",
+            scrolled &&
+              overDark &&
+              "border-white/10 bg-[#0b1627]/70 shadow-[0_18px_40px_-24px_rgb(0_0_0/0.7)] backdrop-blur-xl",
+            scrolled &&
+              !overDark &&
+              "border-hairline bg-page/80 shadow-[0_18px_40px_-24px_rgb(11_40_90/0.45)] backdrop-blur-xl",
+          )}
+        >
+          <div className="flex h-14 items-center justify-between gap-6 pr-2 pl-5 lg:pl-6">
             <Link href="/" aria-label="Sparta Labs home" className="flex items-center">
               <Logo variant="wordmark" priority className="w-[132px] md:w-[148px]" />
             </Link>
@@ -101,13 +120,13 @@ export function SiteHeader() {
               </button>
             </div>
           </div>
-        </Container>
+        </div>
       </header>
 
       {open ? (
-        <div className="band-dark fixed inset-0 z-[60] flex flex-col md:hidden">
+        <div className="band-dark menu-sheet fixed inset-0 z-[60] flex flex-col md:hidden">
           <Container>
-            <div className="flex h-[72px] items-center justify-between">
+            <div className="flex h-[80px] items-center justify-between px-2">
               <Logo variant="wordmark" className="w-[132px]" />
               <button
                 type="button"
@@ -127,9 +146,11 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  data-enter="lock"
+                  style={{ "--enter-delay": `${120 + index * 60}ms` } as React.CSSProperties}
                   className="text-h3 border-hairline font-display flex items-baseline gap-4 border-b py-5 font-semibold"
                 >
-                  <span className="text-label text-accent font-label">
+                  <span className="text-accent font-mono text-[0.8125rem]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}
