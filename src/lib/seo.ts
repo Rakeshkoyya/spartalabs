@@ -7,7 +7,7 @@ import { site } from "@/content/site";
  */
 export const brandAliases = [
   "Spartalabs",
-  "SpartaLabs",
+  "Sparta Labs",
   "Sparta Labs Hyderabad",
   "Sparta Labs India",
   site.domain,
