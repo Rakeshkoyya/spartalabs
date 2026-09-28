@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
-import { brochure, contact, serviceLines, site, telHref } from "@/content/site";
+import { brochure, contact, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -44,19 +44,8 @@ export function CtaBand({
         <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
           {showLogo ? (
             <div data-lock="" className="mb-12 flex flex-col items-center">
+              {/* The full lockup already carries the service-line tagline. */}
               <Logo variant="full" className="w-[min(340px,72vw)]" />
-              <p className="text-label font-label mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] text-muted uppercase">
-                {serviceLines.slice(0, 4).map((line, index) => (
-                  <span key={line} className="flex items-center gap-3">
-                    {index > 0 ? (
-                      <span aria-hidden className="text-accent-bright">
-                        |
-                      </span>
-                    ) : null}
-                    {line}
-                  </span>
-                ))}
-              </p>
             </div>
           ) : (
             <Kicker className="justify-center">{kicker}</Kicker>

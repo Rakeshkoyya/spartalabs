@@ -575,6 +575,88 @@
 }
 
 /* ============================================================================
+   WORDMARK
+   The footer sign-off. A solid crest-blue gradient fading into the page edge,
+   a crisp outline, and on hover a light that follows the pointer across the
+   letters while the word lifts. It rises out of the bottom edge on scroll.
+   ========================================================================= */
+
+/* Registered so the spotlight can fade in rather than snap on. */
+@property --wm-light {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.wordmark-wrap {
+  --wm-light: 0;
+  transition: --wm-light 500ms var(--ease-out);
+}
+
+.wordmark {
+  margin-bottom: -0.2em;
+  padding-top: 0.08em;
+  font-size: clamp(4.25rem, 18.5vw, 18rem);
+  letter-spacing: -0.05em;
+  color: transparent;
+  background:
+    radial-gradient(
+      280px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--particle) / calc(var(--wm-light) * 1)),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--accent-core) 70%, transparent) 0%,
+      color-mix(in srgb, var(--accent-core) 26%, transparent) 55%,
+      transparent 94%
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* No outline: Outfit's glyphs are built from overlapping contours, and a
+     stroke draws every seam inside the letters. The fill carries the shape. */
+  translate: 0 0;
+  transition: translate 600ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wordmark-wrap:hover {
+    --wm-light: 1;
+  }
+
+  .wordmark-wrap:hover .wordmark {
+    translate: 0 -4%;
+  }
+}
+
+@keyframes sl-wordmark-rise {
+  from {
+    transform: translateY(38%);
+    opacity: 0.4;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Timed off the wrapper: its bottom is the page's end, so the rise
+       always completes; the word itself overhangs and never fully enters. */
+    .wordmark-wrap {
+      view-timeline: --wordmark block;
+    }
+
+    .wordmark {
+      animation: sl-wordmark-rise linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --wordmark;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+/* ============================================================================
    REDUCED MOTION
    Travel, zoom, scrubbing and the curtain all go. Content is fully visible
    and every state change is still perceptible.

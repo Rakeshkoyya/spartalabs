@@ -4,6 +4,7 @@ import { capabilities } from "@/content/capabilities";
 import { brochure, company, contact, legalNav, nav, site, social, telHref } from "@/content/site";
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/ui/container";
+import { FooterWordmark } from "./footer-wordmark";
 
 /**
  * Carries the trust payload most agency sites forget: who the company legally
@@ -91,12 +92,7 @@ export function SiteFooter() {
           </ul>
         </div>
       </Container>
-      {/* The sign-off: the name set as a hairline outline, cropped by the page edge. */}
-      <div aria-hidden className="overflow-clip">
-        <p className="font-display -mb-[0.18em] text-center text-[clamp(4rem,17vw,16rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_color-mix(in_srgb,var(--accent-core)_28%,transparent)]">
-          Sparta Labs
-        </p>
-      </div>
+      <FooterWordmark />
     </footer>
   );
 }
