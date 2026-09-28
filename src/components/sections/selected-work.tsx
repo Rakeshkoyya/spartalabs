@@ -11,14 +11,20 @@ export function SelectedWork() {
     <Section id="work" label="Selected work" className="topo">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
+          index="05"
           kicker="Selected work"
           title="Real systems, running in real organisations."
+          className="flex-1"
         />
         <Link
           href="/work"
-          className="text-accent font-display flex items-center gap-1.5 text-sm font-semibold hover:underline"
+          className="text-accent font-display group border-hairline-strong hover:border-accent flex min-h-11 items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors duration-200"
         >
-          All work <ArrowRight aria-hidden className="size-4" />
+          All work
+          <ArrowRight
+            aria-hidden
+            className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+          />
         </Link>
       </div>
 

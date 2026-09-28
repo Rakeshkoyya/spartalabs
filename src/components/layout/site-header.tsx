@@ -44,23 +44,17 @@ export function SiteHeader() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ease-[var(--ease-out-expo)]",
-          // Every page opens on a navy band, so the bar reads as navy until it
-          // leaves it; after that it takes the page's own surface.
-          scrolled
-            ? "border-hairline bg-page/85 border-b shadow-[0_8px_30px_-20px_rgb(11_40_90/0.35)] backdrop-blur-xl"
-            : "tone-dark border-b border-transparent",
-        )}
-      >
-        <Container>
-          <div
-            className={cn(
-              "flex items-center justify-between gap-6 transition-[height] duration-300 ease-[var(--ease-out-expo)]",
-              scrolled ? "h-[60px]" : "h-[72px]",
-            )}
-          >
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
+        {/* Transparent over the hero; lifts into a floating pill once the page moves. */}
+        <div
+          className={cn(
+            "mx-auto max-w-[1240px] rounded-full border transition-[background-color,border-color,box-shadow] duration-300 ease-[var(--ease-out)]",
+            scrolled
+              ? "border-hairline bg-page/75 shadow-[0_18px_40px_-24px_rgb(20_70_150/0.4)] backdrop-blur-xl"
+              : "border-transparent",
+          )}
+        >
+          <div className="flex h-14 items-center justify-between gap-6 pr-2 pl-5 lg:pl-6">
             <Link href="/" aria-label="Sparta Labs home" className="flex items-center">
               <Logo variant="wordmark" priority className="w-[132px] md:w-[148px]" />
             </Link>
@@ -101,13 +95,13 @@ export function SiteHeader() {
               </button>
             </div>
           </div>
-        </Container>
+        </div>
       </header>
 
       {open ? (
-        <div className="band-dark fixed inset-0 z-[60] flex flex-col md:hidden">
+        <div className="band-tint menu-sheet fixed inset-0 z-[60] flex flex-col md:hidden">
           <Container>
-            <div className="flex h-[72px] items-center justify-between">
+            <div className="flex h-[80px] items-center justify-between px-2">
               <Logo variant="wordmark" className="w-[132px]" />
               <button
                 type="button"
@@ -127,9 +121,11 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  data-enter="lock"
+                  style={{ "--enter-delay": `${120 + index * 60}ms` } as React.CSSProperties}
                   className="text-h3 border-hairline font-display flex items-baseline gap-4 border-b py-5 font-semibold"
                 >
-                  <span className="text-label text-accent font-label">
+                  <span className="text-accent font-mono text-[0.8125rem]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}

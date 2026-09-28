@@ -1,0 +1,605 @@
+/* ============================================================================
+   MOTION TOKENS
+   Every duration and curve on the site comes from here. Entrances decelerate,
+   exits accelerate away, and only the hero gets the deliberate tempo.
+   ========================================================================= */
+:root {
+  --dur-instant: 90ms;
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+  --dur-slow: 420ms;
+  --dur-deliberate: 720ms;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  --stagger: 55ms;
+  --sheet-radius: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* ============================================================================
+   HERO — "one connected system"
+   The headline rises word by word out of its own baseline; the crest locks in
+   at the hub; the rings open; spokes are drawn from the hub to each service
+   line, and each sends a pulse home. It plays once and then holds still.
+   ========================================================================= */
+
+@keyframes sl-rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes sl-ring {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sl-crest {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+
+
+@keyframes sl-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Words: the clip lives on the wrapper, the travel on the inner span. */
+.rise-word {
+  display: inline-block;
+  overflow: clip;
+  /* Room for descenders the 1.0 line-height would otherwise crop. */
+  padding-block-end: 0.14em;
+  margin-block-end: -0.14em;
+  vertical-align: top;
+}
+
+.rise-word > span {
+  display: inline-block;
+}
+
+.js .rise-word > span {
+  animation: sl-rise var(--dur-deliberate) var(--ease-emphasized) both;
+  animation-delay: calc(var(--enter-delay, 0ms) + var(--w, 0) * var(--stagger));
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: var(--inset, 0);
+  border-radius: 999px;
+  border: 1px solid var(--ring, rgb(77 187 255 / 0.2));
+}
+
+.js .orbit-ring {
+  animation: sl-ring 900ms var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.js .orbit-crest {
+  animation: sl-crest 900ms var(--ease-emphasized) both;
+  animation-delay: 180ms;
+}
+
+
+
+
+
+
+
+
+/* While the curtain covers a route change, the incoming page's entrances wait
+   for it: they should play in view, not behind the panel. */
+.is-routing main * {
+  animation-play-state: paused !important;
+}
+
+.js [data-enter="fade"] {
+  animation: sl-fade var(--dur-slow) var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+/* A faint blueprint grid, strongest behind the crest and fading to nothing. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 70% at 70% 45%, #000 20%, transparent 75%);
+}
+
+/* Two soft pools of light drifting slowly behind everything. */
+@keyframes sl-aurora {
+  to {
+    transform: translate3d(10%, 8%, 0) scale(1.18);
+  }
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 999px;
+  aspect-ratio: 1;
+  animation: sl-aurora 24s var(--ease-in-out) infinite alternate;
+}
+
+.aurora-a {
+  top: -25%;
+  right: -10%;
+  width: min(900px, 110vw);
+  background: radial-gradient(circle, var(--aurora-1), transparent 65%);
+}
+
+.aurora-b {
+  bottom: -35%;
+  left: -15%;
+  width: min(760px, 100vw);
+  background: radial-gradient(circle, var(--aurora-2), transparent 65%);
+  animation-duration: 30s;
+  animation-direction: alternate-reverse;
+}
+
+/* The hero's pause control stops the aurora along with the particles. */
+[data-paused] .aurora {
+  animation-play-state: paused;
+}
+
+/* ============================================================================
+   SECTION TRANSITIONS
+   1. The hero pins; the first paper section slides over it as a sheet with
+      rounded shoulders, and the hero recedes underneath.
+   2. Every navy band opens out to full bleed as it arrives: it starts inset
+      with rounded corners and widens to the page edges, scrubbed to scroll.
+   ========================================================================= */
+
+.hero-pin {
+  position: relative;
+}
+
+@media (min-width: 1024px) and (min-height: 680px) {
+  .hero-pin {
+    position: sticky;
+    /* Set by HeroPin: negative when the hero is taller than the screen. */
+    top: var(--pin-top, 0px);
+    z-index: 0;
+  }
+}
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  border-start-start-radius: var(--sheet-radius);
+  border-start-end-radius: var(--sheet-radius);
+  margin-top: calc(var(--sheet-radius) * -1);
+  box-shadow: 0 -40px 80px -40px rgb(3 10 25 / 0.55);
+}
+
+/* Everything after the sheet has to ride above the pinned hero too. */
+.sheet ~ * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes sl-recede {
+  to {
+    opacity: 0.35;
+    transform: scale(0.94) translateY(-3%);
+  }
+}
+
+@keyframes sl-band-open {
+  from {
+    clip-path: inset(0 var(--band-inset, 3.5%) round var(--sheet-radius));
+  }
+  to {
+    clip-path: inset(0 0 round 0);
+  }
+}
+
+@keyframes sl-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes sl-illuminate {
+  from {
+    opacity: var(--dim, 0.22);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    @media (min-width: 1024px) and (min-height: 680px) {
+      .hero-recede {
+        transform-origin: 50% 0;
+        animation: sl-recede linear both; /* ui-craft-ignore UC011 */
+        animation-timeline: scroll(root);
+        animation-range: 0 100svh;
+      }
+    }
+
+    .band-open {
+      animation: sl-band-open linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+
+    /* A rail that fills as the list it measures scrolls past. */
+    .rail-fill {
+      transform-origin: 50% 0;
+      animation: sl-grow-y linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --rail;
+      animation-range: contain 0% contain 100%;
+    }
+
+    .rail-host {
+      view-timeline: --rail block;
+    }
+
+    /* The manifesto lights up word by word as it crosses the viewport. */
+    .illuminate {
+      view-timeline: --lit block;
+    }
+
+    .illuminate .lit {
+      animation: sl-illuminate linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --lit;
+      animation-range:
+        cover calc(12% + var(--p) * 36%)
+        cover calc(18% + var(--p) * 36%);
+    }
+  }
+}
+
+/* ============================================================================
+   CONVERGE
+   "Who we are" as a motion graphic: scattered tools gather into a ring round
+   one system and are wired to it, scrubbed to scroll. The resting state is
+   the assembled one, so no support or reduced motion shows the finished
+   picture.
+   ========================================================================= */
+
+.converge-tile {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.converge-core {
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.converge-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--r);
+  height: 1px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--a));
+  background: linear-gradient(90deg, var(--accent-core), transparent);
+  opacity: 0.45;
+}
+
+@keyframes sl-gather {
+  from {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes sl-link {
+  from {
+    transform: rotate(var(--a)) scaleX(0);
+  }
+  to {
+    transform: rotate(var(--a)) scaleX(1);
+  }
+}
+
+@keyframes sl-core {
+  from {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .converge {
+      view-timeline: --converge block;
+    }
+
+    .converge-tile {
+      animation: sl-gather linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range:
+        entry calc(10% + var(--i) * 4%)
+        cover calc(42% + var(--i) * 2%);
+    }
+
+    .converge-link {
+      animation: sl-link linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range:
+        cover calc(34% + var(--i) * 2%)
+        cover calc(50% + var(--i) * 2%);
+    }
+
+    .converge-core {
+      animation: sl-core linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --converge;
+      animation-range: entry 20% cover 40%;
+    }
+  }
+}
+
+/* ============================================================================
+   PROCESS STACK
+   Five stages pin below the header and stack; each covered stage recedes a
+   little so the edges of the earlier ones stay legible.
+   ========================================================================= */
+
+.stack {
+  --stack-top: 6.5rem;
+  --stack-peek: 0.9rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.stack > li {
+  --n: 5;
+}
+
+@media (min-width: 768px) and (min-height: 720px) {
+  .stack > li {
+    position: sticky;
+    top: calc(var(--stack-top) + var(--i, 0) * var(--stack-peek));
+  }
+}
+
+.stack-card {
+  transform-origin: 50% 0;
+}
+
+@keyframes sl-stack-recede {
+  to {
+    transform: scale(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (min-height: 720px) {
+  @supports (animation-timeline: view()) {
+    .stack {
+      view-timeline: --stack block;
+    }
+
+    .stack > li:not(:last-child) .stack-card {
+      animation: sl-stack-recede linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --stack;
+      animation-range:
+        contain calc(var(--i, 0) / var(--n) * 100%)
+        contain calc((var(--i, 0) + 1) / var(--n) * 100%);
+    }
+  }
+}
+
+/* ============================================================================
+   SPOTLIGHT
+   A soft light follows the pointer across a card: feedback that the card is
+   live, and the one delight effect on the page. Pointer-fine devices only.
+   ========================================================================= */
+
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    var(--spot, rgb(10 108 240 / 0.12)),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Connectors spread out of the hub rather than wiping across it. */
+@keyframes sl-spread {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.js [data-spread] {
+  clip-path: inset(0 50% 0 50%);
+}
+
+.js [data-spread].is-in {
+  animation: sl-spread 900ms var(--ease-out) forwards;
+  animation-delay: var(--m-delay, 0ms);
+}
+
+.js [data-spread].is-done {
+  animation: none;
+  clip-path: none;
+}
+
+/* The hub breathes out a ring three times when the diagram arrives. */
+@keyframes sl-halo {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid rgb(77 187 255 / 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.js .is-in > .halo {
+  animation: sl-halo 1600ms var(--ease-out) 3 both;
+  animation-delay: 300ms;
+}
+
+/* ============================================================================
+   ROUTE CURTAIN
+   A crest-blue panel rises to cover the old page, the route changes behind
+   it, and it lifts away off the top to reveal the new one. The crest rides
+   in the middle so the moment reads as the brand, not a loading screen.
+   ========================================================================= */
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transform: translateY(100%);
+  visibility: hidden;
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgb(124 200 255 / 0.7), transparent 60%),
+    linear-gradient(160deg, #2a7bf0 0%, #1a5fd8 55%, #1446a8 100%);
+}
+
+.curtain[data-state="cover"] {
+  visibility: visible;
+  transform: none;
+  transition: transform var(--dur-slow) var(--ease-in-out);
+}
+
+.curtain[data-state="reveal"] {
+  visibility: visible;
+  transform: translateY(-100%);
+  transition:
+    transform 560ms var(--ease-emphasized),
+    visibility 0s linear 560ms;
+}
+
+.curtain[data-state="idle"] {
+  transition: none;
+}
+
+.curtain-mark {
+  width: clamp(56px, 7vw, 88px);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.curtain[data-state="cover"] .curtain-mark {
+  opacity: 1;
+  transform: none;
+  transition-delay: 140ms;
+}
+
+/* Mobile menu: the sheet drops from the header it belongs to. */
+@keyframes sl-menu {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.js .menu-sheet {
+  animation: sl-menu var(--dur-slow) var(--ease-out) both;
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   Travel, zoom, scrubbing and the curtain all go. Content is fully visible
+   and every state change is still perceptible.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .js .rise-word > span,
+  .js .orbit-ring,
+  .js .orbit-crest,
+  .js [data-enter="fade"],
+  .js .menu-sheet,
+  .aurora {
+    animation: none;
+  }
+
+  .js .halo {
+    animation: none;
+    opacity: 0;
+  }
+
+  .js [data-spread] {
+    clip-path: none;
+  }
+
+
+  .curtain {
+    display: none;
+  }
+}

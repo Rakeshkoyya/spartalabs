@@ -1,57 +1,55 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { heroMetrics } from "@/content/metrics";
-import { serviceLines, site } from "@/content/site";
-import { FlowLines } from "@/components/brand/flow-lines";
-import { serviceIcons } from "@/components/brand/icons";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import { RiseText } from "@/components/motion/rise-text";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { MetricTile } from "@/components/ui/metric-tile";
+import { HeroParticles } from "./hero-particles";
+import { HeroPin } from "./hero-pin";
 
 /**
- * The brochure cover, as a page opener: navy field, the helmet standing off
- * the right edge, flow lines sweeping under the headline.
+ * A clean, minimal opener: the headline, one line of support, two actions —
+ * and the crest drawn in particles that scatter from the pointer and gather
+ * again. Behind it a slow aurora and a faint blueprint grid.
  *
- * Plays from first paint via `data-enter` rather than waiting on the scroll
- * observer — the opener should start drawing before hydration finishes.
+ * On wide screens the hero pins and the next section slides over it as a
+ * sheet (motion.css, "SECTION TRANSITIONS"); `HeroPin` makes sure it only
+ * pins once all of it, buttons included, has been in view.
  */
 export function Hero() {
   return (
-    <div id="top" data-spine-label="Top" className="band-dark relative overflow-hidden">
-      <FlowLines className="top-[38%] h-[62%]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-[10%] -right-[12%] aspect-square w-[min(820px,95vw)]"
-        style={{ background: "radial-gradient(circle, var(--glow), transparent 62%)" }}
-      />
+    <HeroPin>
+      <section
+        id="top"
+        aria-labelledby="hero-title"
+        className="band-tint relative flex min-h-svh flex-col overflow-clip"
+      >
+        <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-clip">
+          <span className="aurora aurora-a" />
+          <span className="aurora aurora-b" />
+        </div>
+        <HeroParticles />
 
-      <Container className="relative pt-[7.5rem] pb-16 md:pt-[9rem] md:pb-20">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-          <div>
-            <span
-              data-enter="lock"
-              className="text-label border-hairline text-muted font-label inline-flex items-center gap-2.5 rounded-full border bg-white/[0.04] px-3.5 py-1.5 tracking-[0.18em] uppercase"
-            >
-              <span
-                aria-hidden
-                className="bg-accent size-1.5 rounded-full shadow-[0_0_10px_var(--accent)]"
-              />
-              IT services company · Hyderabad, India
-            </span>
-
+        <Container className="hero-recede relative flex flex-1 flex-col justify-center pt-24 pb-10 lg:pt-20">
+          <div className="max-w-[40rem] lg:max-w-[54%]">
+            {/* Sized by width and height alike, so the whole hero fits a short laptop screen. */}
             <h1
-              data-enter="wipe"
-              style={{ "--enter-delay": "120ms" } as React.CSSProperties}
-              className="text-display font-display mt-7 max-w-[16ch] font-semibold text-white"
+              id="hero-title"
+              className="font-display text-[clamp(2.5rem,min(5.4vw,9svh),6.25rem)] leading-[0.98] font-semibold tracking-[-0.035em]"
             >
-              Software built around <span className="text-sky-400">how your business</span> actually
-              runs.
+              <RiseText
+                delay={80}
+                parts={[
+                  { text: "Software built around" },
+                  { text: "how your business", accent: true },
+                  { text: "actually runs." },
+                ]}
+              />
             </h1>
 
             <p
               data-enter="lock"
-              style={{ "--enter-delay": "300ms" } as React.CSSProperties}
-              className="mt-6 max-w-[52ch] text-[clamp(1.0625rem,1rem+0.4vw,1.25rem)] leading-relaxed text-[#c3d0e4]"
+              style={{ "--enter-delay": "520ms" } as React.CSSProperties}
+              className="text-muted mt-6 max-w-[44ch] text-[clamp(1.0625rem,1rem+0.4vw,1.25rem)] leading-relaxed"
             >
               We study your operations first, then design and build the system your team needs.
               Websites, apps, AI and automation, under one plan.
@@ -59,8 +57,8 @@ export function Hero() {
 
             <div
               data-enter="lock"
-              style={{ "--enter-delay": "390ms" } as React.CSSProperties}
-              className="mt-9 flex flex-wrap gap-3"
+              style={{ "--enter-delay": "620ms" } as React.CSSProperties}
+              className="mt-8 flex flex-wrap gap-3"
             >
               <Button href="/contact">
                 Book a discovery call
@@ -71,71 +69,20 @@ export function Hero() {
               </Button>
             </div>
           </div>
+        </Container>
 
-          <div
-            data-enter="lock"
-            style={{ "--enter-delay": "200ms" } as React.CSSProperties}
-            className="relative mx-auto hidden w-full max-w-[420px] lg:block"
+        <Container className="relative pb-[calc(var(--sheet-radius)+1.25rem)]">
+          <a
+            href="#about"
+            data-enter="fade"
+            style={{ "--enter-delay": "1100ms" } as React.CSSProperties}
+            className="text-label font-label text-muted hover:text-ink inline-flex min-h-9 items-center gap-2.5 tracking-[0.18em] uppercase transition-colors duration-200"
           >
-            <Image
-              src="/brand/logo-mark-white.png"
-              alt=""
-              aria-hidden
-              width={600}
-              height={693}
-              priority
-              sizes="420px"
-              className="h-auto w-full drop-shadow-[0_30px_60px_rgb(0_40_120/0.6)]"
-            />
-          </div>
-        </div>
-
-        <ul
-          data-enter="lock"
-          style={{ "--enter-delay": "460ms" } as React.CSSProperties}
-          className="mt-12 flex flex-wrap gap-2.5"
-          aria-label="What we build"
-        >
-          {serviceLines.map((line) => {
-            const Icon = serviceIcons[line];
-            return (
-              <li
-                key={line}
-                className="border-hairline text-ink inline-flex items-center gap-2 rounded-full border bg-white/[0.04] px-4 py-2 text-sm font-medium"
-              >
-                {Icon ? (
-                  <Icon aria-hidden className="text-accent size-4" strokeWidth={1.75} />
-                ) : null}
-                {line}
-              </li>
-            );
-          })}
-        </ul>
-
-        <ul
-          data-enter="lock"
-          style={{ "--enter-delay": "540ms" } as React.CSSProperties}
-          className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/10 md:grid-cols-4"
-        >
-          {heroMetrics.map((metric) => (
-            <li key={metric.label} className="bg-[#0a1628]/90 backdrop-blur-sm">
-              <MetricTile metric={metric} />
-            </li>
-          ))}
-        </ul>
-
-        <div className="border-hairline text-label font-label mt-10 flex flex-wrap items-center justify-between gap-3 border-t pt-5 tracking-[0.18em] text-[#7f93b3] uppercase">
-          <span>{site.domain}</span>
-          <span className="flex items-center gap-2.5">
-            {site.motto.map((word, index) => (
-              <span key={word} className="flex items-center gap-2.5">
-                {index > 0 ? <ArrowRight aria-hidden className="size-3" /> : null}
-                {word}
-              </span>
-            ))}
-          </span>
-        </div>
-      </Container>
-    </div>
+            <ArrowDown aria-hidden className="size-3.5" />
+            Scroll to explore
+          </a>
+        </Container>
+      </section>
+    </HeroPin>
   );
 }

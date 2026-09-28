@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CalendarCheck, Download, Globe, Mail, MessageCircle, Phone } from "lucide-react";
 import { brochure, contact, serviceLines, site, telHref } from "@/content/site";
 import { FlowLines } from "@/components/brand/flow-lines";
@@ -24,19 +25,27 @@ export function CtaBand({
   showLogo?: boolean;
 }) {
   return (
-    <div id="contact" className="band-dark relative overflow-hidden">
+    <div id="contact" className="band-tint band-open relative overflow-clip">
       <FlowLines className="top-[30%] h-[70%]" />
+      <Image
+        src="/brand/logo-mark.png"
+        alt=""
+        aria-hidden
+        width={600}
+        height={693}
+        className="pointer-events-none absolute top-1/2 left-1/2 w-[min(640px,120vw)] -translate-x-1/2 -translate-y-1/2 opacity-[0.06]"
+      />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 [background:radial-gradient(70%_80%_at_50%_100%,rgb(10_108_240/0.45),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 [background:radial-gradient(70%_80%_at_50%_100%,var(--glow),transparent_70%)]"
       />
 
-      <Container className="relative py-20 md:py-28">
+      <Container className="relative py-24 md:py-36">
         <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
           {showLogo ? (
             <div data-lock="" className="mb-12 flex flex-col items-center">
-              <Logo variant="full" tone="dark" className="w-[min(340px,72vw)]" />
-              <p className="text-label font-label mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] text-[#a9b8cf] uppercase">
+              <Logo variant="full" className="w-[min(340px,72vw)]" />
+              <p className="text-label font-label mt-6 flex flex-wrap justify-center gap-x-3 gap-y-1 tracking-[0.2em] text-muted uppercase">
                 {serviceLines.slice(0, 4).map((line, index) => (
                   <span key={line} className="flex items-center gap-3">
                     {index > 0 ? (
@@ -53,13 +62,19 @@ export function CtaBand({
             <Kicker className="justify-center">{kicker}</Kicker>
           )}
 
-          <h2 className="text-h2 mt-4 font-semibold text-white">{title}</h2>
-          <p className="text-lede mt-4 max-w-[52ch] text-[#c3d0e4]">
+          <h2
+            data-wipe=""
+            style={{ "--m-delay": "120ms" } as React.CSSProperties}
+            className="text-h1 mt-4 font-semibold text-ink"
+          >
+            {title}
+          </h2>
+          <p className="text-lede mt-4 max-w-[52ch] text-muted">
             {body} We reply {contact.responseTime}.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="light">
-              <CalendarCheck aria-hidden className="text-accent-core size-4.5" />
+            <Button href="/contact" variant="primary">
+              <CalendarCheck aria-hidden className="size-4.5" />
               Book a discovery call
             </Button>
             <Button href={brochure.href} download={brochure.fileName} variant="secondary">
@@ -67,7 +82,7 @@ export function CtaBand({
               {brochure.label}
             </Button>
           </div>
-          <p className="text-label font-label mt-3 tracking-[0.14em] text-[#8593a8] uppercase">
+          <p className="text-label font-label mt-3 tracking-[0.14em] text-muted uppercase">
             {brochure.meta}
           </p>
         </div>
@@ -119,8 +134,8 @@ function ContactItem({
     <div className="flex gap-3">
       <Icon aria-hidden className="text-accent mt-1 size-4.5 shrink-0" />
       <div className="min-w-0">
-        <p className="text-label font-label tracking-[0.16em] text-[#8593a8] uppercase">{label}</p>
-        <div className="mt-1 font-medium break-words text-white">{children}</div>
+        <p className="text-label font-label tracking-[0.16em] text-muted uppercase">{label}</p>
+        <div className="mt-1 font-medium break-words text-ink">{children}</div>
       </div>
     </div>
   );

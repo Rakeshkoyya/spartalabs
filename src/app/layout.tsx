@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FormationReveals } from "@/components/motion/formation-reveals";
-import { Spine } from "@/components/motion/spine";
+import { RouteCurtain } from "@/components/motion/route-curtain";
+import { Spotlight } from "@/components/motion/spotlight";
 import { isIndexable, site, siteUrl } from "@/content/site";
 import { keywords, ogImage, seoTitle } from "@/lib/seo";
 import "./globals.css";
@@ -12,6 +13,14 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+/** Chapter numerals and stage counters only; one weight keeps it cheap. */
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
@@ -86,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={site.locale}
-      className={`${outfit.variable} ${jakarta.variable}`}
+      className={`${outfit.variable} ${jakarta.variable} ${plexMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -100,10 +109,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
-        <Spine />
         <main id="main">{children}</main>
         <SiteFooter />
         <FormationReveals />
+        <Spotlight />
+        <RouteCurtain />
       </body>
     </html>
   );

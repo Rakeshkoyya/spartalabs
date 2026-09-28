@@ -10,6 +10,8 @@ export function FaqSection() {
     <Section id="faq" label="Questions" className="topo">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-16">
         <SectionHeader
+          index="08"
+          className="lg:sticky lg:top-28 lg:self-start"
           kicker="Questions"
           title="The things people ask before they email us."
           lede="Including the ones most agencies leave you to find out later."

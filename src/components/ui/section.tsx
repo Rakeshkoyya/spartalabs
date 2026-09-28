@@ -9,33 +9,43 @@ type Tone = "paper" | "surface" | "navy";
  * Pages alternate paper and navy the way the brochure alternates its spreads.
  * `navy` scopes the dark tokens to this band, so everything inside it — type,
  * cards, even the logo — switches without a single conditional class.
+ *
+ * Navy bands open out to full bleed as they scroll in (`band-open`), and a
+ * `sheet` rides up over whatever came before it with rounded shoulders — the
+ * two section transitions in motion.css.
  */
 export function Section({
   id,
   label,
   tone = "paper",
   flow = false,
+  sheet = false,
   className,
   children,
 }: {
   id?: string;
-  /** Names this section on the spine. Omit to keep it off the rail. */
+  /** Names the section landmark for assistive tech. */
   label?: string;
   tone?: Tone;
   /** The sweeping line texture along the bottom edge. */
   flow?: boolean;
+  /** Slides over the section before it (used directly after the pinned hero). */
+  sheet?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
     <section
       id={id}
-      data-spine-label={label}
+      aria-label={label}
       className={cn(
-        "section-y relative scroll-mt-24 overflow-hidden",
-        tone === "navy" && "band-dark",
+        // `clip`, not `hidden`: a hidden overflow is a scroll container, and
+        // that would pin the sticky columns and the process stack to nothing.
+        "section-y relative scroll-mt-20 overflow-clip",
+        tone === "navy" && "band-tint band-open",
         tone === "surface" && "bg-surface",
         tone === "paper" && "bg-page",
+        sheet && "sheet",
         className,
       )}
     >
@@ -53,32 +63,40 @@ export function Section({
  */
 export function SectionHeader({
   kicker,
+  index,
   title,
   highlight,
   lede,
   align = "left",
+  size = "h2",
   className,
 }: {
   kicker: string;
+  /** Chapter number, e.g. "03". */
+  index?: string;
   title: React.ReactNode;
   highlight?: React.ReactNode;
   lede?: React.ReactNode;
   align?: "left" | "center";
+  /** `h1` sets the heading one step larger, for a section's statement line. */
+  size?: "h1" | "h2";
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "flex max-w-[780px] flex-col gap-4",
+        "flex max-w-[820px] flex-col gap-5",
         align === "center" && "mx-auto items-center text-center",
         className,
       )}
     >
-      <Kicker animate>{kicker}</Kicker>
+      <Kicker animate index={index} className={cn(index && "w-full")}>
+        {kicker}
+      </Kicker>
       <h2
         data-wipe=""
         style={{ "--m-delay": "140ms" } as React.CSSProperties}
-        className="text-h2 font-semibold"
+        className={cn("font-semibold", size === "h1" ? "text-h1" : "text-h2")}
       >
         {title}
         {highlight ? (
