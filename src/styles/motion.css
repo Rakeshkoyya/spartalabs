@@ -162,11 +162,6 @@
   animation-direction: alternate-reverse;
 }
 
-/* The hero's pause control stops the aurora along with the particles. */
-[data-paused] .aurora {
-  animation-play-state: paused;
-}
-
 /* ============================================================================
    SECTION TRANSITIONS
    1. The hero pins; the first paper section slides over it as a sheet with

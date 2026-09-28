@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { ParticleScene, sampleImage, type Rgb, type SceneOptions } from "@/lib/particles";
 
 const CREST_LIGHT = "/brand/logo-mark.png";
@@ -11,8 +10,6 @@ const WIDE_MIN = 1024;
 const MOTE_DENSITY = 16000;
 const MOTES_MIN = 28;
 const MOTES_MAX = 110;
-
-type Controller = { start: () => void; stop: () => void };
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -37,16 +34,13 @@ function isDark() {
  * The hero's interactive field: the crest drawn in particles that scatter from
  * the pointer and spring back, over a drifting network of motes.
  *
- * Decorative, so the canvas is hidden from assistive tech. It pauses when the
- * hero is off screen or the tab is hidden, has a visible pause control (it
- * moves continuously, WCAG 2.2.2), and under reduced motion draws a single
+ * Decorative, so the canvas is hidden from assistive tech. It always plays
+ * (client decision: no pause control), but sleeps while the hero is off
+ * screen or the tab is hidden, and under reduced motion draws a single
  * settled frame with no loop and no pointer response.
  */
 export function HeroParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const controller = useRef<Controller | null>(null);
-  const [paused, setPaused] = useState(false);
-  const [motionAllowed, setMotionAllowed] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -55,14 +49,13 @@ export function HeroParticles() {
     if (!canvas || !host || !ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setMotionAllowed(!reduce);
 
     let scene: ParticleScene | null = null;
     let image: HTMLImageElement | null = null;
     let frame = 0;
     let running = false;
     let visible = true;
-    let wantsRun = !reduce;
+    const wantsRun = !reduce;
     let disposed = false;
 
     const layout = (img: HTMLImageElement): SceneOptions => {
@@ -110,17 +103,6 @@ export function HeroParticles() {
         running = false;
         cancelAnimationFrame(frame);
       }
-    };
-
-    controller.current = {
-      start: () => {
-        wantsRun = !reduce;
-        sync();
-      },
-      stop: () => {
-        wantsRun = false;
-        sync();
-      },
     };
 
     const build = async (scattered: boolean) => {
@@ -192,38 +174,12 @@ export function HeroParticles() {
       window.removeEventListener("pointerdown", onPointer);
       document.documentElement.removeEventListener("pointerleave", onLeave);
       document.removeEventListener("visibilitychange", sync);
-      controller.current = null;
     };
   }, []);
 
-  const toggle = () => {
-    const next = !paused;
-    setPaused(next);
-    if (next) controller.current?.stop();
-    else controller.current?.start();
-    canvasRef.current?.closest("section")?.toggleAttribute("data-paused", next);
-  };
-
   return (
-    <>
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <canvas ref={canvasRef} className="block h-full w-full" />
-      </div>
-      {motionAllowed ? (
-        <button
-          type="button"
-          onClick={toggle}
-          aria-pressed={paused}
-          aria-label={paused ? "Play background animation" : "Pause background animation"}
-          className="border-hairline-strong text-muted hover:text-ink hover:border-accent bg-surface/70 absolute right-4 bottom-[calc(var(--sheet-radius)+1rem)] z-10 grid size-9 place-items-center rounded-full border backdrop-blur transition-colors duration-200 sm:right-6"
-        >
-          {paused ? (
-            <Play aria-hidden className="size-3.5" />
-          ) : (
-            <Pause aria-hidden className="size-3.5" />
-          )}
-        </button>
-      ) : null}
-    </>
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      <canvas ref={canvasRef} className="block h-full w-full" />
+    </div>
   );
 }

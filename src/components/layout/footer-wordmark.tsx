@@ -28,7 +28,12 @@ export function FooterWordmark() {
   };
 
   return (
-    <div ref={ref} aria-hidden onPointerMove={onPointerMove} className="wordmark-wrap overflow-clip">
+    <div
+      ref={ref}
+      aria-hidden
+      onPointerMove={onPointerMove}
+      className="wordmark-wrap overflow-clip"
+    >
       <p className="wordmark font-display text-center leading-none font-semibold whitespace-nowrap select-none">
         Sparta Labs
       </p>

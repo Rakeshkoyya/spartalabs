@@ -23,11 +23,13 @@ export function SiteFooter() {
               <Logo variant="wordmark" className="w-[156px]" />
             </Link>
             <p className="text-muted max-w-[34ch] text-sm">{site.tagline}</p>
-            <p className="text-label font-label flex flex-wrap items-center gap-2 tracking-[0.18em] text-muted uppercase">
+            <p className="text-label font-label text-muted flex flex-wrap items-center gap-2 tracking-[0.18em] uppercase">
               {site.motto.join(" → ")}
             </p>
             {/* The office city stays in structured data for search; visitors see who we serve. */}
-            <p className="text-muted text-sm">Working with clients in the USA, the UAE and worldwide.</p>
+            <p className="text-muted text-sm">
+              Working with clients in the USA, the UAE and worldwide.
+            </p>
           </div>
 
           <FooterColumn title="What we build">
@@ -64,7 +66,7 @@ export function SiteFooter() {
               <a
                 href={brochure.href}
                 download={brochure.fileName}
-                className="text-muted inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200 hover:text-ink"
+                className="text-muted hover:text-ink inline-flex min-h-6 items-center gap-2 text-sm transition-colors duration-200"
               >
                 <Download aria-hidden className="size-4" />
                 {brochure.label}
@@ -74,7 +76,7 @@ export function SiteFooter() {
           </FooterColumn>
         </div>
 
-        <div className="text-muted flex flex-col gap-3 border-t border-hairline py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-muted border-hairline flex flex-col gap-3 border-t py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {company.legalName ?? site.name}
             {company.cin ? ` · CIN ${company.cin}` : ""}

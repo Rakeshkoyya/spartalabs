@@ -54,11 +54,11 @@ export function CtaBand({
           <h2
             data-wipe=""
             style={{ "--m-delay": "120ms" } as React.CSSProperties}
-            className="text-h1 mt-4 font-semibold text-ink"
+            className="text-h1 text-ink mt-4 font-semibold"
           >
             {title}
           </h2>
-          <p className="text-lede mt-4 max-w-[52ch] text-muted">
+          <p className="text-lede text-muted mt-4 max-w-[52ch]">
             {body} We reply {contact.responseTime}.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -71,7 +71,7 @@ export function CtaBand({
               {brochure.label}
             </Button>
           </div>
-          <p className="text-label font-label mt-3 tracking-[0.14em] text-muted uppercase">
+          <p className="text-label font-label text-muted mt-3 tracking-[0.14em] uppercase">
             {brochure.meta}
           </p>
         </div>
@@ -123,8 +123,8 @@ function ContactItem({
     <div className="flex gap-3">
       <Icon aria-hidden className="text-accent mt-1 size-4.5 shrink-0" />
       <div className="min-w-0">
-        <p className="text-label font-label tracking-[0.16em] text-muted uppercase">{label}</p>
-        <div className="mt-1 font-medium break-words text-ink">{children}</div>
+        <p className="text-label font-label text-muted tracking-[0.16em] uppercase">{label}</p>
+        <div className="text-ink mt-1 font-medium break-words">{children}</div>
       </div>
     </div>
   );

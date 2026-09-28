@@ -76,7 +76,11 @@ export const keywords = [
   "dedicated development team",
 ];
 
-export const seoTitle = `${site.name} (Spartalabs) — IT Services & Software Development Company in Hyderabad`;
+/**
+ * Short and international: the main clients are in the USA, the UAE and
+ * beyond. The city lives in the keywords, descriptions and JSON-LD instead.
+ */
+export const seoTitle = `${site.name} — Custom Software, Apps & AI`;
 
 export const ogImage = {
   url: "/og.png",
